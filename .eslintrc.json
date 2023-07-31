@@ -5,4 +5,5 @@
   },
   
   "extends": ["plugin:prettier/recommended"]
+  
 }

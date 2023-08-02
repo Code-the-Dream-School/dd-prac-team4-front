@@ -1,7 +1,7 @@
 {
   "extends": ["prettier"],
   "env": {
-    "es2023": true,
+    "es2022": true,
     "browser": true
   },
   "parserOptions": {
@@ -11,7 +11,5 @@
     "ecmaVersion": 2023,
     "sourceType": "module"
   },
-  "rules": {
-    "prettier/prettier": "error"
-  }
+  "rules": {}
 }

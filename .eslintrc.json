@@ -1,7 +1,7 @@
 {
   "extends": ["prettier"],
   "env": {
-    "es2023": true,
+    "es2022": true,
     "browser": true
   },
   "parserOptions": {

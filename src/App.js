@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllData } from './util/index';
 import { createServer } from 'miragejs';
+import UserRegistration from './UserRegistration';
 
 createServer({
   routes() {
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <>
+      <UserRegistration />
       <h1>{message}</h1>
     </>
   );

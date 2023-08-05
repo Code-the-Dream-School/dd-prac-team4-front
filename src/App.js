@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getAllData } from './util/index';
 import { createServer } from 'miragejs';
+import Contact from './components/Contact';
+
 
 createServer({
   routes() {
@@ -28,6 +30,7 @@ function App() {
   return (
     <>
       <h1>{message}</h1>
+      <Contact />
     </>
   );
 }

@@ -15,3 +15,7 @@ You can use prop-types to document the intended types of properties passed to co
 
 Mirage.js is a client-side JavaScript library that allows developers to create mock APIs for front-end applications, particularly those built with React. It is often used during the development phase to simulate a back-end server when the actual back-end is not yet fully implemented or available.The primary purpose of Mirage.js is to enable front-end developers to work independently on their applications without being dependent on the back-end team.
 You can add your routs in App.js->createServer->routs function.
+
+#### Material UI framework installed
+
+Material UI has multiple sample to bootstrap projects and applied conventional styling practice

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { getAllData } from './util/index';
 import { createServer } from 'miragejs';
 import Contact from './components/Contact';
+import SignUp from './components/SignUp';
+import Navbar from './components/Navbar';
 
 
 createServer({
@@ -30,6 +32,8 @@ function App() {
   return (
     <>
       <h1>{message}</h1>
+      <Navbar />
+      <SignUp />
       <Contact />
     </>
   );

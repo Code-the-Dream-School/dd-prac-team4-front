@@ -33,6 +33,7 @@ function Profile() {
     1: {
       name: 'John Smith',
       username: 'john123',
+      email: 'john@example.com',
       bio: 'The song I am loveing this week is Munekita.',
       avatar: 'https://via.placeholder.com/150',
     },
@@ -60,6 +61,9 @@ function Profile() {
           subheader={`@${user.username}`}
         />
         <CardContent>
+        <Typography variant="body2" color="text.secondary">
+            Email: {user.email}
+            </Typography>
           <Typography variant="body2" color="text.secondary">
             {user.bio}
           </Typography>

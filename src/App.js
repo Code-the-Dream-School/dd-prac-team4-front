@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { getAllData } from './util/index';
 import { createServer } from 'miragejs';
 import UserRegistration from './components/UserRegistration';
+import Contact from './components/Contact';
+import { Routes, Route } from 'react-router-dom';
 
 createServer({
   routes() {
@@ -29,7 +31,10 @@ function App() {
   return (
     <>
       <h1>{message}</h1>
-      <UserRegistration />
+      <Routes>
+        <Route path="/register" element={<UserRegistration />}></Route>
+        <Route path="/" element={<Contact />}></Route>
+      </Routes>
     </>
   );
 }

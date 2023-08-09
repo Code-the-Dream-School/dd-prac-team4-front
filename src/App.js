@@ -12,7 +12,8 @@ createServer({
 const URL = 'http://localhost:8000/api/v1/';
 
 function App() {
-  const [message, setMessage] = useState('');
+
+const [message, setMessage] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -28,6 +29,7 @@ function App() {
   return (
     <>
       <h1>{message}</h1>
+      <Contact />
     </>
   );
 }

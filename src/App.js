@@ -29,7 +29,6 @@ const [message, setMessage] = useState('');
   return (
     <>
       <h1>{message}</h1>
-      <Contact />
     </>
   );
 }

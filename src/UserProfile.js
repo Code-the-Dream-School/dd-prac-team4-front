@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, Avatar, Typography, Button } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Avatar,
+  Typography,
+  Button,
+} from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   profilePage: {
@@ -25,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile() {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { userId } = useParams();
 
   // Mock user data
@@ -37,7 +44,6 @@ function Profile() {
       bio: 'The song I am loveing this week is Munekita.',
       avatar: 'https://via.placeholder.com/150',
     },
-  
   };
 
   const [user, setUser] = useState(mockUserData[userId]);
@@ -48,7 +54,7 @@ function Profile() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    history.push('/login');
+    navigate('/login');
   };
 
   return (
@@ -61,9 +67,9 @@ function Profile() {
           subheader={`@${user.username}`}
         />
         <CardContent>
-        <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary">
             Email: {user.email}
-            </Typography>
+          </Typography>
           <Typography variant="body2" color="text.secondary">
             {user.bio}
           </Typography>
@@ -82,4 +88,3 @@ function Profile() {
 }
 
 export default Profile;
-

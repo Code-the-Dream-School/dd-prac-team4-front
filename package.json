@@ -52,7 +52,8 @@
     "eslint-config-prettier": "^8.9.0",
     "husky": "^8.0.3",
     "miragejs": "^0.1.47",
-    "prettier": "3.0.0"
+    "prettier": "3.0.0",
+    "babel-preset-react-app":"@babel/plugin-proposal-private-property-in-object"
   },
   "lint-staged": {
     "*.{js,jsx}": [

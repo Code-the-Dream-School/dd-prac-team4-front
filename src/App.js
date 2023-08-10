@@ -8,7 +8,14 @@ import { Routes, Route } from 'react-router-dom';
 createServer({
   routes() {
     this.get('http://localhost:8000/api/v1', { data: 'This is a music app' }),
-      this.passthrough('http://localhost:8000/*'); // everything else will try to actually call the backend
+      // route to submit user registration form
+      this.post('localhost:8000/api/v1/auth/register', (schema, request) => {
+        let attrs = JSON.parse(request.requestBody);
+        console.log(attrs);
+        debugger;
+      });
+
+    this.passthrough('http://localhost:8000/*'); // everything else will try to actually call the backend
   },
 });
 

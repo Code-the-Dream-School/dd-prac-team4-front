@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { usePaymentInputs } from 'react-payment-inputs';
+import axios from 'axios';
 import {
   TextField,
   Button,
@@ -14,12 +15,16 @@ import {
 } from '@mui/material';
 
 const UserRegistration = () => {
+  // state hook for registration input fields
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
+    // username: '',
     email: '',
     password: '',
-    user_role: '',
-    payment_type: '',
+    role: '',
+    hashedNumber: '',
+    expiry: '',
+    preferredPaymentOption: '',
   });
 
   const handleChange = (e) => {
@@ -27,9 +32,27 @@ const UserRegistration = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  //handle registration form submition
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const response = await axios.post(
+        ' localhost:8000/api/v1/auth/register',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log(response.data.message); // Registration successful message
+      } else {
+        console.error('Registration failed');
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
   };
 
   //card info input fields
@@ -69,7 +92,7 @@ const UserRegistration = () => {
           variant="outlined"
           required
         ></TextField>
-        <TextField
+        {/* <TextField
           label="Username"
           name="username"
           value={formData.username}
@@ -78,7 +101,7 @@ const UserRegistration = () => {
           margin="normal"
           variant="outlined"
           required
-        />
+        /> */}
         <TextField
           label="Email"
           name="email"
@@ -105,7 +128,7 @@ const UserRegistration = () => {
           <RadioGroup
             row
             aria-labelledby="demo-row-radio-buttons-group-label"
-            name="user_role"
+            name="role"
             onChange={handleChange}
           >
             <FormControlLabel value="user" control={<Radio />} label="User" />
@@ -114,30 +137,29 @@ const UserRegistration = () => {
         </FormControl>
         <TextField
           label="Card Number"
+          name="hashedNumber"
           variant="outlined"
           fullWidth
           margin="normal"
           inputProps={getCardNumberProps({})}
-          required
         />
         <TextField
           label="Expiration Date"
+          name="expiry"
           variant="outlined"
           margin="normal"
           inputProps={getExpiryDateProps({})}
-          required
         />
         <TextField
           label="CVV"
           variant="outlined"
           margin="normal"
           inputProps={getCVCProps({})}
-          required
         />
         <FormControl>
           <RadioGroup
             aria-label="demo-row-radio-buttons-group-label"
-            name="payment_type"
+            name="preferredPaymentOption"
             onChange={handleChange}
           >
             {paymentOptions.map((option) => (
@@ -154,7 +176,6 @@ const UserRegistration = () => {
             ))}
           </RadioGroup>
         </FormControl>
-
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Register
         </Button>

@@ -16,9 +16,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version}}
         cache: 'npm'
-
     - name: Installing dependencies
-      run: npm install
+      run: |
+        npm install
+        npm ci
 
     - name: Running Prettier for formatting
       run: npm run format:all

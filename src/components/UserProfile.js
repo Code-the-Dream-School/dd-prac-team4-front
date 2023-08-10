@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardContent,
@@ -12,7 +12,6 @@ import classes from './UserProfile.module.css';
 
 function Profile() {
   const navigate = useNavigate();
-  const { userId } = useParams();
 
   // Mock user data
   const mockUserData = {
@@ -20,16 +19,12 @@ function Profile() {
       name: 'John Smith',
       username: 'john123',
       email: 'john@example.com',
-      bio: 'The song I am loveing this week is Munekita.',
+      bio: 'The song I am loving this week is Munekita.',
       avatar: 'https://via.placeholder.com/150',
     },
   };
 
-  const [user, setUser] = useState(mockUserData[userId]);
-
-  useEffect(() => {
-    setUser(mockUserData[userId]);
-  }, [userId]);
+  const [user, setUser] = useState(mockUserData[1]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');

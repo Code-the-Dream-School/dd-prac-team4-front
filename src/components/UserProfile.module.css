@@ -1,0 +1,14 @@
+.profilePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 100vh;
+}
+
+.profileCard {
+    max-width: 400px;
+    width: 100%;
+}

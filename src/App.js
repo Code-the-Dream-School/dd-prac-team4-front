@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllData } from './util/index';
 import { createServer } from 'miragejs';
 import UserProfile from './components/UserProfile';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 createServer({
   routes() {
@@ -13,6 +14,7 @@ createServer({
 const URL = 'http://localhost:8000/api/v1/';
 
 function App() {
+  const defaultTheme = createTheme();
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -28,8 +30,10 @@ function App() {
 
   return (
     <>
-      <h1>{message}</h1>
-      <UserProfile />
+      <ThemeProvider theme={defaultTheme}>
+        <h1>{message}</h1>
+        <UserProfile />
+      </ThemeProvider>
     </>
   );
 }

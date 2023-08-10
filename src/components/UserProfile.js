@@ -7,31 +7,10 @@ import {
   Typography,
   Button,
 } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import { useNavigate, useParams } from 'react-router-dom';
-
-const useStyles = makeStyles((theme) => ({
-  profilePage: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-  },
-  profileCard: {
-    maxWidth: 400,
-    width: '100%',
-  },
-  cardHeader: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-  },
-  logoutButton: {
-    marginTop: theme.spacing(2),
-  },
-}));
+import classes from './UserProfile.module.css';
 
 function Profile() {
-  const classes = useStyles();
   const navigate = useNavigate();
   const { userId } = useParams();
 
@@ -61,7 +40,10 @@ function Profile() {
     <div className={classes.profilePage}>
       <Card className={classes.profileCard}>
         <CardHeader
-          className={classes.cardHeader}
+          sx={{
+            backgroundColor: 'primary.main',
+            color: 'primary.contrastText',
+          }}
           avatar={<Avatar src={user.avatar} />}
           title={user.name}
           subheader={`@${user.username}`}
@@ -74,7 +56,7 @@ function Profile() {
             {user.bio}
           </Typography>
           <Button
-            className={classes.logoutButton}
+            sx={{ marginTop: 2 }}
             variant="contained"
             color="secondary"
             onClick={handleLogout}

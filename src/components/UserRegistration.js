@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { usePaymentInputs } from 'react-payment-inputs';
+import { usePaymentInputs } from 'react-payment-inputs'; //for handling payment inputs
 import axios from 'axios';
+import { useSignIn } from 'react-auth-kit'; //for auth
+import { useNavigate } from 'react-router-dom';
 import {
   TextField,
   Button,
@@ -18,26 +20,31 @@ const UserRegistration = () => {
   // state hook for registration input fields
   const [formData, setFormData] = useState({
     name: '',
-    // username: '',
+    username: '',
     email: '',
     password: '',
-    role: '',
     hashedNumber: '',
     expiry: '',
     preferredPaymentOption: '',
   });
 
+  //update the input states when their value is changed
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  //signIn hook for auth
+  const signIn = useSignIn();
+  const navigate = useNavigate();
+
   //handle registration form submition
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.post(
-        ' localhost:8000/api/v1/auth/register',
+        ' http://localhost:8000/api/v1/auth/register',
         formData,
         {
           headers: {
@@ -45,8 +52,20 @@ const UserRegistration = () => {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 201) {
         console.log(response.data.message); // Registration successful message
+        if (
+          signIn({
+            token: response.data.token,
+            expiresIn: response.data.expiresIn,
+            tokenType: 'Bearer',
+            authState: response.data.authUserState,
+          })
+        ) {
+          navigate('/home');
+        } else {
+          navigate('/signIn');
+        }
       } else {
         console.error('Registration failed');
       }
@@ -92,7 +111,7 @@ const UserRegistration = () => {
           variant="outlined"
           required
         ></TextField>
-        {/* <TextField
+        <TextField
           label="Username"
           name="username"
           value={formData.username}
@@ -101,7 +120,7 @@ const UserRegistration = () => {
           margin="normal"
           variant="outlined"
           required
-        /> */}
+        />
         <TextField
           label="Email"
           name="email"
@@ -123,18 +142,6 @@ const UserRegistration = () => {
           variant="outlined"
           required
         />
-        <FormControl>
-          <FormLabel id="demo-row-radio-buttons-group-label">Role:</FormLabel>
-          <RadioGroup
-            row
-            aria-labelledby="demo-row-radio-buttons-group-label"
-            name="role"
-            onChange={handleChange}
-          >
-            <FormControlLabel value="user" control={<Radio />} label="User" />
-            <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-          </RadioGroup>
-        </FormControl>
         <TextField
           label="Card Number"
           name="hashedNumber"

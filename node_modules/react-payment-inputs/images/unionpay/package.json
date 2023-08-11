@@ -1,0 +1,6 @@
+{
+  "name": "react-payment-inputs/images/unionpay",
+  "private": true,
+  "main": "../../lib/images/unionpay",
+  "module": "../../es/images/unionpay"
+}

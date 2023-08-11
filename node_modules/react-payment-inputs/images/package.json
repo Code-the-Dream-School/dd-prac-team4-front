@@ -1,0 +1,6 @@
+{
+  "name": "react-payment-inputs/images",
+  "private": true,
+  "main": "../lib/images",
+  "module": "../es/images"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "react-payment-inputs/images/visa",
+  "private": true,
+  "main": "../../lib/images/visa",
+  "module": "../../es/images/visa"
+}

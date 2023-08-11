@@ -1,0 +1,6 @@
+{
+  "name": "react-payment-inputs/images/hipercard",
+  "private": true,
+  "main": "../../lib/images/hipercard",
+  "module": "../../es/images/hipercard"
+}

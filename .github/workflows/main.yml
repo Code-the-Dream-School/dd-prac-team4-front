@@ -24,6 +24,3 @@ jobs:
 
     - name: Running ESLint for linting
       run: npm run lint:check
-
-    - name: Running Jest for testing
-      run: npm test

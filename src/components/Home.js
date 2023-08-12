@@ -1,3 +1,4 @@
+import React from 'react';
 import { useIsAuthenticated } from 'react-auth-kit';
 
 function Home() {

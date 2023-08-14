@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { usePaymentInputs } from 'react-payment-inputs'; //for handling payment inputs
-import axios from 'axios';
-import { useSignIn } from 'react-auth-kit'; //for auth
 import { useNavigate } from 'react-router-dom';
 import {
   TextField,
@@ -15,6 +13,7 @@ import {
   FormLabel,
   Box,
 } from '@mui/material';
+import { useRegister } from '@akosasante/react-auth-context';
 
 const UserRegistration = () => {
   // state hook for registration input fields
@@ -34,44 +33,41 @@ const UserRegistration = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  //signIn hook for auth
-  const signIn = useSignIn();
+  /* signUp hook for auth */
+  // error handler function
+  const handleSignupError = (error) => {
+    // TODO: can do things here like set state to show a message in the UI or render a toast notification with @mui snackbar component: https://mui.com/material-ui/react-snackbar/
+    console.error(error);
+  };
+
+  // Used by the useRegister hook to get the user object from the register API response
+  // Hook will store the user in localStorage and in internal state
+  // TODO: Double check with backend team on expected response for this API endpoint
+  const getUserFromResponse = (responseData) => {
+    return responseData.user;
+  };
+  const registerHookOptions = {
+    apiUrl: 'http://localhost:8000/api/v1/auth/register',
+    errorHandler: handleSignupError,
+    getUserFromResponse,
+    getJwtTokenFromResponse: false, // our JWT is stored directly in the HTTP-only cookie, not in the response
+  };
+  // TODO: Use error and loading state in returned UI
+  const {
+    submit: signIn,
+    errors,
+    loading,
+  } = useRegister(formData, registerHookOptions);
+  /* end signUp hook for auth */
+
   const navigate = useNavigate();
 
-  //handle registration form submition
+  //handle registration form submission by calling the signUp hook
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await axios.post(
-        ' http://localhost:8000/api/v1/auth/register',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      if (response.status === 201) {
-        console.log(response.data.message); // Registration successful message
-        if (
-          signIn({
-            token: response.data.token,
-            expiresIn: response.data.expiresIn,
-            tokenType: 'Bearer',
-            authState: response.data.authUserState,
-          })
-        ) {
-          navigate('/home');
-        } else {
-          navigate('/signIn');
-        }
-      } else {
-        console.error('Registration failed');
-      }
-    } catch (error) {
-      console.error('Error during registration:', error);
-    }
+    const originalResponse = await signIn();
+    console.dir(originalResponse);
+    navigate('/home');
   };
 
   //card info input fields

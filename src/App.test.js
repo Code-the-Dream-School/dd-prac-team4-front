@@ -1,8 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+let server;
+beforeEach(() => {
+  server = startMirage();
+});
+afterEach(() => {
+  server.shutdown();
+});
+
+test('render home page', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+  const linkElement = screen.getByText(/This is a music app/i);
   expect(linkElement).toBeInTheDocument();
 });

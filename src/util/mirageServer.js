@@ -1,5 +1,10 @@
 import { createServer } from 'miragejs';
 
+const FakeUser = {
+  id: 1,
+  name: 'John Doe',
+};
+
 export function makeServer() {
   createServer({
     routes() {
@@ -10,6 +15,7 @@ export function makeServer() {
           (schema, request) => {
             let attrs = JSON.parse(request.requestBody);
             console.log(attrs);
+            return { user: FakeUser };
           }
         );
       //route to logout user

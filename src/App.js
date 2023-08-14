@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getAllData } from './util/index';
-import { AuthProvider } from 'react-auth-kit';
+import { AuthProvider } from '@akosasante/react-auth-context';
 import { createServer } from 'miragejs';
 import UserRegistration from './components/UserRegistration';
 import Contact from './components/Contact';
 import Home from './components/Home';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Switch } from 'react-router-dom';
 
 createServer({
   routes() {
@@ -42,11 +42,14 @@ function App() {
   return (
     <>
       <h1>{message}</h1>
-      <Routes>
-        <Route path="/register" element={<UserRegistration />}></Route>
-        <Route path="/signIn" element={<Contact />}></Route>
-        <Route path="/home" element={<Home />}></Route>
-      </Routes>
+      <AuthProvider>
+        <Switch>
+          <Route path="/register" element={<UserRegistration />}></Route>
+          <Route path="/signIn" element={<Contact />}></Route>
+          <Route path="/home" element={<Home />}></Route>
+        </Switch>
+      </AuthProvider>
+      {/* <Routes></Routes> */}
     </>
   );
 }

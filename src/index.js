@@ -4,15 +4,27 @@ import { makeServer } from './util/mirageServer';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import { AuthProvider } from '@akosasante/react-auth-context';
 
 if (process.env.NODE_ENV === 'development') {
   makeServer({ environment: 'development' });
 }
 
+const authSettings = {
+  getCurrentUserPath: 'http://localhost:8000/api/v1/auth/showMe',
+  loginPath: 'http://localhost:8000/api/v1/auth/login',
+  logoutRedirectPath: '/',
+  defaultAxiosOptions: {
+    withCredentials: true,
+  },
+};
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <App />
+    <AuthProvider {...authSettings}>
+      <App />
+    </AuthProvider>
   </BrowserRouter>
 );
 

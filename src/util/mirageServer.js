@@ -1,5 +1,7 @@
 import { createServer } from 'miragejs';
 
+const loggedInUser = {};
+
 export function makeServer() {
   createServer({
     routes() {
@@ -9,7 +11,10 @@ export function makeServer() {
           'http://localhost:8000/api/v1/auth/register',
           (schema, request) => {
             let attrs = JSON.parse(request.requestBody);
-            console.log(attrs);
+            const loggedInUser = {
+              name: attrs.name,
+            };
+            return { user: loggedInUser }; //return name of logged in user to home page
           }
         );
       //route to logout user

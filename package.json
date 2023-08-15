@@ -12,7 +12,6 @@
     "axios": "^1.4",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
-    "react-auth-kit": "^2.12.6",
     "react-dom": "^18.2.0",
     "react-payment-inputs": "^1.1.9",
     "react-router-dom": "^6.15.0",
@@ -61,5 +60,10 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "@mui/styled-engine": "@mui/styled-engine-sc"
+    }
   }
 }

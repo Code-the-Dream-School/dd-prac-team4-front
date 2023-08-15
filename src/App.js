@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getAllData } from './util/index';
-import { createServer } from 'miragejs';
+import UserProfile from './components/UserProfile'; // Import the UserProfile component
 
-createServer({
-  routes() {
-    this.get('http://localhost:8000/api/v1', { data: 'This is a music app' }),
-      this.passthrough('http://localhost:8000/*'); // everything else will try to actually call the backend
-  },
-});
 
-const URL = 'http://localhost:8000/api/v1/';
 
 function App() {
-
-const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -26,11 +18,27 @@ const [message, setMessage] = useState('');
     };
   }, []);
 
+  const mockUser = {
+    username: 'john123',
+    name: 'John Doe',
+    email: 'johndoe@example.com',
+    bio: 'The song that I am loving this week is Munekita.',
+    roles: [
+      { id: 1, name: 'User' },
+      { id: 2, name: 'Admin' },
+    ],
+    image: 'https://cdn.dribbble.com/users/6142/screenshots/5679189/media/1b96ad1f07feee81fa83c877a1e350ce.png?compress=1&resize=400x300&vertical=top',
+  };
+
+  const handleUpdateProfileClick = () => {
+    // Handle profile update
+  };
+
   return (
-    <>
+    <div className='App'>
       <h1>{message}</h1>
-      <Contact />
-    </>
+      <UserProfile user={mockUser} updateProfileClick={handleUpdateProfileClick} />
+    </div>
   );
 }
 

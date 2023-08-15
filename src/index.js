@@ -1,15 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
- 
+
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import ViewUserProfile from './components/UserProfile'; // Import the ViewUserProfile component
-
+import UserProfile from './components/UserProfile'; // Import the UserProfile component
 
 const mockUser = {
-  username: john123,
+  username: 'john123', // Wrap the username in quotes
   name: 'John Doe',
   email: 'johndoe@example.com',
   bio: 'The song that I am loving this week is Munekita.',
@@ -24,7 +23,6 @@ const mockUser = {
 const handleUpdateProfileClick = () => {
   // Handle profile update
 };
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

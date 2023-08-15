@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllData } from './util/index';
 import { createServer } from 'miragejs';
+// import SignIn from './components/SignIn';
 
 createServer({
   routes() {
@@ -39,7 +40,8 @@ function App() {
   return (
     <>
       <h1>{message}</h1>
-      <Contact />
+      <h1>learn react</h1>
+      {/* <SignIn /> */}
     </>
   );
 }

@@ -1,11 +1,11 @@
 import React from 'react';
-import { useSignOut } from 'react-auth-kit';
+// import { useSignOut } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
 import { Button, Container } from '@mui/material';
 import axios from 'axios';
 
 const Logout = () => {
-  const signOut = useSignOut();
+  // const signOut = useSignOut();
 
   const navigate = useNavigate(); // for navigation
 
@@ -18,7 +18,7 @@ const Logout = () => {
       );
       // If the backend indicates successful logout
       if (response.status === 201) {
-        signOut(); // Log the user out from the client-side as well
+        // signOut(); // Log the user out from the client-side as well
         //redirect user to home page
         navigate('/home');
       } else {

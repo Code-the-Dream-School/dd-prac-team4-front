@@ -4,6 +4,7 @@ Prettier is installed in this repo and will auto-format files that you changed o
 Prettier automatically analyzes your code and rewrites it according to a set of predefined rules. It takes care of indentation, line breaks, spacing, and other formatting aspects, ensuring that the resulting code is easy to read and understand.
 
 ### Linting code
+
 ESLint is installed in this repo and will check for and try to fix any syntax errors that you have in Javascript or JSX code. It will run automatically on files you changed when you try to commit (via the Husky pre-commit tool). You can also run it manually to fix errors with `npm run lint:fix`, or to just check for errors with `npm run lint:check`. VS Code should also integrate ESLint automatically to tell you about any syntax errors in the "Problems" tab of the IDE.
 
 #### prop-types for documenting component props

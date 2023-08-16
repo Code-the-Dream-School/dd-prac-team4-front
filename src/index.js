@@ -1,15 +1,24 @@
 import React from 'react';
-import { startMirage } from './util/mirageServer'; //mocking backend server
 import ReactDOM from 'react-dom/client';
+import { makeServer } from './util/mirageServer';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import { AuthProvider } from 'react-auth-kit';
+import { AuthProvider } from '@akosasante/react-auth-context';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
 if (process.env.NODE_ENV === 'development') {
-  startMirage({ environment: 'development' });
+  makeServer({ environment: 'development' });
 }
+
+const authSettings = {
+  getCurrentUserPath: 'http://localhost:8000/api/v1/auth/showMe',
+  loginPath: 'http://localhost:8000/api/v1/auth/login',
+  logoutRedirectPath: '/',
+  defaultAxiosOptions: {
+    withCredentials: true,
+  },
+};
 
 // Set up a default colour pallete / theme for our whole app using material-ui ThemeProvider context component
 const defaultTheme = createTheme({
@@ -21,16 +30,11 @@ root.render(
   <ThemeProvider theme={defaultTheme}>
     {/* Use CSS baseline to set common spacing/sizing across all of our styling */}
     <CssBaseline />
-    <AuthProvider
-      authType={'cookie'}
-      authName={'_auth'}
-      cookieDomain={window.location.hostname}
-      cookieSecure={window.location.protocol === 'https:'}
-    >
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider {...authSettings}>
         <App />
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </ThemeProvider>
 );
 

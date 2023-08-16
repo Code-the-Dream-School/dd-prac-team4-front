@@ -3,8 +3,9 @@ import { getAllData } from './util/index';
 import UserRegistration from './components/UserRegistration';
 import Home from './components/Home';
 import Logout from './components/Logout';
-import { Routes, Route } from 'react-router-dom';
 import SignIn from './components/SignIn';
+import { Routes, Route } from 'react-router-dom';
+import { RequireAuth } from '@akosasante/react-auth-context';
 
 const URL = 'http://localhost:8000/api/v1/';
 
@@ -26,10 +27,18 @@ function App() {
     <>
       <h1>{message}</h1>
       <Routes>
-        <Route path="/register" element={<UserRegistration />}></Route>
-        <Route path="/signIn" element={<SignIn />}></Route>
-        <Route path="/home" element={<Home />}></Route>
-        <Route path="/logout" element={<Logout />}></Route>
+        <Route path="/register" element={<UserRegistration />} />
+        <Route path="/signIn" element={<SignIn />} />
+        {/* only logged in user can visit home page */}
+        <Route
+          path="/home"
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </>
   );

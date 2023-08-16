@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mui/icons-material": "^5.14.3",
     "@mui/material": "^5.14.3",
     "@mui/styled-engine-sc": "^5.12.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -12,7 +13,8 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.2",
+    "react-payment-inputs": "^1.1.9",
+    "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.11",
     "web-vitals": "^2.1.4"
@@ -47,6 +49,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "babel-preset-react-app": "@babel/plugin-proposal-private-property-in-object",
     "eslint-config-prettier": "^8.9.0",
     "husky": "^8.0.3",
     "miragejs": "^0.1.47",
@@ -57,5 +60,10 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "@mui/styled-engine": "@mui/styled-engine-sc"
+    }
   }
 }

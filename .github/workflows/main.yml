@@ -9,21 +9,21 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-    - name: Set up Node.js ${{ matrix.node-version}}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version}}
-        cache: 'npm'
-    - name: Installing dependencies
-      run: npm ci
+      - name: Set up Node.js ${{ matrix.node-version}}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version}}
+          cache: 'npm'
+      - name: Installing dependencies
+        run: npm ci
 
-    - name: Running Prettier for formatting
-      run: npm run format:all
+      - name: Running Prettier to check for invalid formatting
+        run: npm run format:check
 
-    - name: Running ESLint for linting
-      run: npm run lint:check
+      - name: Running ESLint for invalid syntax
+        run: npm run lint:check
 
-    - name: Running test
-      run: npm run test
+      - name: Running tests in CI mode
+        run: npm run test:ci

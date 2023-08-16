@@ -5,7 +5,8 @@ import Contact from './components/Contact';
 import Home from './components/Home';
 import Logout from './components/Logout';
 import { Routes, Route } from 'react-router-dom';
-
+import SignIn from './components/SignIn';
+  
 const URL = 'http://localhost:8000/api/v1/';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/home" element={<Home />}></Route>
         <Route path="/logout" element={<Logout />}></Route>
       </Routes>
+
     </>
   );
 }

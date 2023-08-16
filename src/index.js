@@ -5,6 +5,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from '@akosasante/react-auth-context';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
 if (process.env.NODE_ENV === 'development') {
   makeServer({ environment: 'development' });
@@ -19,13 +20,22 @@ const authSettings = {
   },
 };
 
+// Set up a default colour pallete / theme for our whole app using material-ui ThemeProvider context component
+const defaultTheme = createTheme({
+  palette: { main: '#3f51b5', mode: 'light' },
+});
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    <AuthProvider {...authSettings}>
-      <App />
-    </AuthProvider>
-  </BrowserRouter>
+  <ThemeProvider theme={defaultTheme}>
+    {/* Use CSS baseline to set common spacing/sizing across all of our styling */}
+    <CssBaseline />
+    <BrowserRouter>
+      <AuthProvider {...authSettings}>
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
+  </ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

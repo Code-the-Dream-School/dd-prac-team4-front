@@ -60,7 +60,7 @@ const UserRegistration = () => {
   );
   // end of snackbar
 
-  const [signupError, setSignupError] = React.useState('false');
+  const [signupError, setSignupError] = React.useState(false);
   const errorMessage = '';
 
   // error handler function

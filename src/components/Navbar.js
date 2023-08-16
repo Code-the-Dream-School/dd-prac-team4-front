@@ -11,7 +11,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          My App
+          Music
         </Typography>
         <Button color="inherit" component={Link} to="/signIn">
           Login

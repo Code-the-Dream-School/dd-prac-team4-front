@@ -67,7 +67,6 @@ const UserRegistration = () => {
   const handleSignupError = (error) => {
     setSignupError(true);
     errorMessage = error;
-
     console.error(error);
   };
 
@@ -121,7 +120,7 @@ const UserRegistration = () => {
   ];
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" sx={{ mt: 5, mb: 20 }}>
       <Typography variant="h4" align="center" gutterBottom>
         User Registration
       </Typography>

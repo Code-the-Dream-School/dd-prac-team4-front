@@ -1,9 +1,7 @@
 import { createServer } from 'miragejs';
 
-const loggedInUser = {};
-
-export function makeServer() {
-  createServer({
+export function startMirage() {
+  return createServer({
     routes() {
       this.get('http://localhost:8000/api/v1', { data: 'This is a music app' }),
         // route to submit user registration form

@@ -1,4 +1,5 @@
 import React from 'react';
+import { startMirage } from './util/mirageServer'; //mocking backend server
 import ReactDOM from 'react-dom/client';
 import { makeServer } from './util/mirageServer';
 import App from './App';
@@ -18,6 +19,10 @@ const authSettings = {
     withCredentials: true,
   },
 };
+
+if (process.env.NODE_ENV === 'development') {
+  startMirage({ environment: 'development' });
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

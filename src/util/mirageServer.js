@@ -1,12 +1,7 @@
 import { createServer } from 'miragejs';
 
-const FakeUser = {
-  id: 1,
-  name: 'John Doe',
-};
-
 export function makeServer() {
-  createServer({
+  return createServer({
     routes() {
       // FIX bug with how mirage + axiox interact
       // https://github.com/miragejs/miragejs/issues/814 -->
@@ -25,8 +20,10 @@ export function makeServer() {
           'http://localhost:8000/api/v1/auth/register',
           (schema, request) => {
             let attrs = JSON.parse(request.requestBody);
-            console.log(attrs);
-            return { user: FakeUser };
+            const loggedInUser = {
+              name: attrs.name,
+            };
+            return { user: loggedInUser }; //return name of logged in user to home page
           }
         );
       //route to logout user

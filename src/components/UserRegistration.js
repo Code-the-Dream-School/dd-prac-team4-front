@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { usePaymentInputs } from 'react-payment-inputs'; //for handling payment inputs
+import { useRegister } from '@akosasante/react-auth-context';
 import { useNavigate } from 'react-router-dom';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   TextField,
   Button,
@@ -10,10 +14,8 @@ import {
   RadioGroup,
   FormControlLabel,
   FormControl,
-  FormLabel,
   Box,
 } from '@mui/material';
-import { useRegister } from '@akosasante/react-auth-context';
 
 const UserRegistration = () => {
   // state hook for registration input fields
@@ -33,34 +35,61 @@ const UserRegistration = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  /* signUp hook for auth */
+  const navigate = useNavigate();
+
+  // snackbar
+  const [open, setOpen] = React.useState(true);
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+  // end of snackbar
+
+  const [signupError, setSignupError] = React.useState('false');
+  let errorMessage = '';
+
   // error handler function
   const handleSignupError = (error) => {
-    // TODO: can do things here like set state to show a message in the UI or render a toast notification with @mui snackbar component: https://mui.com/material-ui/react-snackbar/
+    setSignupError(true);
+    errorMessage = error;
+
     console.error(error);
   };
 
   // Used by the useRegister hook to get the user object from the register API response
   // Hook will store the user in localStorage and in internal state
-  // TODO: Double check with backend team on expected response for this API endpoint
   const getUserFromResponse = (responseData) => {
     return responseData.user;
   };
+  // initial options needed for useRegister hook
   const registerHookOptions = {
     apiUrl: 'http://localhost:8000/api/v1/auth/register',
     errorHandler: handleSignupError,
     getUserFromResponse,
     getJwtTokenFromResponse: false, // our JWT is stored directly in the HTTP-only cookie, not in the response
   };
-  // TODO: Use error and loading state in returned UI
+
   const {
     submit: signIn,
     errors,
     loading,
   } = useRegister(formData, registerHookOptions);
   /* end signUp hook for auth */
-
-  const navigate = useNavigate();
 
   //handle registration form submission by calling the signUp hook
   const handleSubmit = async (e) => {
@@ -96,6 +125,16 @@ const UserRegistration = () => {
       <Typography variant="h4" align="center" gutterBottom>
         User Registration
       </Typography>
+      {/* display snackbar if any error happened during user registration */}
+      {signupError && (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          message={errorMessage}
+          action={action}
+        />
+      )}
       <form onSubmit={handleSubmit}>
         <TextField
           label="Name"
@@ -179,10 +218,26 @@ const UserRegistration = () => {
             ))}
           </RadioGroup>
         </FormControl>
-        <Button type="submit" variant="contained" color="primary" fullWidth>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={loading}
+          fullWidth
+        >
           Register
         </Button>
       </form>
+      {/* register hook errors */}
+      {errors && (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          message={errors}
+          action={action}
+        />
+      )}
     </Container>
   );
 };

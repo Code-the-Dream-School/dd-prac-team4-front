@@ -50,7 +50,6 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
-    "babel-preset-react-app": "@babel/plugin-proposal-private-property-in-object",
     "eslint-config-prettier": "^8.9.0",
     "husky": "^8.0.3",
     "miragejs": "^0.1.47",

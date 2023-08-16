@@ -3,13 +3,20 @@ import { getAllData } from './util/index';
 import UserRegistration from './components/UserRegistration';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
-import { Routes, Route } from 'react-router-dom';
-import { RequireAuth } from '@akosasante/react-auth-context';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import {
+  AuthStatus,
+  RequireAuth,
+  useAuth,
+} from '@akosasante/react-auth-context';
 
 const URL = 'http://localhost:8000/api/v1/';
 
 function App() {
   const [message, setMessage] = useState('');
+  const { status } = useAuth();
+  const isLoggedIn = status === AuthStatus.LoggedIn;
+  // const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -26,17 +33,13 @@ function App() {
     <>
       <h1>{message}</h1>
       <Routes>
+        <Route
+          path="/"
+          element={isLoggedIn ? <Home /> : <Navigate to="/signIn" />}
+        ></Route>
         <Route path="/register" element={<UserRegistration />}></Route>
         <Route path="/signIn" element={<SignIn />}></Route>
-        {/* only logged in user can visit home page */}
-        <Route
-          path="/home"
-          element={
-            <RequireAuth>
-              <Home />
-            </RequireAuth>
-          }
-        ></Route>
+        <Route path="/home" element={<Home />}></Route>
       </Routes>
     </>
   );

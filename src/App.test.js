@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { startMirage } from './util/mirageServer';
+import { makeServer } from './util/mirageServer';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
 let server;
 beforeEach(() => {
-  server = startMirage();
+  server = makeServer();
 });
 afterEach(() => {
   server.shutdown();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllData } from './util/index';
 import UserRegistration from './components/UserRegistration';
-import Contact from './components/Contact';
+import SignIn from './components/SignIn';
 import Home from './components/Home';
 import { Routes, Route } from 'react-router-dom';
 import { RequireAuth } from '@akosasante/react-auth-context';
@@ -27,7 +27,7 @@ function App() {
       <h1>{message}</h1>
       <Routes>
         <Route path="/register" element={<UserRegistration />}></Route>
-        <Route path="/signIn" element={<Contact />}></Route>
+        <Route path="/signIn" element={<SignIn />}></Route>
         {/* only logged in user can visit home page */}
         <Route
           path="/home"

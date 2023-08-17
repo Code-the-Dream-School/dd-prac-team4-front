@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { makeServer } from './util/mirageServer';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import { startMirage } from './util/mirageServer'; //mocking backend server
 import { AuthProvider } from '@akosasante/react-auth-context';
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
 if (process.env.NODE_ENV === 'development') {
-  makeServer({ environment: 'development' });
+  startMirage({ environment: 'development' });
 }
 
 const authSettings = {

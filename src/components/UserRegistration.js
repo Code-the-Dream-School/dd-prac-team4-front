@@ -60,14 +60,13 @@ const UserRegistration = () => {
   );
   // end of snackbar
 
-  const [signupError, setSignupError] = React.useState('false');
-  let errorMessage = '';
+  const [signupError, setSignupError] = React.useState(false);
+  const errorMessage = '';
 
   // error handler function
   const handleSignupError = (error) => {
     setSignupError(true);
     errorMessage = error;
-
     console.error(error);
   };
 
@@ -121,7 +120,7 @@ const UserRegistration = () => {
   ];
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" sx={{ mt: 5, mb: 20 }}>
       <Typography variant="h4" align="center" gutterBottom>
         User Registration
       </Typography>

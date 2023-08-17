@@ -47,8 +47,6 @@ function App() {
         <Route path="/register" element={<UserRegistration />}></Route>
         <Route path="/signIn" element={<SignIn />}></Route>
         <Route path="/home" element={<Home />}></Route>
-        <Route path="/logout" element={<Logout />}></Route>
-        <Route path="/logout" element={<Logout />}></Route>
       </Routes>
     </>
   );

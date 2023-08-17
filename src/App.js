@@ -4,7 +4,6 @@ import UserRegistration from './components/UserRegistration';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Logout from './components/Logout';
 import Navbar from './components/Navbar';
 import axios from 'axios';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';

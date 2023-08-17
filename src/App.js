@@ -7,11 +7,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Logout from './components/Logout';
 import Navbar from './components/Navbar';
 import axios from 'axios';
-import {
-  AuthStatus,
-  RequireAuth,
-  useAuth,
-} from '@akosasante/react-auth-context';
+import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 
 const URL = 'http://localhost:8000/api/v1/';
 

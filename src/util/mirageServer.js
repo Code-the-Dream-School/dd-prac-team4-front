@@ -20,6 +20,7 @@ export function makeServer() {
           'http://localhost:8000/api/v1/auth/register',
           (schema, request) => {
             let attrs = JSON.parse(request.requestBody);
+            console.log(attrs);
             const loggedInUser = {
               name: attrs.name,
             };
@@ -29,6 +30,14 @@ export function makeServer() {
       //route to logout user
       this.post(
         'http://localhost:8000/api/v1/auth/logout',
+        (schema, request) => {
+          let attrs = JSON.parse(request.requestBody);
+          console.log(attrs);
+        }
+      );
+
+      this.get(
+        'http://localhost:8000/api/v1/auth/showMe',
         (schema, request) => {
           let attrs = JSON.parse(request.requestBody);
           console.log(attrs);

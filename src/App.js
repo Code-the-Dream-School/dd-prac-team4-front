@@ -6,6 +6,7 @@ import Home from './components/Home';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Logout from './components/Logout';
 import Navbar from './components/Navbar';
+import axios from 'axios';
 import {
   AuthStatus,
   RequireAuth,
@@ -18,7 +19,10 @@ function App() {
   const [message, setMessage] = useState('');
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
-  // const navigate = useNavigate();
+  // create an axios instance
+  const instance = axios.create({
+    withCredentials: true,
+  });
 
   useEffect(() => {
     (async () => {

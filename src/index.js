@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import { startMirage } from './util/mirageServer'; //mocking backend server
+import { makeServer } from './util/mirageServer'; //mocking backend server
 import { AuthProvider } from '@akosasante/react-auth-context';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
 if (process.env.NODE_ENV === 'development') {
-  startMirage({ environment: 'development' });
+  makeServer({ environment: 'development' });
 }
 
 const authSettings = {

@@ -35,9 +35,16 @@ export function makeServer() {
           console.log(attrs);
         }
       );
-
+      // route to get current user
       this.get(
         'http://localhost:8000/api/v1/auth/showMe',
+        (schema, request) => {
+          let attrs = JSON.parse(request.requestBody);
+          console.log(attrs);
+        }
+      );
+      this.get(
+        'http://localhost:8000/api/v1/albums/filter',
         (schema, request) => {
           let attrs = JSON.parse(request.requestBody);
           console.log(attrs);

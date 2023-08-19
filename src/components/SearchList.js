@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const SearchList = () => {
   const [results, setResults] = useState([]);
 
   const fetchResults = async () => {
+    try {
     // Fetching from backend API
-    const response = await fetch('http://localhost:8000/api/v1');
+    const response = await fetch('https://jsonplaceholder.typicode.com/users');
     const data = await response.json();
+    // loging results
+    console.log("Fetched data:", data); // Log the fetched data
     setResults(data);
-  };
+  } catch(error) {
+    console.error("Error fetching", error);
+  }
+};
 
   useEffect(() => {
     fetchResults();
@@ -21,6 +27,7 @@ const SearchList = () => {
       ))}
     </ul>
   );
+
 };
 
 export default SearchList;

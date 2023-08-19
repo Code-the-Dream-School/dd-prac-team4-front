@@ -18,7 +18,7 @@ function App() {
     async function fetchAlbums() {
       try {
         const response = await axios.get(API_URL);
-        setAlbums(response.data.albums.slice(0, 10)); // Access the "albums" array directly
+        setAlbums(response.data.albums.slice(0, 10));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -45,3 +45,4 @@ function App() {
 }
 
 export default App;
+

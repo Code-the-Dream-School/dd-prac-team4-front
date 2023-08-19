@@ -1,33 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from 'react';
 
-const SearchList = () => {
-  const [results, setResults] = useState([]);
-
-  const fetchResults = async () => {
-    try {
-    // Fetching from backend API
-    const response = await fetch('https://jsonplaceholder.typicode.com/users');
-    const data = await response.json();
-    // loging results
-    console.log("Fetched data:", data); // Log the fetched data
-    setResults(data);
-  } catch(error) {
-    console.error("Error fetching", error);
-  }
-};
-
-  useEffect(() => {
-    fetchResults();
-  }, []);
-
+function SearchList({ albums }) {
   return (
-    <ul>
-      {results.map((result) => (
-        <li key={result.id}>{result.name}</li>
+    <ul className="album-list">
+      {albums.map((album) => (
+        <li key={album._id} className="album-item">
+          <img src={album.image} alt={album.albumName} className="album-image" />
+          <p className="album-title">{album.albumName}</p>
+          <p className="album-artist">{album.artistName}</p>
+        </li>
       ))}
     </ul>
   );
-
-};
+}
 
 export default SearchList;

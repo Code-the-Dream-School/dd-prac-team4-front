@@ -1,48 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { getAllData } from './util/index';
-import { createServer } from 'miragejs';
-// import SignIn from './components/SignIn';
+import axios from 'axios';
 
-createServer({
-  routes() {
-    // FIX bug with how mirage + axiox interact
-    // https://github.com/miragejs/miragejs/issues/814 -->
-    const NativeXMLHttpRequest = window.XMLHttpRequest;
-
-    window.XMLHttpRequest = function XMLHttpRequest() {
-      const request = new NativeXMLHttpRequest(arguments);
-      delete request.onloadend;
-      return request;
-    };
-    // <-- FIX
-
-    this.get('http://localhost:8000/api/v1', { data: 'This is a music app' }),
-      this.passthrough('http://localhost:8000/*'); // everything else will try to actually call the backend
-  },
-});
-
-const URL = 'http://localhost:8000/api/v1/';
+const API_URL = 'http://localhost:8000/api/v1/albums'; // Update with the correct endpoint
 
 function App() {
-  const [message, setMessage] = useState('');
+  const [albums, setAlbums] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      const myData = await getAllData(URL);
-      setMessage(myData.data);
-    })();
+    async function fetchAlbums() {
+      try {
+        const response = await axios.get(API_URL);
+        setAlbums(response.data.albums.slice(0, 10)); // Access the "albums" array directly
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
 
-    return () => {
-      console.log('unmounting');
-    };
+    fetchAlbums();
   }, []);
 
   return (
-    <>
-      <h1>{message}</h1>
-      <h1>learn react</h1>
-      {/* <SignIn /> */}
-    </>
+    <div>
+      <h1>Top 10 Albums</h1>
+      <ul>
+        {albums.map((album) => (
+          <li key={album._id}>
+            <img src={album.image} alt={album.albumName} />
+            <p>{album.albumName} by {album.artistName}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

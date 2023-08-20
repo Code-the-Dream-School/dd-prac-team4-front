@@ -15,9 +15,15 @@ function App() {
   const isLoggedIn = status === AuthStatus.LoggedIn;
 
   useEffect(() => {
+    (async () => {
+      const myData = await getAllData(URL);
+      setMessage(myData.data);
+    })();
+
+    // Fetch albums data
     async function fetchAlbums() {
       try {
-        const response = await axios.get(API_URL);
+        const response = await axios.get(URL + 'albums');
         setAlbums(response.data.albums.slice(0, 10));
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -25,6 +31,10 @@ function App() {
     }
 
     fetchAlbums();
+
+    return () => {
+      console.log('unmounting');
+    };
   }, []);
 
   return (
@@ -45,4 +55,3 @@ function App() {
 }
 
 export default App;
-

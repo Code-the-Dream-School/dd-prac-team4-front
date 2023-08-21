@@ -19,6 +19,8 @@ export function makeServer() {
         this.post(
           'http://localhost:8000/api/v1/auth/register',
           (schema, request) => {
+            console.dir(schema);
+            console.dir('request' + JSON.parse(request));
             let attrs = JSON.parse(request.requestBody);
             console.log(attrs);
             const loggedInUser = {

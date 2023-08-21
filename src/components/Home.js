@@ -10,10 +10,10 @@ function Home() {
 
   useEffect(() => {
     axiosInstance
-      .get('/showMe')
+      .get('/users/showMe')
       .then((response) => {
-        setData(response.data);
-        console.log('this is axios instance' + data);
+        setData(response.data); // Set the state with the response data
+        console.log('HTTP response data:', response.data);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);

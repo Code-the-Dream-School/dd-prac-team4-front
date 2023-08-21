@@ -16,7 +16,7 @@ const Logout = () => {
   //handling user logout
   const handleLogout = async () => {
     const originalResponse = await signOut();
-    if (originalResponse.status === 201) {
+    if (originalResponse.status === 200) {
       navigate('/');
     } else {
       console.error('unexpected success response status when logging out');

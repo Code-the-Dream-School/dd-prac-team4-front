@@ -45,13 +45,13 @@ export function makeServer() {
           console.log(attrs);
         }
       );
-      this.get(
-        'http://localhost:8000/api/v1/albums/filter',
-        (schema, request) => {
-          let attrs = JSON.parse(request.requestBody);
-          console.log(attrs);
-        }
-      );
+      // this.get(
+      //   'http://localhost:8000/api/v1/albums/filter',
+      //   (schema, request) => {
+      //     let attrs = JSON.parse(request.requestBody);
+      //     console.log(attrs);
+      //   }
+      // );
 
       this.passthrough('http://localhost:8000/*'); // everything else will try to actually call the backend
     },

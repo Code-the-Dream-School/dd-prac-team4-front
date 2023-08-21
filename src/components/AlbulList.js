@@ -12,43 +12,51 @@ import {
 } from '@mui/material';
 
 const AlbumsList = () => {
-  const [albums, setAlbums] = useState([]);
-  const [page, setPage] = useState(1);
-  const [searchType, setSearchType] = useState('album');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [albums, setAlbums] = useState([]); // for albums
+  const [limit, setLimit] = useState(1); // for pagination
+  const [searchType, setSearchType] = useState('albumName'); //default value for select input
+  const [searchTerm, setSearchTerm] = useState(''); // for search input filed value
+  const [message, setMessage] = useState('');
 
+  //make an API call with search values to backend and return the result
   const fetchAlbums = async () => {
     try {
       const response = await axios.get(
         'http://localhost:8000/api/v1/albums/filter',
         {
           params: {
-            page,
+            limit,
             [searchType]: searchTerm,
           },
         }
       );
-      setAlbums(response.data);
+      const searchResult = response.data.albums;
+      setAlbums(searchResult);
+      if (searchResult.length === 0) {
+        setMessage('No result found');
+      }
     } catch (error) {
       console.error('Error fetching albums:', error);
     }
   };
 
+  //call the function to make API request for search input value
   const handleSearch = () => {
-    setPage(1);
+    setLimit(1);
     fetchAlbums();
   };
 
+  //clear search input and make an empty API call
   const handleClear = () => {
-    setSearchType('album');
+    setSearchType('albumName');
     setSearchTerm('');
-    setPage(1);
+    setLimit(1);
+    setMessage('');
     fetchAlbums();
   };
 
   return (
     <Container>
-      <Typography variant="h4">Music Store</Typography>
       <FormControl variant="outlined" margin="normal">
         <InputLabel>Search By</InputLabel>
         <Select
@@ -56,12 +64,12 @@ const AlbumsList = () => {
           onChange={(e) => setSearchType(e.target.value)}
           label="Search By"
         >
-          <MenuItem value="album">Album</MenuItem>
-          <MenuItem value="artist">Artist</MenuItem>
+          <MenuItem value="albumName">Album</MenuItem>
+          <MenuItem value="artistName">Artist</MenuItem>
         </Select>
       </FormControl>
       <TextField
-        label={`Search ${searchType === 'album' ? 'Album' : 'Artist'}`}
+        label={`Search ${searchType === 'albumName' ? 'Album' : 'Artist'}`}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         variant="outlined"
@@ -74,13 +82,13 @@ const AlbumsList = () => {
       <Button variant="contained" onClick={handleClear}>
         Clear
       </Button>
-      {albums.map((album) => (
-        <div key={album.id}>
-          <Typography variant="h6">{album.title}</Typography>
-          <Typography>{album.artist}</Typography>
-          {/* Add more album details here */}
-        </div>
-      ))}
+      {albums.length > 0 ? (
+        {
+          /* <SearchResult searchResult={albums} /> */
+        }
+      ) : (
+        <Typography variant="h4">{message}</Typography>
+      )}
     </Container>
   );
 };

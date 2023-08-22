@@ -19,19 +19,6 @@ function App() {
       const myData = await getAllData(URL);
       setMessage(myData.data);
     })();
-
-    // Fetch albums data
-    async function fetchAlbums() {
-      try {
-        const response = await axios.get(URL + 'albums');
-        setAlbums(response.data.albums.slice(0, 10));
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
-
-    fetchAlbums();
-
     return () => {
       console.log('unmounting');
     };

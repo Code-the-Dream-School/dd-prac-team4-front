@@ -5,9 +5,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 const UserProfile = ({ user, updateProfileClick }) => {
   const navigate = useNavigate(); // Initialize the navigate function
 
-  const handleUpdateProfileClick = () => {
-    navigate('/update-profile'); // Navigate to the update profile page
-  };
+  
 
   // Initialize the currentUser state
   const [currentUser, setCurrentUser] = useState(/* Initial value */);

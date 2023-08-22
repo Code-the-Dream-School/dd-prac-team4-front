@@ -1,8 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { getAllData } from './util/index';
-import UserProfile from './components/UserProfile'; // Import the UserProfile component
-
-
+import UserProfile from './components/UserProfile';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -10,14 +9,18 @@ function App() {
   useEffect(() => {
     (async () => {
       const myData = await getAllData(URL);
-      setMessage(myData.data);
+      if (myData) {
+        setMessage(myData.data);
+      } else {
+        // Handle error
+      }
     })();
-
+  
     return () => {
       console.log('unmounting');
     };
   }, []);
-
+  
   const mockUser = {
     username: 'john123',
     name: 'John Doe',
@@ -30,14 +33,10 @@ function App() {
     image: 'https://cdn.dribbble.com/users/6142/screenshots/5679189/media/1b96ad1f07feee81fa83c877a1e350ce.png?compress=1&resize=400x300&vertical=top',
   };
 
-  const handleUpdateProfileClick = () => {
-    // Handle profile update
-  };
-
   return (
     <div className='App'>
       <h1>{message}</h1>
-      <UserProfile user={mockUser} updateProfileClick={handleUpdateProfileClick} />
+      <UserProfile user={mockUser} />
     </div>
   );
 }

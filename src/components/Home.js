@@ -1,7 +1,7 @@
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../apis/axiosClient';
-import AlbumsList from './AlbulList';
+import AlbumsList from './AlbumsList';
 
 function Home() {
   const { status, user } = useAuth();

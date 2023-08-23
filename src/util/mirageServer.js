@@ -1,8 +1,8 @@
 import { createServer } from 'miragejs';
 
-// this file mocke the backend route for front end.
+// this file mocks the backend route for front end.
 // it is mainly used for tests; but can also be used in development if the backend is not available or an endpoint is not yet implemented
-// for dev you'll need to uncomment the indicated lines in index.js
+// for dev you'll need to uncomment the indicated lines in index.js and create a mock response below.
 
 export function makeServer() {
   return createServer({
@@ -16,12 +16,12 @@ export function makeServer() {
         delete request.onloadend;
         return request;
       };
-      // <-- FIX
-      const envPath = process.env.REACT_APP_API_BASE_PATH;
+      // <-- END FIX
+      const baseAPIPath = process.env.REACT_APP_API_BASE_PATH;
 
       // route to submit user registration form
       this.post(
-        'http://localhost:8000/api/v1/auth/register',
+        `${baseAPIPath}/auth/register`,
         (schema, request) => {
           let attrs = JSON.parse(request.requestBody);
           console.log(attrs);
@@ -29,7 +29,7 @@ export function makeServer() {
       );
       // route to login user
       this.post(
-        'http://localhost:8000/api/v1/auth/login',
+        `${baseAPIPath}/auth/login`,
         (schema, request) => {
           let attrs = JSON.parse(request.requestBody);
           console.log(attrs);
@@ -37,7 +37,7 @@ export function makeServer() {
       );
       // route to logout user
       this.post(
-        'http://localhost:8000/api/v1/auth/logout',
+        `${baseAPIPath}/auth/logout`,
         (schema, request) => {
           let attrs = JSON.parse(request.requestBody);
           console.log(attrs);
@@ -45,14 +45,14 @@ export function makeServer() {
       );
       // route to get current user
       this.get(
-        'http://localhost:8000/api/v1/auth/users/showMe',
+        `${baseAPIPath}/auth/users/showMe`,
         (schema, request) => {
           let attrs = JSON.parse(request.requestBody);
           console.log(attrs);
         }
       );
 
-      this.passthrough(envPath + '/*'); // everything else will try to actually call the backend
+      this.passthrough(baseAPIPath + '/*'); // everything else will try to actually call the backend
     },
   });
 }

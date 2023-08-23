@@ -22,7 +22,6 @@ const AlbumsList = () => {
   const [searchType, setSearchType] = useState('albumName'); //default value for select input
   const [searchTerm, setSearchTerm] = useState(''); // for search input filed value
   const [message, setMessage] = useState(''); // for not found message
-  const [hasError, setHasError] = useState(false); //for error during fetching from API
   const [errorMessage, setErrorMessage] = useState(''); // for error message
 
   //make an API call with search values to backend and return the result
@@ -45,7 +44,6 @@ const AlbumsList = () => {
     } catch (error) {
       console.error('Error fetching albums:', error);
       setErrorMessage(error.message);
-      setHasError(true);
       setOpen(true);
     }
   };
@@ -67,6 +65,7 @@ const AlbumsList = () => {
   // snackbar start
   const [open, setOpen] = React.useState(false);
 
+  //close the snackbar
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -86,7 +85,6 @@ const AlbumsList = () => {
       </IconButton>
     </React.Fragment>
   );
-
   //end of snackbar
 
   return (

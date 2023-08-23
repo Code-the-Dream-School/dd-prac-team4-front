@@ -15,16 +15,7 @@ export function makeServer() {
       // <-- FIX
 
       this.get('http://localhost:8000/api/v1', { data: 'This is a music app' }),
-        // route to get current user
-        this.get(
-          'http://localhost:8000/api/v1/auth/users/showMe',
-          (schema, request) => {
-            let attrs = JSON.parse(request.requestBody);
-            console.log(attrs);
-          }
-        );
-
-      this.passthrough('http://localhost:8000/*'); // everything else will try to actually call the backend
+       this.passthrough('http://localhost:8000/*'); // everything else will try to actually call the backend
     },
   });
 }

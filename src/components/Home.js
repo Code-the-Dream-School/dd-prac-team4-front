@@ -1,5 +1,4 @@
 import { useAuth } from '@akosasante/react-auth-context';
-import Loader from '../components/layout/Loader/Loader';
 
 function Home() {
   const { status, user } = useAuth();

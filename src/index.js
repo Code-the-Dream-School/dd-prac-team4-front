@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const authSettings = {
-  getCurrentUserPath: 'http://localhost:8000/api/v1/auth/showMe',
+  getCurrentUserPath: 'http://localhost:8000/api/v1/users/showMe',
   loginPath: 'http://localhost:8000/api/v1/auth/login',
   logoutRedirectPath: '/',
   defaultAxiosOptions: {

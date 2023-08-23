@@ -1,4 +1,4 @@
-import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
+import { useAuth } from '@akosasante/react-auth-context';
 
 function Home() {
   const { status, user } = useAuth();

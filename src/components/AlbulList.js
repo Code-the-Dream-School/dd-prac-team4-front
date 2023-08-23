@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Snackbar from '@mui/material/Snackbar';
 import {
   Container,
   TextField,
@@ -9,6 +12,8 @@ import {
   Select,
   MenuItem,
   Typography,
+  Box,
+  Grid,
 } from '@mui/material';
 
 const AlbumsList = () => {
@@ -16,10 +21,11 @@ const AlbumsList = () => {
   const [limit, setLimit] = useState(1); // for pagination
   const [searchType, setSearchType] = useState('albumName'); //default value for select input
   const [searchTerm, setSearchTerm] = useState(''); // for search input filed value
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(''); // for not found message
+  const [hasError, setHasError] = useState(false); //for error during fetching from API
 
   //make an API call with search values to backend and return the result
-  const fetchAlbums = async () => {
+  const fetchAlbums = async (searchType, searchTerm, limit) => {
     try {
       const response = await axios.get(
         'http://localhost:8000/api/v1/albums/filter',
@@ -37,13 +43,14 @@ const AlbumsList = () => {
       }
     } catch (error) {
       console.error('Error fetching albums:', error);
+      setHasError(true);
     }
   };
 
   //call the function to make API request for search input value
   const handleSearch = () => {
     setLimit(1);
-    fetchAlbums();
+    fetchAlbums(searchType, searchTerm, 1);
   };
 
   //clear search input and make an empty API call
@@ -52,42 +59,93 @@ const AlbumsList = () => {
     setSearchTerm('');
     setLimit(1);
     setMessage('');
-    fetchAlbums();
+    fetchAlbums('albumName', '', 1);
   };
+
+  // snackbar start
+  const [open, setOpen] = React.useState(true);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
+  //end of snackbar
 
   return (
     <Container>
-      <FormControl variant="outlined" margin="normal">
-        <InputLabel>Search By</InputLabel>
-        <Select
-          value={searchType}
-          onChange={(e) => setSearchType(e.target.value)}
-          label="Search By"
-        >
-          <MenuItem value="albumName">Album</MenuItem>
-          <MenuItem value="artistName">Artist</MenuItem>
-        </Select>
-      </FormControl>
-      <TextField
-        label={`Search ${searchType === 'albumName' ? 'Album' : 'Artist'}`}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        variant="outlined"
-        margin="normal"
-        fullWidth
-      />
-      <Button variant="contained" onClick={handleSearch}>
-        Search
-      </Button>
-      <Button variant="contained" onClick={handleClear}>
-        Clear
-      </Button>
+      {/* display snackbar if any error happened during API fetch */}
+      {hasError && (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          message={errorMessage}
+          action={action}
+        />
+      )}
+      <Grid container spacing={2} justifyContent="center">
+        <Grid item xs={12} sm={2}>
+          <FormControl variant="outlined" fullWidth>
+            <InputLabel>Search By</InputLabel>
+            <Select
+              value={searchType}
+              onChange={(e) => setSearchType(e.target.value)}
+              label="Search By"
+            >
+              <MenuItem value="albumName">Album</MenuItem>
+              <MenuItem value="artistName">Artist</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label={`Search ${searchType === 'albumName' ? 'Album' : 'Artist'}`}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            variant="outlined"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={2}>
+          <Button variant="contained" onClick={handleSearch} fullWidth>
+            Search
+          </Button>
+        </Grid>
+        <Grid item xs={12} sm={2}>
+          <Button variant="contained" onClick={handleClear} fullWidth>
+            Clear
+          </Button>
+        </Grid>
+      </Grid>
+
       {albums.length > 0 ? (
-        {
-          /* <SearchResult searchResult={albums} /> */
-        }
+        <>{/* <SearchResult searchResult={albums} /> */}</>
       ) : (
-        <Typography variant="h4">{message}</Typography>
+        <Box
+          sx={{
+            textAlign: 'center',
+            mt: '20px',
+            mb: '20px',
+          }}
+        >
+          <Typography variant="h4">{message}</Typography>
+        </Box>
       )}
     </Container>
   );

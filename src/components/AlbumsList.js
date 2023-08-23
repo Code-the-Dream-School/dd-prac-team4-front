@@ -23,6 +23,7 @@ const AlbumsList = () => {
   const [searchTerm, setSearchTerm] = useState(''); // for search input filed value
   const [message, setMessage] = useState(''); // for not found message
   const [hasError, setHasError] = useState(false); //for error during fetching from API
+  const [errorMessage, setErrorMessage] = useState(''); // for error message
 
   //make an API call with search values to backend and return the result
   const fetchAlbums = async (searchType, searchTerm, limit) => {
@@ -43,14 +44,15 @@ const AlbumsList = () => {
       }
     } catch (error) {
       console.error('Error fetching albums:', error);
+      setErrorMessage(error.message);
       setHasError(true);
+      setOpen(true);
     }
   };
 
   //call the function to make API request for search input value
   const handleSearch = () => {
-    setLimit(1);
-    fetchAlbums(searchType, searchTerm, 1);
+    fetchAlbums(searchType, searchTerm, limit);
   };
 
   //clear search input and make an empty API call
@@ -63,7 +65,7 @@ const AlbumsList = () => {
   };
 
   // snackbar start
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -90,15 +92,13 @@ const AlbumsList = () => {
   return (
     <Container>
       {/* display snackbar if any error happened during API fetch */}
-      {hasError && (
-        <Snackbar
-          open={open}
-          autoHideDuration={6000}
-          onClose={handleClose}
-          message={errorMessage}
-          action={action}
-        />
-      )}
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={errorMessage}
+        action={action}
+      />
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12} sm={2}>
           <FormControl variant="outlined" fullWidth>

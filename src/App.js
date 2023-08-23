@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getAllData } from './util/index';
 import UserRegistration from './components/UserRegistration';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Logout from './components/Logout';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 
@@ -34,12 +33,10 @@ function App() {
         <Route
           path="/"
           element={isLoggedIn ? <Home /> : <Navigate to="/signIn" />}
-        ></Route>
-        <Route path="/register" element={<UserRegistration />}></Route>
-        <Route path="/signIn" element={<SignIn />}></Route>
-        <Route path="/home" element={<Home />}></Route>
-        <Route path="/logout" element={<Logout />}></Route>
-        <Route path="/logout" element={<Logout />}></Route>
+        />
+        <Route path="/register" element={<UserRegistration />} />
+        <Route path="/signIn" element={<SignIn />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </>
   );

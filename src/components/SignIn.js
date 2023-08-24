@@ -10,7 +10,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useRegister } from '@akosasante/react-auth-context'; // authentication library
 import { useNavigate } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
@@ -108,7 +107,7 @@ export default function SignIn() {
     const originalResponse = await signIn();
     console.dir(originalResponse);
     //navigate to home page only if credential is correct
-    if (originalResponse.status !== 401) {
+    if (originalResponse?.status === 201) {
       navigate('/home');
     }
   };
@@ -130,15 +129,15 @@ export default function SignIn() {
           Sign in
         </Typography>
         {/* display snackbar if any error happened during user login */}
-        {loginError && (
-          <Snackbar
-            open={open}
-            autoHideDuration={6000}
-            onClose={handleClose}
-            message={errorMessage}
-            action={action}
-          />
-        )}
+
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          message={errorMessage}
+          action={action}
+        />
+
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"

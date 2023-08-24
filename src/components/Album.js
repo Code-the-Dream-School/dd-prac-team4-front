@@ -13,7 +13,11 @@ function Album({ album }) {
           <Button variant="contained" color="primary" className="buy-button">
             Buy
           </Button>
-          <Button variant="contained" color="secondary" className="wishlist-button">
+          <Button
+            variant="contained"
+            color="secondary"
+            className="wishlist-button"
+          >
             Wishlist
           </Button>
         </div>

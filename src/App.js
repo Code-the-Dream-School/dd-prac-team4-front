@@ -6,6 +6,7 @@ import Home from './components/Home';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
+import CheckoutPage from './components/Purchase/CheckoutPage';
 
 const URL = 'http://localhost:8000/api/v1/';
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/register" element={<UserRegistration />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
     </>
   );

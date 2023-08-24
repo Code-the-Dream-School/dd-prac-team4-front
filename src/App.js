@@ -7,7 +7,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 
-const URL = 'http://localhost:8000/api/v1/';
+const envPath = process.env.REACT_APP_API_BASE_PATH;
 
 function App() {
   const [message, setMessage] = useState('');
@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const myData = await getAllData(URL);
+      const myData = await getAllData(envPath);
       setMessage(myData.data);
     })();
     return () => {

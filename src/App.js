@@ -6,6 +6,7 @@ import Home from './components/Home';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
+import usersApi from './apis/usersApi';
 
 const URL = 'http://localhost:8000/api/v1/';
 
@@ -16,8 +17,8 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const myData = await getAllData(URL);
-      setMessage(myData.data);
+      const user = await usersApi.getById('64e75e0c010653c8fae9a395');
+      setMessage(`HELLO: ${user.name}`);
     })();
     return () => {
       console.log('unmounting');

@@ -1,8 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
-// import Button from '@mui/material/Button';
 import Album from './Album';
-
+import './AlbumGrid.css';
 
 function AlbumGrid({ albums }) {
   return (

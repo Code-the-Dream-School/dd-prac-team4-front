@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { getAllData } from './util/index';
+import React, { useState } from 'react';
 import UserRegistration from './components/UserRegistration';
 import SignIn from './components/SignIn';
 import Home from './components/Home';

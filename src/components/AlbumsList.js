@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -49,6 +49,11 @@ const AlbumsList = () => {
     }
   };
 
+  //display 10 albums when first user visit this page
+  useEffect(() => {
+    fetchAlbums('albumName', '', 10);
+  }, []);
+
   //call the function to make API request for search input value
   const handleSearch = () => {
     fetchAlbums(searchType, searchTerm, limit);
@@ -60,7 +65,7 @@ const AlbumsList = () => {
     setSearchTerm('');
     setLimit(1);
     setMessage('');
-    fetchAlbums('albumName', '', 1);
+    fetchAlbums('albumName', '', 0);
   };
 
   // snackbar start

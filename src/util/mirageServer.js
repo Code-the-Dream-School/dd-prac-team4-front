@@ -48,7 +48,6 @@ export function makeServer() {
         //   }
         // );
         this.passthrough('http://localhost:8000/*'); // everything else will try to actually call the backend
->>>>>>> 99248d5d303f22ba0aca4b45020ece96d6eecd6a
     },
   });
 }

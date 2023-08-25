@@ -72,7 +72,7 @@ export default function CheckoutForm({ paymentAmount }) {
       className={style.checkoutFormContainer}
     >
       <p>
-        Your payment amount: <b>${paymentAmount / 100}</b>
+        Your payment amount: <b>${paymentAmount}</b>
       </p>
       <LinkAuthenticationElement
         id="link-authentication-element"

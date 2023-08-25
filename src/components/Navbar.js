@@ -13,12 +13,17 @@ const Navbar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Music
         </Typography>
-        <Button color="inherit" component={Link} to="/signIn">
-          Login
-        </Button>
-        <Button color="inherit" component={Link} to="/register">
-          Signup
-        </Button>
+        {/*when user is loggedin can not see login and signup buttons  */}
+        {!isLoggedIn && (
+          <>
+            <Button color="inherit" component={Link} to="/signIn">
+              Login
+            </Button>
+            <Button color="inherit" component={Link} to="/register">
+              Signup
+            </Button>
+          </>
+        )}
         <Button color="inherit" component={Link} to="/home">
           Home
         </Button>

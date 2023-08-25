@@ -28,23 +28,6 @@ export default function CheckoutForm({ paymentAmount }) {
     if (!clientSecret) {
       return;
     }
-
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case 'succeeded':
-          setMessage('Payment succeeded!');
-          break;
-        case 'processing':
-          setMessage('Your payment is processing.');
-          break;
-        case 'requires_payment_method':
-          setMessage('Your payment was not successful, please try again.');
-          break;
-        default:
-          setMessage('Something went wrong.');
-          break;
-      }
-    });
   }, [stripe]);
 
   const handleSubmit = async (e) => {
@@ -93,7 +76,7 @@ export default function CheckoutForm({ paymentAmount }) {
       </p>
       <LinkAuthenticationElement
         id="link-authentication-element"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.value)}
       />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button

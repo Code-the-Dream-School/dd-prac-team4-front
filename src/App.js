@@ -7,13 +7,11 @@ import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 
 function App() {
-  const [message, setMessage] = useState('');
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
   return (
     <>
       <Navbar />
-      <h1>{message}</h1>
       <Routes>
         <Route
           path="/"

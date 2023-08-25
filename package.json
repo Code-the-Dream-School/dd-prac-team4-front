@@ -2,6 +2,10 @@
   "name": "bb-practicum-team4-front",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "@akosasante/react-auth-context": "github:akosasante/react-auth-context",
     "@mui/icons-material": "^5.14.3",

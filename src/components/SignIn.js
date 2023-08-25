@@ -16,24 +16,6 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useLogin } from '@akosasante/react-auth-context';
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 export default function SignIn() {
   const [formData, setFormData] = useState({
     email: '',
@@ -51,8 +33,10 @@ export default function SignIn() {
   //env path for API request
   const envPath = process.env.REACT_APP_API_BASE_PATH;
 
-  // snackbar
-  const [open, setOpen] = React.useState(true);
+  /*
+   * Snackbar to display any error during login.
+   */
+  const [open, setOpen] = React.useState(false);
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -72,16 +56,16 @@ export default function SignIn() {
       </IconButton>
     </React.Fragment>
   );
-  // end of snackbar
+  /*
+   * End of snackbar
+   */
 
-  // user authentication
-  const [loginError, setLoginError] = React.useState(false);
-  let errorMessage = '';
+  /*
+   * user authentication section
+   */
 
   // error handler function
   const handleLoginError = (error) => {
-    setLoginError(true);
-    errorMessage = error.msg;
     console.error(error);
   };
   const getUserFromResponse = (responseData) => {
@@ -102,11 +86,13 @@ export default function SignIn() {
     loading,
   } = useLogin(formData, loginHookOptions);
 
-  //end of user authentication
+  /*
+   * end of user authentication
+   */
 
+  //handling login form submition
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoginError(false); // Reset login error state
     const originalResponse = await signIn();
     console.dir(originalResponse);
     //navigate to home page only if credential is correct
@@ -131,16 +117,6 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        {/* display snackbar if any error happened during user login */}
-
-        <Snackbar
-          open={open}
-          autoHideDuration={6000}
-          onClose={handleClose}
-          message={errorMessage}
-          action={action}
-        />
-
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -192,15 +168,13 @@ export default function SignIn() {
         </Box>
       </Box>
       {/* useLogin hook errors */}
-      {errors && (
-        <Snackbar
-          open={open}
-          autoHideDuration={6000}
-          onClose={handleClose}
-          message={errors.msg} // Use the error message from the errors object
-          action={action}
-        />
-      )}
+      <Snackbar
+        open={!!errors}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={errors?.msg}
+        action={action}
+      />
     </Container>
   );
 }

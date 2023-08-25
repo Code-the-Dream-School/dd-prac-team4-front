@@ -21,6 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+#environmental variable file
+.env
 
 # other
 .DS_Store

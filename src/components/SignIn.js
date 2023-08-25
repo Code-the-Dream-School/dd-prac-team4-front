@@ -46,7 +46,10 @@ export default function SignIn() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  //create and instance to navigate user
   const navigate = useNavigate();
+  //env path for API request
+  const envPath = process.env.REACT_APP_API_BASE_PATH;
 
   // snackbar
   const [open, setOpen] = React.useState(true);
@@ -87,7 +90,7 @@ export default function SignIn() {
 
   // initial options needed for useLogin hook
   const loginHookOptions = {
-    apiUrl: 'http://localhost:8000/api/v1/auth/login',
+    apiUrl: `${envPath}/auth/login`,
     errorHandler: handleLoginError,
     getUserFromResponse,
     getJwtTokenFromResponse: false,

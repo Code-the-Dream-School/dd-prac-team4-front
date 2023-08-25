@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { getAllData } from './util/index';
+import React, { useState } from 'react';
 import UserRegistration from './components/UserRegistration';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
@@ -7,23 +6,10 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 
-const URL = 'http://localhost:8000/api/v1/';
-
 function App() {
   const [message, setMessage] = useState('');
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
-
-  useEffect(() => {
-    (async () => {
-      const myData = await getAllData(URL);
-      setMessage(myData.data);
-    })();
-    return () => {
-      console.log('unmounting');
-    };
-  }, []);
-
   return (
     <>
       <Navbar />

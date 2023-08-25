@@ -9,6 +9,7 @@ export function makeServer() {
     routes() {
       // FIX bug with how mirage + axiox interact
       // https://github.com/miragejs/miragejs/issues/814 -->
+      // Please don't remove the code between these FIX comments.
       const NativeXMLHttpRequest = window.XMLHttpRequest;
 
       window.XMLHttpRequest = function XMLHttpRequest() {
@@ -17,6 +18,7 @@ export function makeServer() {
         return request;
       };
       // <-- END FIX
+
       const baseAPIPath = process.env.REACT_APP_API_BASE_PATH;
 
       // route to submit user registration form

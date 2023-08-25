@@ -17,6 +17,8 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
 const envPath = process.env.REACT_APP_API_BASE_PATH;
 
+const envPath = process.env.REACT_APP_API_BASE_PATH;
+
 const authSettings = {
   getCurrentUserPath: `${envPath}/users/showMe`,
   loginPath: `${envPath}/v1/auth/login`,

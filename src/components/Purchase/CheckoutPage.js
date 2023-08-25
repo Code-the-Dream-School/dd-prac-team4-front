@@ -3,6 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import style from './CheckoutPage.module.css';
 import CheckoutForm from './CheckoutForm';
+import axios from 'axios';
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -18,25 +19,36 @@ const subtotal = 100.0;
 const tax = 0.4;
 const total = 140.0;
 
-const CheckoutPage = () => {
+const CheckoutPage = (/*{ album, quantity, subtotal, tax, total}*/) => {
   const [clientSecret, setClientSecret] = useState('');
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch('http://localhost:8000/api/v1/orders', {
-      credentials: 'include',
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        orderItems: [{ album, quantity }],
-        subtotal,
-        tax,
-        total,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
-  }, [subtotal]);
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          'http://localhost:8000/api/v1/orders',
+          {
+            orderItems: [{ album, quantity }],
+            subtotal,
+            tax,
+            total,
+          },
+          {
+            withCredentials: true,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+
+        setClientSecret(response.data.clientSecret);
+      } catch (error) {
+        // Handle error here
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [subtotal, album, quantity, tax, total, setClientSecret]);
 
   const appearance = {
     theme: 'stripe',

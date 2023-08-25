@@ -1,20 +1,26 @@
 {
-  "name": "bb-practicum-team1-front",
+  "name": "bb-practicum-team4-front",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
+    "@akosasante/react-auth-context": "github:akosasante/react-auth-context",
+    "@mui/icons-material": "^5.14.3",
     "@mui/material": "^5.14.3",
     "@mui/styled-engine-sc": "^5.12.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0",
     "@testing-library/user-event": "^14.4",
-    "axios": "^1.4",
-    "bootstrap": "^5.3.1",
+    "axios": "^1.4.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.2",
-    "react-scripts": "^5.0.1",
+    "react-payment-inputs": "^1.1.9",
+    "react-router-dom": "^6.15.0",
+    "react-scripts": "5.0.1",
     "styled-components": "^5.3.11",
     "web-vitals": "^2.1.4"
   },
@@ -22,8 +28,10 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test --transformIgnorePatterns 'node_modules/(?!axios)/' --detectOpenHandles --silent",
+    "test:ci": "craco test --watchAll=false --transformIgnorePatterns 'node_modules/(?!axios)/' --detectOpenHandles --silent",
     "eject": "react-scripts eject",
     "format:all": "npx prettier --write .",
+    "format:check": "npx prettier --check .",
     "lint:fix": "eslint --fix src",
     "lint:check": "eslint src"
   },
@@ -58,5 +66,10 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "@mui/styled-engine": "@mui/styled-engine-sc"
+    }
   }
 }

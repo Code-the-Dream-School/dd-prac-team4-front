@@ -12,7 +12,7 @@ const stripePromise = loadStripe(
 );
 //Temporary variables for testing
 //const paymentAmount = 1099; // This is $10.99 payment amount(added for testing) This amount variable should came from cart
-const album = '876r75675';
+const album = '64d2a94c793389a43fc5a8d6';
 const quantity = 1;
 const subtotal = 100.0;
 const tax = 0.4;

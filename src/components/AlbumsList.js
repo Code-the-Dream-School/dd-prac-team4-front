@@ -3,7 +3,7 @@ import axios from 'axios';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
-import SearchList from './SearchList';
+import AlbumGrid from './AlbumGrid';
 import {
   Container,
   TextField,
@@ -134,9 +134,7 @@ const AlbumsList = () => {
       </Grid>
 
       {albums.length > 0 ? (
-        <>
-          <SearchList searchResult={albums} />
-        </>
+        <AlbumGrid albums={albums} />
       ) : (
         <Box
           sx={{

@@ -7,23 +7,10 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 
-const envPath = process.env.REACT_APP_API_BASE_PATH;
-
 function App() {
   const [message, setMessage] = useState('');
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
-
-  useEffect(() => {
-    (async () => {
-      const myData = await getAllData(envPath);
-      setMessage(myData.data);
-    })();
-    return () => {
-      console.log('unmounting');
-    };
-  }, []);
-
   return (
     <>
       <Navbar />

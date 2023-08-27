@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { makeServer } from './util/mirageServer'; //mocking backend server
 import { AuthProvider } from '@akosasante/react-auth-context';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 if (process.env.NODE_ENV === 'development') {
   makeServer({ environment: 'development' });
@@ -27,7 +29,8 @@ const defaultTheme = createTheme({
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ThemeProvider theme={defaultTheme}>
+  <Provider store={store}>
+    <ThemeProvider theme={defaultTheme}>
     {/* Use CSS baseline to set common spacing/sizing across all of our styling */}
     <CssBaseline />
     <BrowserRouter>
@@ -36,6 +39,7 @@ root.render(
       </AuthProvider>
     </BrowserRouter>
   </ThemeProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,7 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
 
 function Album({ album }) {
   return (
@@ -11,11 +10,9 @@ function Album({ album }) {
         <p className="album-title">{album.albumName}</p>
         <p className="album-artist">{album.artistName}</p>
         <div className="button-container">
-          {/* <Button variant="contained" color="primary" className="buy-button">
+          <Button variant="contained" color="primary" className="buy-button">
             Buy
-          </Button> */}
-          {/*AddToCartButton component */}
-          <AddToCartButton album={album} />{' '}
+          </Button>
           <Button
             variant="contained"
             color="secondary"

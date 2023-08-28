@@ -1,6 +1,15 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 
+// interface SpotifyProps {
+//   link: string;
+//   wide?: boolean;
+//   width?: number | string;
+//   height?: number | string;
+//   frameBorder?: number | string;
+//   allow?: string;
+//   [key: string]: any;
+// }
 const AlbumPreview = ({ spotifyUrl }) => {
   return (
     <Card variant="outlined">
@@ -30,7 +39,7 @@ const Spotify = ({
   return (
     <iframe
       title="Spotify Web Player"
-      src={`https://open.spotify.com/embed${url.pathname}`}
+      src={`https://open.spotify.com/${url.pathname}`}
       width={width}
       height={height}
       allow={allow}

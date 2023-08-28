@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
+import AlbumPreview from './AlbumPreview';
 import {
   Container,
   TextField,
@@ -92,9 +93,10 @@ const AlbumsList = () => {
     </React.Fragment>
   );
   //end of snackbar
-
+  const url = 'https://api.spotify.com/v1/albums/3XDtRvXV5DR1xZfvcneG2C';
   return (
     <Container>
+      <AlbumPreview spotifyUrl={url} />
       {/* display snackbar if any error happened during API fetch */}
       <Snackbar
         open={open}

@@ -7,6 +7,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import CheckoutPage from './components/Purchase/CheckoutPage';
+import ShoppingCart from './components/ShoppingCartComponents';
 
 const URL = 'http://localhost:8000/api/v1/';
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/shoppingCart" element={<ShoppingCart />} />
       </Routes>
     </>
   );

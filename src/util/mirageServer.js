@@ -1,5 +1,8 @@
 import { createServer } from 'miragejs';
 
+//this file mocke the backend route for front end. If you need to test the app without connecting
+// to the backend server, you can uncomment these route ant to the test.
+
 export function makeServer() {
   return createServer({
     routes() {
@@ -13,8 +16,9 @@ export function makeServer() {
         return request;
       };
       // <-- FIX
+      const envPath = process.env.REACT_APP_API_BASE_PATH;
 
-      this.get('http://localhost:8000/api/v1', { data: 'This is a music app' }),
+      this.get(envPath, { data: 'This is a music app' }),
         // route to submit user registration form
         // this.post(
         //   'http://localhost:8000/api/v1/auth/register',
@@ -47,7 +51,9 @@ export function makeServer() {
         //     console.log(attrs);
         //   }
         // );
-        this.passthrough('http://localhost:8000/*'); // everything else will try to actually call the backend
+
+        this.passthrough(envPath + '/*'); // everything else will try to actually call the backend
+
     },
   });
 }

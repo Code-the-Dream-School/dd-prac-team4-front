@@ -1,0 +1,24 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  height: 80vh;
+}
+
+.paper {
+  padding: 1.5rem;
+}
+
+.leftPaper {
+  box-shadow: none !important;
+  min-height: 50vh;
+}
+.rightPaper {
+  min-height: 50vh;
+  box-shadow:
+    0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+    0px 2px 5px 0px rgba(50, 50, 93, 0.1),
+    0px 1px 1.5px 0px rgba(0, 0, 0, 0.07) !important;
+  border-radius: 7px !important;
+  padding: 1rem 2.5rem 2.5rem 2.5rem;
+  background-color: hsla(0, 2%, 92%, 0.468) !important;
+}

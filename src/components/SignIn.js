@@ -84,7 +84,6 @@ export default function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoginError(false); // Reset login error state
     const originalResponse = await signIn();
     console.dir(originalResponse);
     //navigate to home page only if credential is correct
@@ -161,10 +160,10 @@ export default function SignIn() {
       </Box>
       {/* useLogin hook errors */}
       <Snackbar
-        open={open}
+        open={!!errors}
         autoHideDuration={6000}
         onClose={handleClose}
-        message={errors.msg} // Use the error message from the errors object
+        message={errors?.msg} // Use the error message from the errors object
         action={action}
       />
     </Container>

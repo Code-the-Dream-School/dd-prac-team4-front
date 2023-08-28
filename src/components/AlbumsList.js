@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
+import OrderSidebar from './OrderSidebar';
 import {
   Container,
   TextField,
@@ -151,6 +152,7 @@ const AlbumsList = () => {
           <Typography variant="h4">{message}</Typography>
         </Box>
       )}
+      <OrderSidebar />
     </Container>
   );
 };

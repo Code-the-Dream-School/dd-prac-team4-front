@@ -5,6 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
 import AlbumPreview from './AlbumPreview';
+import WishListView from './WishListView';
 import {
   Container,
   TextField,
@@ -93,10 +94,11 @@ const AlbumsList = () => {
     </React.Fragment>
   );
   //end of snackbar
-  const url = 'https://api.spotify.com/v1/albums/3XDtRvXV5DR1xZfvcneG2C';
+  // const url = 'https://api.spotify.com/v1/albums/3XDtRvXV5DR1xZfvcneG2C';
   return (
     <Container>
-      <AlbumPreview spotifyUrl={url} />
+      <WishListView />
+
       {/* display snackbar if any error happened during API fetch */}
       <Snackbar
         open={open}
@@ -141,7 +143,7 @@ const AlbumsList = () => {
       </Grid>
 
       {albums.length > 0 ? (
-        <AlbumGrid albums={albums} />
+        <AlbumGrid albums={albums} isInWishlist={false} />
       ) : (
         <Box
           sx={{

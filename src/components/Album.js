@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 
-function Album({ album }) {
+function Album({ album, isInWishlist, onRemoveFromWishlist }) {
   return (
     <Grid item xs={12} sm={6} md={4}>
       <div className="album-item">
@@ -13,13 +13,24 @@ function Album({ album }) {
           <Button variant="contained" color="primary" className="buy-button">
             Buy
           </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            className="wishlist-button"
-          >
-            Wishlist
-          </Button>
+          {/* display wishlist button only if it is regular album list */}
+          {!isInWishlist ? (
+            <Button
+              variant="contained"
+              color="secondary"
+              className="wishlist-button"
+            >
+              Wishlist
+            </Button>
+          ) : (
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => onRemoveFromWishlist(album.id)}
+            >
+              Remove from Wishlist
+            </Button>
+          )}
         </div>
       </div>
     </Grid>

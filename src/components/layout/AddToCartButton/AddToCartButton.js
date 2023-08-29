@@ -34,7 +34,6 @@ const AddToCartButton = ({ album }) => {
       className="buy-button"
       aria-label={itemsInCart[album.id] ? 'Remove from cart' : 'Add to Cart'}
       onClick={handleAddToCart}
-      disabled={!isUserLoggedIn}
     >
       {itemsInCart[album.id] ? 'Remove from Cart' : 'Add to Cart'}
     </Button>

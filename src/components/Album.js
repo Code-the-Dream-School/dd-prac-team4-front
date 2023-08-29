@@ -15,7 +15,7 @@ function Album({ album }) {
             Buy
           </Button> */}
           {/*AddToCartButton component */}
-          <AddToCartButton album={album} />{' '}
+          <AddToCartButton album={album} />
           <Button
             variant="contained"
             color="secondary"

@@ -5,12 +5,13 @@ import { Button, Container } from '@mui/material';
 const Logout = () => {
   // for navigate to other component
   const navigate = useNavigate();
+  const envPath = process.env.REACT_APP_API_BASE_PATH;
 
   const errorHandler = (error) => console.error('Error during logout: ', error);
 
   const { submit: signOut, loading } = useLogout({
     errorHandler,
-    apiUrl: 'http://localhost:8000/api/v1/auth/logout',
+    apiUrl: `${envPath}/auth/logout`,
   });
 
   //handling user logout

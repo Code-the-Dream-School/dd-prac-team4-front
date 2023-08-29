@@ -69,3 +69,8 @@ test('render home page', async () => {
 
 to run the test use `npm test` in terminal.
 writing test helps to check if your component works as expected. This helps you catch mistakes before they cause problems in your app.
+
+## .env file
+
+there is file named .env in root folder, right now, anytime we call the backend, we’re using the url http://localhost:8000/api/v1/... which works locally. But when the frontend and backend are deployed, the backend will be running on https://musicstore.onrender.com/api/v1/.... So we need a way to switch between the two. The most common way to do this is using Environment Variables.
+Whenever you need to call the backend API use the env variable instead of hardcoding the http://localhost:8000/api/v1/... route. For example instead of http://localhost:8000/api/v1/auth/logout use `${envPath}/auth/logout` where envPath = process.env.REACT_APP_API_BASE_PATH;

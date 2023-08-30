@@ -6,6 +6,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import CheckoutPage from './components/Purchase/CheckoutPage';
+import AlbumsList from './components/AlbumsList';
 
 function App() {
   const { status } = useAuth();
@@ -22,9 +23,11 @@ function App() {
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/albumslist" element={<AlbumsList />} />
       </Routes>
     </>
   );
 }
 
 export default App;
+

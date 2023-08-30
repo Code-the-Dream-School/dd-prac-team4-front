@@ -20,6 +20,7 @@ const Navbar = () => {
               Login
             </Button>
             <Button color="inherit" component={Link} to="/register">
+              
               Signup
             </Button>
           </>
@@ -28,7 +29,14 @@ const Navbar = () => {
           Home
         </Button>
         {/*only if user is logged in can see the logout button  */}
-        {isLoggedIn && <Logout />}
+        {isLoggedIn && (
+          <>
+            <Button color="inherit" component={Link} to="/profile">
+              Profile
+            </Button>
+            <Logout />
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );

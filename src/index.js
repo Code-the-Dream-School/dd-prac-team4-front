@@ -5,8 +5,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import UserProfile from './components/UserProfile'; // Import the UserProfile component
-// import 'bootstrap/dist/css/bootstrap.min.css'; 
-
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { makeServer } from './util/mirageServer'; //mocking backend server
 import { AuthProvider } from '@akosasante/react-auth-context';

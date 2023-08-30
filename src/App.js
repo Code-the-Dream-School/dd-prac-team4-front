@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { getAllData } from './util/index';
 import UserRegistration from './components/UserRegistration';
@@ -15,7 +14,6 @@ function App() {
   const [message, setMessage] = useState('');
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
-  const [message, setMessage] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -26,12 +24,12 @@ function App() {
         // Handle error
       }
     })();
-  
+
     return () => {
       console.log('unmounting');
     };
   }, []);
-  
+
   const mockUser = {
     username: 'john123',
     name: 'John Doe',
@@ -41,11 +39,12 @@ function App() {
       { id: 1, name: 'User' },
       { id: 2, name: 'Admin' },
     ],
-    image: 'https://cdn.dribbble.com/users/6142/screenshots/5679189/media/1b96ad1f07feee81fa83c877a1e350ce.png?compress=1&resize=400x300&vertical=top',
+    image:
+      'https://cdn.dribbble.com/users/6142/screenshots/5679189/media/1b96ad1f07feee81fa83c877a1e350ce.png?compress=1&resize=400x300&vertical=top',
   };
 
   return (
-    <div className='App'>
+    <>
       <Navbar />
       <h1>{message}</h1>
       <Routes>
@@ -56,10 +55,35 @@ function App() {
         <Route path="/register" element={<UserRegistration />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
-    </>
       <UserProfile user={mockUser} />
-    </div>
+    </>
+  );
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          Music
+        </Typography>
+        <Button color="inherit" component={Link} to="/signIn">
+          Login
+        </Button>
+        <Button color="inherit" component={Link} to="/register">
+          Signup
+        </Button>
+        <Button color="inherit" component={Link} to="/home">
+          Home
+        </Button>
+        {/*only if user is logged in can they see the logout and profile buttons  */}
+        {isLoggedIn && (
+          <Button color="inherit" component={Link} to="/profile">
+            Profile
+          </Button>
+        )}
+        {isLoggedIn && <Logout />}
+      </Toolbar>
+    </AppBar>
   );
 }
 

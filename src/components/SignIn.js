@@ -29,15 +29,11 @@ export default function SignIn() {
   };
 
   //create and instance to navigate user
-  //create and instance to navigate user
   const navigate = useNavigate();
-  //env path for API request
-  const envPath = process.env.REACT_APP_API_BASE_PATH;
   //env path for API request
   const envPath = process.env.REACT_APP_API_BASE_PATH;
 
   // snackbar
-  const [open, setOpen] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {

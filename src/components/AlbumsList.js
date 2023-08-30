@@ -104,7 +104,8 @@ const AlbumsList = () => {
         message={errorMessage}
         action={action}
       />
-      <Grid container spacing={2} justifyContent="center">
+      {/* start of searchbar grid */}
+      <Grid container spacing={2} justifyContent="center" sx={{ my: 2 }}>
         <Grid item xs={12} sm={2}>
           <FormControl variant="outlined" fullWidth>
             <InputLabel>Search By</InputLabel>
@@ -138,21 +139,28 @@ const AlbumsList = () => {
           </Button>
         </Grid>
       </Grid>
-
-      {albums.length > 0 ? (
-        <AlbumGrid albums={albums} />
-      ) : (
-        <Box
-          sx={{
-            textAlign: 'center',
-            mt: '20px',
-            mb: '20px',
-          }}
-        >
-          <Typography variant="h4">{message}</Typography>
-        </Box>
-      )}
-      <OrderSidebar />
+      {/* end of searchbar  */}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={9}>
+          {albums.length > 0 ? (
+            <AlbumGrid albums={albums} />
+          ) : (
+            <Box
+              sx={{
+                textAlign: 'center',
+                mt: '20px',
+                mb: '20px',
+              }}
+            >
+              <Typography variant="h4">{message}</Typography>
+            </Box>
+          )}
+        </Grid>
+        <Grid item xs={12} md={3}>
+          {/* Display the OrderSidebar component as a sidebar */}
+          <OrderSidebar />
+        </Grid>
+      </Grid>
     </Container>
   );
 };

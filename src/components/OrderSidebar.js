@@ -1,8 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectAlbumsInCart } from '../redux/selectors'; //return albums from the state
 import { Drawer, List, ListItem, ListItemText, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { clearCart } from '../redux/shoppingCart';
 
 import axios from 'axios';
 
@@ -10,20 +11,19 @@ const OrderSidebar = () => {
   //path to env variable
   const envPath = process.env.REACT_APP_API_BASE_PATH;
   const navigate = useNavigate();
-  const albumsInCart = useSelector(selectAlbumsInCart);
+  const dispatch = useDispatch();
 
-  // Calculate subtotal, tax, and total based on the albumsInCart array
-  const subtotal = albumsInCart.reduce(
-    (total, album) => total + album.price,
-    0
-  );
-  const tax = subtotal * 0.1; // Assuming 10% tax
-  const total = subtotal + tax;
+  // values come from Redux store
+  const albumsInCart = useSelector(selectAlbumsInCart);
+  const subtotal = useSelector((state) => state.cart.subtotal);
+  const tax = useSelector((state) => state.cart.tax);
+  const total = useSelector((state) => state.cart.totalAmount);
 
   const handleCheckout = async () => {
     try {
       const response = await axios.post(`${envPath}/orders`);
       const clientSecret = response.data.clientSecret;
+      //clear the cart
       dispatch(clearCart());
       //navigate to checkout page
       navigate('/checkout', { state: { clientSecret } });
@@ -48,13 +48,13 @@ const OrderSidebar = () => {
           </ListItem>
         ))}
         <ListItem>
-          <ListItemText primary={`Subtotal: $${subtotal.toFixed(2)}`} />
+          <ListItemText primary={`Subtotal: $${subtotal}`} />
         </ListItem>
         <ListItem>
-          <ListItemText primary={`Tax: $${tax.toFixed(2)}`} />
+          <ListItemText primary={`Tax: $${tax * 100}`} />
         </ListItem>
         <ListItem>
-          <ListItemText primary={`Total: $${total.toFixed(2)}`} />
+          <ListItemText primary={`Total: $${total}`} />
         </ListItem>
         <ListItem>
           <Button variant="contained" color="primary" onClick={handleCheckout}>

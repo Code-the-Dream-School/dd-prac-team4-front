@@ -10,12 +10,6 @@ const AddToWishlistButton = ({ album }) => {
   const navigate = useNavigate();
   const isUserLoggedIn = status === AuthStatus.LoggedIn;
 
-  //   useEffect(() => {
-  //     if (!isUserLoggedIn) {
-  //       navigate('/signIn');
-  //     }
-  //   }, [isUserLoggedIn, navigate]);
-
   const fetchOrCreateWishlist = async () => {
     try {
       const response = await axios.post(

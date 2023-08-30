@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import { makeServer } from './util/mirageServer'; //mocking backend server
@@ -34,7 +36,9 @@ root.render(
     <CssBaseline />
     <BrowserRouter>
       <AuthProvider {...authSettings}>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </AuthProvider>
     </BrowserRouter>
   </ThemeProvider>

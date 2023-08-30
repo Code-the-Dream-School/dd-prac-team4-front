@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+<<<<<<< HEAD
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+=======
+import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
+>>>>>>> a43f9e1c218ecdedd0de2b3442748743e6534731
 
 function Album({ album }) {
   const [openDialog, setOpenDialog] = useState(false);
@@ -27,9 +31,12 @@ function Album({ album }) {
         <p className="album-title">{album.albumName}</p>
         <p className="album-artist">{album.artistName}</p>
         <div className="button-container">
-          <Button variant="contained" color="primary" className="buy-button">
+          {/* <Button variant="contained" color="primary" className="buy-button">
             Buy
-          </Button>
+          </Button> */}
+          {/*AddToCartButton component */}
+          <AddToCartButton album={album} />
+
           <Button
             variant="contained"
             color="secondary"

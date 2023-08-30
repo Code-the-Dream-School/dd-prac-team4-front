@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
+import AddToWishlistButton from './layout/AddToWishlistButton/AddToWishlistButton';
 
 function Album({ album }) {
   return (
@@ -17,13 +17,15 @@ function Album({ album }) {
           {/*AddToCartButton component */}
           <AddToCartButton album={album} />
 
-          <Button
+          {/* <Button
             variant="contained"
             color="secondary"
             className="wishlist-button"
           >
             Wishlist
-          </Button>
+          </Button> */}
+          {/*AddToCartButton component */}
+          <AddToWishlistButton album={album} />
         </div>
       </div>
     </Grid>

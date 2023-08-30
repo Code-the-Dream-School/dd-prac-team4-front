@@ -57,33 +57,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<UserProfile />} />
       </Routes>
-      <UserProfile user={mockUser} />
     </>
-  );
-  return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Music
-        </Typography>
-        <Button color="inherit" component={Link} to="/signIn">
-          Login
-        </Button>
-        <Button color="inherit" component={Link} to="/register">
-          Signup
-        </Button>
-        <Button color="inherit" component={Link} to="/home">
-          Home
-        </Button>
-        {/*only if user is logged in can they see the logout and profile buttons  */}
-        {isLoggedIn && (
-          <Button color="inherit" component={Link} to="/profile">
-            Profile
-          </Button>
-        )}
-        {isLoggedIn && <Logout />}
-      </Toolbar>
-    </AppBar>
   );
 }
 

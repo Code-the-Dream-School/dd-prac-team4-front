@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom'; // You can use react-router-dom for handling links
+import { Link } from 'react-router-dom'; 
 import Logout from './Logout';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 
@@ -20,7 +20,6 @@ const Navbar = () => {
               Login
             </Button>
             <Button color="inherit" component={Link} to="/register">
-              
               Signup
             </Button>
           </>

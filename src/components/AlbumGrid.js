@@ -1,16 +1,20 @@
 import React from 'react';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import Album from './Album';
-import './AlbumGrid.css';
 
 function AlbumGrid({ albums }) {
   return (
     <Grid container spacing={2}>
       {albums.map((album) => (
-        <Album key={album._id} album={album} />
+        <Grid item key={album._id} xs={12} sm={6} md={4} lg={3}>
+          <Album album={album} />
+        </Grid>
       ))}
     </Grid>
   );
 }
 
 export default AlbumGrid;
+
+
+

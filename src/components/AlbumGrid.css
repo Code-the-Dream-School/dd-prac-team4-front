@@ -1,3 +1,4 @@
+/* AlbumGrid.css */
 .album-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 columns */
@@ -16,18 +17,26 @@
 
 .album-image {
   width: 100%;
-  max-width: 150px;
+  max-width: 200px;
   height: auto;
   margin-bottom: 10px;
 }
 
 .album-title {
   font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.album-title-tooltip {
+  max-width: 150px; /* Adjust as needed */
 }
 
 .album-artist {
   color: #666;
 }
+
 .button-container {
   display: flex;
   justify-content: space-between;
@@ -39,7 +48,7 @@
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 5px 20px;
   cursor: pointer;
 }
 

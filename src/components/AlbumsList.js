@@ -15,6 +15,7 @@ import {
   Typography,
   Box,
   Grid,
+  Tooltip,
 } from '@mui/material';
 
 const AlbumsList = () => {

@@ -25,10 +25,8 @@ const AlbumPreview = ({
     }
     //extract the album id
     const albumId = match[1];
-
     //  Spotify album URL
     const spotifyAlbumUrl = `https://open.spotify.com/embed/album/${albumId}`;
-
     setSpotifyUrl(spotifyAlbumUrl);
   }, [apiUrl]);
 
@@ -45,7 +43,6 @@ const AlbumPreview = ({
             width={width}
             height={height}
             frameBorder={frameBorder}
-            allow={allow}
             style={{ borderRadius: 8, ...style }}
             {...props}
           />

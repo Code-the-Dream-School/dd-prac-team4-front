@@ -29,7 +29,7 @@ const AlbumsList = () => {
   const fetchAlbums = async (searchType, searchTerm, limit) => {
     try {
       const response = await axios.get(
-        'http://localhost:8000/api/v1/albums/filter',
+        `${process.env.REACT_APP_API_BASE_PATH}/albums/filter`,
         {
           params: {
             limit,

@@ -27,7 +27,7 @@ const CheckoutPage = (/*{ album, quantity, subtotal, tax, total}*/) => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          'http://localhost:8000/api/v1/orders',
+          `${process.env.REACT_APP_API_BASE_PATH}/orders`,
           {
             orderItems: [{ album, quantity }],
             subtotal,

@@ -4,8 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
-import AlbumPreview from './AlbumPreview';
-import WishListView from './WishListView';
+
 import {
   Container,
   TextField,
@@ -97,8 +96,6 @@ const AlbumsList = () => {
   // const url = 'https://api.spotify.com/v1/albums/3XDtRvXV5DR1xZfvcneG2C';
   return (
     <Container>
-      <WishListView />
-
       {/* display snackbar if any error happened during API fetch */}
       <Snackbar
         open={open}

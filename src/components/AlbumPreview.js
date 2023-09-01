@@ -12,6 +12,7 @@ const AlbumPreview = ({
   ...props
 }) => {
   const [spotifyUrl, setSpotifyUrl] = useState('');
+  const [albumId, setAlbumId] = useState();
 
   useEffect(() => {
     // regular expression pattern to extract the album ID from the API URL
@@ -25,9 +26,7 @@ const AlbumPreview = ({
       console.error('Invalid API URL');
       return;
     }
-
-    // Extract the album ID from the match
-    const albumId = match[1];
+    setAlbumId(match[1]);
 
     //  Spotify album URL
     const spotifyAlbumUrl = `https://open.spotify.com/album/${albumId}`;
@@ -36,24 +35,36 @@ const AlbumPreview = ({
   }, [apiUrl]);
 
   return (
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h6" component="div">
-          Album Preview
-        </Typography>
-        <div style={{ marginTop: '1rem' }}>
-          <iframe
-            title="Spotify Web Player"
-            src={spotifyUrl}
-            width={width}
-            height={height}
-            allow={allow}
-            style={{ borderRadius: 8, ...style }}
-            {...props}
-          />
-        </div>
-      </CardContent>
-    </Card>
+    <iframe
+      title="Spotify Web Player"
+      src={`https://open.spotify.com/album/${albumId}`}
+      width={width}
+      height={height}
+      frameBorder={frameBorder}
+      allow={allow}
+      style={{ borderRadius: 8, ...style }}
+      {...props}
+    />
+
+    //  <Card variant="outlined">
+    //   <CardContent>
+    //     <Typography variant="h6" component="div">
+    //       Album Preview
+    //     </Typography>
+    //     <div style={{ marginTop: '1rem' }}>
+    //       <iframe
+    //         title="Spotify Web Player"
+    //         src={spotifyUrl}
+    //         width={width}
+    //         height={height}
+    //         allow={allow}
+    //         style={{ borderRadius: 8, ...style }}
+    //         frameBorder={frameBorder}
+    //          {...props}
+    //       />
+    //     </div>
+    //   </CardContent>
+    // </Card>
   );
 };
 

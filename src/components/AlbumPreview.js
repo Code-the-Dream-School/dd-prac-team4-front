@@ -1,32 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 
-// interface SpotifyProps {
-//   link: string;
-//   wide?: boolean;
-//   width?: number | string;
-//   height?: number | string;
-//   frameBorder?: number | string;
-//   allow?: string;
-//   [key: string]: any;
-// }
-const AlbumPreview = ({ spotifyUrl }) => {
-  return (
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h6" component="div">
-          Album Preview
-        </Typography>
-        <div style={{ marginTop: '1rem' }}>
-          <Spotify link={spotifyUrl} />
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
-
-const Spotify = ({
-  link,
+const AlbumPreview = ({
+  apiUrl,
   style = {},
   wide = false,
   width = wide ? '100%' : 300,
@@ -35,20 +11,44 @@ const Spotify = ({
   allow = 'encrypted-media',
   ...props
 }) => {
-  const url = new URL(link);
+  const [spotifyUrl, setSpotifyUrl] = useState('');
+
+  useEffect(() => {
+    // regular expression pattern to extract the album ID from the API URL
+    const regexPattern = /\/albums\/([a-zA-Z0-9]+)/;
+    //  extract the album ID
+    const match = apiUrl.match(regexPattern);
+    if (!match) {
+      // if URL doesn't match the expected format
+      console.error('Invalid API URL');
+      return;
+    }
+    //extract the album id
+    const albumId = match[1];
+    //  Spotify album URL
+    const spotifyAlbumUrl = `https://open.spotify.com/embed/album/${albumId}`;
+    setSpotifyUrl(spotifyAlbumUrl);
+  }, [apiUrl]);
+
   return (
-    <iframe
-      title="Spotify Web Player"
-      src={`https://open.spotify.com/${url.pathname}`}
-      width={width}
-      height={height}
-      allow={allow}
-      style={{
-        borderRadius: 8,
-        ...style,
-      }}
-      {...props}
-    />
+    <Card variant="outlined">
+      <CardContent>
+        <Typography variant="h6" component="div">
+          Album Preview
+        </Typography>
+        <div style={{ marginTop: '1rem' }}>
+          <iframe
+            title="Spotify Web Player"
+            src={spotifyUrl}
+            width={width}
+            height={height}
+            frameBorder={frameBorder}
+            style={{ borderRadius: 8, ...style }}
+            {...props}
+          />
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

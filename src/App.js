@@ -11,6 +11,7 @@ import AlbumsList from './components/AlbumsList';
 function App() {
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
+
   return (
     <>
       <Navbar />

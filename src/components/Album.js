@@ -1,14 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-<<<<<<< HEAD
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-=======
 import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
->>>>>>> a43f9e1c218ecdedd0de2b3442748743e6534731
 
 function Album({ album }) {
   const [openDialog, setOpenDialog] = useState(false);
@@ -26,7 +23,11 @@ function Album({ album }) {
       <div className="album-item">
         {/* Image as a Button */}
         <Button onClick={handleOpenDialog} className="album-image-button">
-          <img src={album.image} alt={album.albumName} className="album-image" />
+          <img
+            src={album.image}
+            alt={album.albumName}
+            className="album-image"
+          />
         </Button>
         <p className="album-title">{album.albumName}</p>
         <p className="album-artist">{album.artistName}</p>
@@ -54,7 +55,9 @@ function Album({ album }) {
           <DialogContentText>
             {/* You can customize the content here */}
             <div>
-              <div>Release Date: {new Date(album.releaseDate).toLocaleDateString()}</div>
+              <div>
+                Release Date: {new Date(album.releaseDate).toLocaleDateString()}
+              </div>
               <div>Average Rating: {album.averageRating}</div>
             </div>
           </DialogContentText>
@@ -63,6 +66,5 @@ function Album({ album }) {
     </Grid>
   );
 }
-
 
 export default Album;

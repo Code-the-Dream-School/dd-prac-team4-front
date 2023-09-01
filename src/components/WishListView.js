@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AlbumGrid from './AlbumGrid';
+import axiosInstance from '../apis/axiosClient';
 
 const WishListView = () => {
   const [wishList, setWishList] = useState([]);
@@ -11,7 +12,7 @@ const WishListView = () => {
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const response = await axios.get(`${envPath}/wishlist`);
+        const response = await axiosInstance.post(`/wishlist/`); //use axiosInstance to send cookie token with request
         setWishlist(response.data.albums);
       } catch (error) {
         console.error('Error fetching wishlist:', error);
@@ -33,7 +34,6 @@ const WishListView = () => {
     }
   };
 
-  console.log('wishlist  ' + wishList);
   return (
     <AlbumGrid
       albums={wishList}

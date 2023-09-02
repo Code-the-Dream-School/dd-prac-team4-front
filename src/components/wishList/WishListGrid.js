@@ -1,13 +1,12 @@
 import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
-import Album from './Album';
-import './AlbumGrid.css';
+import WishList from './WishList';
 
-function AlbumGrid({ albums, isInWishlist, onRemoveFromWishlist }) {
+function WishListGrid({ wishList, onRemoveFromWishlist }) {
   return (
     <Grid container spacing={2}>
-      {albums.map((album) => (
-        <Album
+      {wishList.map((album) => (
+        <WishList
           key={album._id}
           album={album}
           isInWishlist={isInWishlist}
@@ -18,4 +17,4 @@ function AlbumGrid({ albums, isInWishlist, onRemoveFromWishlist }) {
   );
 }
 
-export default AlbumGrid;
+export default WishListGrid;

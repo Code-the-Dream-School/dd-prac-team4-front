@@ -32,9 +32,6 @@ function Album({ album, isInWishlist, onRemoveFromWishlist }) {
         <p className="album-title">{album.albumName}</p>
         <p className="album-artist">{album.artistName}</p>
         <div className="button-container">
-          {/* <Button variant="contained" color="primary" className="buy-button">
-            Buy
-          </Button> */}
           {/*AddToCartButton component */}
           <AddToCartButton album={album} />
 

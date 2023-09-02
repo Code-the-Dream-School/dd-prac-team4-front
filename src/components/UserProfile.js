@@ -18,7 +18,7 @@ export default function PersonalProfile() {
   const [userData, setUserData] = useState({
     name: 'John',
     email: 'john@hotmail.com',
-    bio: 'hello',
+    password: 'hello',
   });
 
   // useEffect(() => {
@@ -66,8 +66,8 @@ export default function PersonalProfile() {
               <TableCell>{userData?.email}</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>BIO</TableCell>
-              <TableCell>{userData?.bio}</TableCell>
+              <TableCell>Password</TableCell>
+              <TableCell>{userData?.password}</TableCell>
             </TableRow>
           </tbody>
         </Table>

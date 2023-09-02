@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import Logout from './Logout';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 

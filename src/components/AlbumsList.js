@@ -140,7 +140,7 @@ const AlbumsList = () => {
       </Grid>
 
       {albums.length > 0 ? (
-        <AlbumGrid albums={albums} isInWishlist={false} />
+        <AlbumGrid albums={albums} />
       ) : (
         <Box
           sx={{

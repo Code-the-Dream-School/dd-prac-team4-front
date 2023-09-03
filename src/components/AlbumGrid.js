@@ -3,16 +3,11 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Album from './Album';
 import './AlbumGrid.css';
 
-function AlbumGrid({ albums, isInWishlist, onRemoveFromWishlist }) {
+function AlbumGrid({ albums, isInWishlist }) {
   return (
     <Grid container spacing={2}>
       {albums.map((album) => (
-        <Album
-          key={album._id}
-          album={album}
-          isInWishlist={isInWishlist}
-          onRemoveFromWishlist={onRemoveFromWishlist}
-        />
+        <Album key={album._id} album={album} isInWishlist={isInWishlist} />
       ))}
     </Grid>
   );

@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
 
-function Album({ album, isInWishlist, onRemoveFromWishlist }) {
+function Album({ album, isInWishlist }) {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleOpenDialog = () => {
@@ -45,11 +45,7 @@ function Album({ album, isInWishlist, onRemoveFromWishlist }) {
               Wishlist
             </Button>
           ) : (
-            <Button
-              variant="outlined"
-              color="secondary"
-              onClick={() => onRemoveFromWishlist(album.id)}
-            >
+            <Button variant="outlined" color="secondary">
               Remove from Wishlist
             </Button>
           )}

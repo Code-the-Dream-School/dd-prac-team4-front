@@ -13,21 +13,22 @@ const stripePromise = loadStripe(
 );
 //Temporary variables for testing
 //const paymentAmount = 1099; // This is $10.99 payment amount(added for testing) This amount variable should came from cart
-const album = '64d2a94c793389a43fc5a8d6';
-const quantity = 1;
-const subtotal = 100.0;
-const tax = 0.4;
-const total = 140.0;
+const album = '64f0ea30375f230a5e1832bb';
+const quantity = 5;
+const subtotal = 500.0;
+const tax = 0.15;
+const total = 550.0;
 
 const CheckoutPage = (/*{ album, quantity, subtotal, tax, total}*/) => {
   const [clientSecret, setClientSecret] = useState('');
+  const [order, setOrder] = useState('');
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          'http://localhost:8000/api/v1/orders',
+          `${process.env.REACT_APP_API_BASE_PATH}/orders`,
           {
             orderItems: [{ album, quantity }],
             subtotal,
@@ -41,6 +42,7 @@ const CheckoutPage = (/*{ album, quantity, subtotal, tax, total}*/) => {
         );
 
         setClientSecret(response.data.clientSecret);
+        setOrder(response.data.order);
       } catch (error) {
         // Handle error here
         console.error('Error fetching data:', error);
@@ -64,7 +66,7 @@ const CheckoutPage = (/*{ album, quantity, subtotal, tax, total}*/) => {
         {clientSecret && (
           <>
             <Elements options={options} stripe={stripePromise}>
-              <CheckoutForm paymentAmount={subtotal} />
+              <CheckoutForm paymentAmount={subtotal} order={order} />
             </Elements>
           </>
         )}

@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
+
 import {
   Container,
   TextField,
@@ -29,7 +30,7 @@ const AlbumsList = () => {
   const fetchAlbums = async (searchType, searchTerm, limit) => {
     try {
       const response = await axios.get(
-        'http://localhost:8000/api/v1/albums/filter',
+        `${process.env.REACT_APP_API_BASE_PATH}/albums/filter`,
         {
           params: {
             limit,

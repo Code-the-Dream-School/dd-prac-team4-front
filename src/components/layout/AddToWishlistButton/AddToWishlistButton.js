@@ -4,8 +4,7 @@ import axiosInstance from '../../../apis/axiosClient'; // axios instance
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import { useNavigate } from 'react-router-dom';
 
-const apiBaseURL = process.env.REACT_APP_API_BASE_PATH;
-const wishlistEndpoint = `${apiBaseURL}/wishlist`;
+const wishlistEndpoint = '/wishlist';
 
 const AddToWishlistButton = ({ album }) => {
   const [isAdded, setIsAdded] = useState(false);

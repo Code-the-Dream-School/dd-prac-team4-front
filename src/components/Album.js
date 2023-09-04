@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
+import AddToWishlistButton from './layout/AddToWishlistButton/AddToWishlistButton';
 
 function Album({ album }) {
   const [openDialog, setOpenDialog] = useState(false);
@@ -38,13 +39,15 @@ function Album({ album }) {
           {/*AddToCartButton component */}
           <AddToCartButton album={album} />
 
-          <Button
+          {/* <Button
             variant="contained"
             color="secondary"
             className="wishlist-button"
           >
             Wishlist
-          </Button>
+          </Button> */}
+          {/*AddToCartButton component */}
+          <AddToWishlistButton album={album} />
         </div>
       </div>
 

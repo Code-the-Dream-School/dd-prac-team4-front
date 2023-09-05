@@ -2,16 +2,13 @@
   display: flex;
   justify-content: center;
   height: 80vh;
+  margin-top: 3rem;
 }
 
 .paper {
   padding: 1.5rem;
 }
 
-.leftPaper {
-  box-shadow: none !important;
-  min-height: 50vh;
-}
 .rightPaper {
   min-height: 50vh;
   box-shadow:

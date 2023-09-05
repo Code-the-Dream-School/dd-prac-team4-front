@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
+import AddToWishlistButton from './layout/AddToWishlistButton/AddToWishlistButton';
 
 function Album({ album }) {
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   return (
     <Grid item xs={12} sm={6} md={4}>
       <div className="album-item">
-        <img src={album.image} alt={album.albumName} className="album-image" />
+        {/* Image as a Button */}
+        <Button onClick={handleOpenDialog} className="album-image-button">
+          <img
+            src={album.image}
+            alt={album.albumName}
+            className="album-image"
+          />
+        </Button>
         <p className="album-title">{album.albumName}</p>
         <p className="album-artist">{album.artistName}</p>
         <div className="button-container">
@@ -17,15 +39,33 @@ function Album({ album }) {
           {/*AddToCartButton component */}
           <AddToCartButton album={album} />
 
-          <Button
+          {/* <Button
             variant="contained"
             color="secondary"
             className="wishlist-button"
           >
             Wishlist
-          </Button>
+          </Button> */}
+          {/*AddToCartButton component */}
+          <AddToWishlistButton album={album} />
         </div>
       </div>
+
+      {/* Dialog */}
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>{album.albumName}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {/* You can customize the content here */}
+            <div>
+              <div>
+                Release Date: {new Date(album.releaseDate).toLocaleDateString()}
+              </div>
+              <div>Average Rating: {album.averageRating}</div>
+            </div>
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
     </Grid>
   );
 }

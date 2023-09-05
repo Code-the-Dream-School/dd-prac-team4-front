@@ -22,6 +22,9 @@ const Navbar = () => {
             <Button color="inherit" component={Link} to="/register">
               Signup
             </Button>
+            <Button color="inherit" component={Link} to="/wishlist">
+              Wishlist
+            </Button>
           </>
         )}
         <Button color="inherit" component={Link} to="/home">
@@ -35,3 +38,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

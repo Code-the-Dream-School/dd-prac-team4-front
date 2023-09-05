@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import CheckoutPage from './components/Purchase/CheckoutPage';
 import AlbumsList from './components/AlbumsList';
+import Wishlist from './components/Wishlist';
 
 function App() {
   const { status } = useAuth();
@@ -24,6 +25,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/albumslist" element={<AlbumsList />} />
+        <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
     </>
   );

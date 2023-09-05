@@ -16,24 +16,6 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useLogin } from '@akosasante/react-auth-context';
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 export default function SignIn() {
   const [formData, setFormData] = useState({
     email: '',
@@ -46,10 +28,13 @@ export default function SignIn() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  //create and instance to navigate user
   const navigate = useNavigate();
+  //env path for API request
+  const envPath = process.env.REACT_APP_API_BASE_PATH;
 
   // snackbar
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -72,13 +57,9 @@ export default function SignIn() {
   // end of snackbar
 
   // user authentication
-  const [loginError, setLoginError] = React.useState(false);
-  let errorMessage = '';
 
   // error handler function
   const handleLoginError = (error) => {
-    setLoginError(true);
-    errorMessage = error.msg;
     console.error(error);
   };
   const getUserFromResponse = (responseData) => {
@@ -87,7 +68,7 @@ export default function SignIn() {
 
   // initial options needed for useLogin hook
   const loginHookOptions = {
-    apiUrl: 'http://localhost:8000/api/v1/auth/login',
+    apiUrl: `${envPath}/auth/login`,
     errorHandler: handleLoginError,
     getUserFromResponse,
     getJwtTokenFromResponse: false,
@@ -103,7 +84,6 @@ export default function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoginError(false); // Reset login error state
     const originalResponse = await signIn();
     console.dir(originalResponse);
     //navigate to home page only if credential is correct
@@ -128,16 +108,6 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        {/* display snackbar if any error happened during user login */}
-
-        <Snackbar
-          open={open}
-          autoHideDuration={6000}
-          onClose={handleClose}
-          message={errorMessage}
-          action={action}
-        />
-
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -189,15 +159,13 @@ export default function SignIn() {
         </Box>
       </Box>
       {/* useLogin hook errors */}
-      {errors && (
-        <Snackbar
-          open={open}
-          autoHideDuration={6000}
-          onClose={handleClose}
-          message={errors.msg} // Use the error message from the errors object
-          action={action}
-        />
-      )}
+      <Snackbar
+        open={!!errors}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={errors?.msg} // Use the error message from the errors object
+        action={action}
+      />
     </Container>
   );
 }

@@ -35,7 +35,10 @@ const UserRegistration = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  //create and instance to navigate user
   const navigate = useNavigate();
+  //env path for API request
+  const envPath = process.env.REACT_APP_API_BASE_PATH;
 
   // snackbar
   const [open, setOpen] = React.useState(true);
@@ -77,7 +80,7 @@ const UserRegistration = () => {
   };
   // initial options needed for useRegister hook
   const registerHookOptions = {
-    apiUrl: 'http://localhost:8000/api/v1/auth/register',
+    apiUrl: `${envPath}/auth/register`,
     errorHandler: handleSignupError,
     getUserFromResponse,
     getJwtTokenFromResponse: false, // our JWT is stored directly in the HTTP-only cookie, not in the response

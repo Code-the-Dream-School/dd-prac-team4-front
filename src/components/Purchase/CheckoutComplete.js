@@ -35,7 +35,7 @@ const CheckoutComplete = () => {
       } catch (error) {
         setIsLoading(false);
         setErrorMessage(
-          `An error occurred during loading order details with id ${id}. ${error.message}`
+          `An error occurred during loading order details with id ${id}. ${error.message}. ${error.request.responseText}.`
         );
       }
     };
@@ -65,38 +65,50 @@ const CheckoutComplete = () => {
 
           <Grid item xs={12} sm={6}>
             <Paper className={`${style.paper} ${style.rightPaper}`}>
-              {isLoading ? (
-                <Loader className="small-spinner" />
-              ) : errorMessage !== '' ? (
-                <Typography variant="h6">{errorMessage}</Typography>
-              ) : isPaymentSuccessful ? (
-                <>
-                  <Box mt="2rem">
-                    <Typography variant="h4">Order Details:</Typography>
-                  </Box>
-                  <Box mt="2rem">
-                    <Typography variant="h6">
-                      Order ID: {orderData._id}
-                    </Typography>
-                    {orderData.orderItems.map((item, index) => (
-                      <div key={index}>
-                        <Typography>Album ID: {item.album}</Typography>
-                        <Typography>Quantity: {item.quantity}</Typography>
-                      </div>
-                    ))}
-                  </Box>
-                  <Box mt="2rem">
-                    <Typography>Subtotal: ${orderData.subtotal}</Typography>
-                    <Typography>Tax: {orderData.tax}</Typography>
-                    <Typography variant="h6">
-                      Total: ${orderData.total}
-                    </Typography>
-                  </Box>
-                </>
-              ) : (
+              {!isPaymentSuccessful && (
                 <Typography variant="h6">
                   Payment was unsuccessful! Sorry for the inconvenience.
                 </Typography>
+              )}
+
+              {isPaymentSuccessful && (
+                <>
+                  {isLoading && <Loader className="small-spinner" />}
+                  {!isLoading && errorMessage && (
+                    <>
+                      <Box mt="2rem">
+                        <Typography variant="h5" style={{ color: 'red' }}>
+                          {errorMessage}
+                        </Typography>{' '}
+                      </Box>
+                    </>
+                  )}
+                  {!isLoading && !errorMessage && (
+                    <>
+                      <Box mt="2rem">
+                        <Typography variant="h4">Order Details:</Typography>
+                      </Box>
+                      <Box mt="2rem">
+                        <Typography variant="h6">
+                          Order ID: {orderData._id}
+                        </Typography>
+                        {orderData.orderItems.map((item, index) => (
+                          <div key={index}>
+                            <Typography>Album ID: {item.album}</Typography>
+                            <Typography>Quantity: {item.quantity}</Typography>
+                          </div>
+                        ))}
+                      </Box>
+                      <Box mt="2rem">
+                        <Typography>Subtotal: ${orderData.subtotal}</Typography>
+                        <Typography>Tax: {orderData.tax}</Typography>
+                        <Typography variant="h6">
+                          Total: ${orderData.total}
+                        </Typography>
+                      </Box>
+                    </>
+                  )}
+                </>
               )}
             </Paper>
           </Grid>

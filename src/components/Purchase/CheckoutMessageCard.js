@@ -49,13 +49,19 @@ const CheckoutMessageCard = ({
         ) : isPaymentSuccessful ? (
           <>
             <Box mt="2rem">
-              <Typography variant="h8">
-                {`Your order of ${totalItemsPurchased} ${
-                  totalItemsPurchased === 1 ? 'album' : 'albums'
-                } has been completed.`}
-                <br />
-                {`A confirmation email was sent to ${userEmail}`}
-              </Typography>
+              {totalItemsPurchased > 0 ? (
+                <Typography variant="h8">
+                  {`Your order of ${totalItemsPurchased} ${
+                    totalItemsPurchased === 1 ? 'album' : 'albums'
+                  } has been completed.`}
+                  <br />
+                  {`A confirmation email was sent to ${userEmail}`}
+                </Typography>
+              ) : (
+                <Typography variant="h8">
+                  Sorry. Something went wrong. We can't display order details.
+                </Typography>
+              )}
             </Box>
             <Box mt="2rem">
               <NavigateButton

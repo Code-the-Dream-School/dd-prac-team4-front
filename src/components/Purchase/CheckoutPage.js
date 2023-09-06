@@ -21,34 +21,39 @@ const total = 140.0;
 
 const CheckoutPage = (/*{ album, quantity, subtotal, tax, total}*/) => {
   const [clientSecret, setClientSecret] = useState('');
+  const [orderData, setOrderData] = useState(null);
 
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(
-          'http://localhost:8000/api/v1/orders',
-          {
-            orderItems: [{ album, quantity }],
-            subtotal,
-            tax,
-            total,
-          },
-          {
-            withCredentials: true,
-            headers: { 'Content-Type': 'application/json' },
-          }
-        );
+    // Extract order data from navigation.state
+    const { orderData } = history.location.state;
+    if (orderData) {
+      setOrderData(orderData);
+      // Create PaymentIntent as soon as the page loads
+      const fetchData = async () => {
+        try {
+          const response = await axios.post(
+            `${process.env.REACT_APP_API_BASE_PATH}/orders`,
+            {
+              orderItems: orderData.orderItems, // Use order data received from state
+              subtotal: orderData.subtotal,
+              tax: orderData.tax,
+              total: orderData.total,
+            },
+            {
+              withCredentials: true,
+              headers: { 'Content-Type': 'application/json' },
+            }
+          );
 
-        setClientSecret(response.data.clientSecret);
-      } catch (error) {
-        // Handle error here
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, [subtotal, album, quantity, tax, total, setClientSecret]);
+          setClientSecret(response.data.clientSecret);
+        } catch (error) {
+          // Handle error here
+          console.error('Error fetching data:', error);
+        }
+      };
+      fetchData();
+    }
+  }, [setClientSecret]);
 
   const appearance = {
     theme: 'stripe',

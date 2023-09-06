@@ -4,6 +4,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import style from './CheckoutPage.module.css';
 import CheckoutForm from './CheckoutForm';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -22,10 +23,11 @@ const total = 140.0;
 const CheckoutPage = (/*{ album, quantity, subtotal, tax, total}*/) => {
   const [clientSecret, setClientSecret] = useState('');
   const [orderData, setOrderData] = useState(null);
-
+  const location = useLocation();
   useEffect(() => {
     // Extract order data from navigation.state
-    const { orderData } = history.location.state;
+    const { orderData } = location.state || {};
+
     if (orderData) {
       setOrderData(orderData);
       // Create PaymentIntent as soon as the page loads

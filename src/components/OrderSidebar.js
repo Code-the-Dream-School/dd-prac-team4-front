@@ -23,31 +23,24 @@ const OrderSidebar = () => {
   // values come from Redux store
   const itemsInCart = useSelector((state) => state.cart);
   const subtotal = useSelector((state) => state.cart.subtotal); //total price of all items
-  const tax = useSelector((state) => state.cart.tax) * 100;
+  const tax = useSelector((state) => state.cart.tax);
   const total = useSelector((state) => state.cart.totalAmount); //total amount after tax
 
-  const handleCheckout = async () => {
-    try {
-      const response = await axios.post(`${envPath}/orders`);
-      const clientSecret = response.data.clientSecret;
-      // Create the order data object
-      const orderData = {
-        orderItems: Object.values(itemsInCart.items).map((item) => ({
-          album: item.album.id,
-          quantity: item.quantity,
-        })),
-        subtotal,
-        tax,
-        total,
-        clientSecret,
-      };
-      //clear the cart
-      dispatch(clearCart());
-      //navigate to checkout page
-      navigate('/checkout', { state: { orderData } });
-    } catch (error) {
-      console.error('Error creating order:', error);
-    }
+  const handleCheckout = () => {
+    // Create the order data object
+    const orderData = {
+      orderItems: Object.values(itemsInCart.items).map((item) => ({
+        album: item.album.id,
+        quantity: item.quantity,
+      })),
+      subtotal,
+      tax,
+      total,
+    };
+    //clear the cart
+    dispatch(clearCart());
+    //navigate to checkout page
+    navigate('/checkout', { state: { orderData } });
   };
 
   return (

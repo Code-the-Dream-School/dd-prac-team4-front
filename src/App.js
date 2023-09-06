@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import UserRegistration from './components/UserRegistration';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
@@ -6,11 +6,12 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import CheckoutPage from './components/Purchase/CheckoutPage';
-import AlbumsList from './components/AlbumsList';
+import UserProfile from './components/UserProfile';
 
 function App() {
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
+
   return (
     <>
       <Navbar />
@@ -23,7 +24,7 @@ function App() {
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/albumslist" element={<AlbumsList />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </>
   );

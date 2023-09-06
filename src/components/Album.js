@@ -43,9 +43,7 @@ function Album({ album }) {
         <AlbumImage src={album.image} alt={album.albumName} />
       </Button>
       <Tooltip title={album.albumName} arrow>
-        <AlbumTitle>
-          {album.albumName}
-        </AlbumTitle>
+        <AlbumTitle>{album.albumName}</AlbumTitle>
       </Tooltip>
       <p className="album-artist">{album.artistName}</p>
       <div className="button-container">
@@ -66,7 +64,9 @@ function Album({ album }) {
           <DialogContentText>
             {/* You can customize the content here */}
             <div>
-              <div>Release Date: {new Date(album.releaseDate).toLocaleDateString()}</div>
+              <div>
+                Release Date: {new Date(album.releaseDate).toLocaleDateString()}
+              </div>
               <div>Average Rating: {album.averageRating}</div>
             </div>
           </DialogContentText>
@@ -77,4 +77,3 @@ function Album({ album }) {
 }
 
 export default Album;
-

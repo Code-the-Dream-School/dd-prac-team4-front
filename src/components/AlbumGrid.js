@@ -15,6 +15,3 @@ function AlbumGrid({ albums }) {
 }
 
 export default AlbumGrid;
-
-
-

@@ -65,16 +65,15 @@ const CheckoutComplete = () => {
 
           <Grid item xs={12} sm={6}>
             <Paper className={`${style.paper} ${style.rightPaper}`}>
-              {!isPaymentSuccessful && (
-                <Typography variant="h6">
-                  Payment was unsuccessful! Sorry for the inconvenience.
-                </Typography>
-              )}
-
-              {isPaymentSuccessful && (
+              {isLoading && <Loader className="small-spinner" />}
+              {!isLoading && (
                 <>
-                  {isLoading && <Loader className="small-spinner" />}
-                  {!isLoading && errorMessage && (
+                  {!isPaymentSuccessful && (
+                    <Typography variant="h6">
+                      Payment was unsuccessful! Sorry for the inconvenience.
+                    </Typography>
+                  )}
+                  {errorMessage && (
                     <>
                       <Box mt="2rem">
                         <Typography variant="h5" style={{ color: 'red' }}>
@@ -83,7 +82,7 @@ const CheckoutComplete = () => {
                       </Box>
                     </>
                   )}
-                  {!isLoading && !errorMessage && (
+                  {isPaymentSuccessful && !errorMessage && (
                     <>
                       <Box mt="2rem">
                         <Typography variant="h4">Order Details:</Typography>

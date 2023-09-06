@@ -57,53 +57,54 @@ function Album({ album }) {
         >
           Wishlist
         </Button>
-        </div>
-    <Grid item xs={12} sm={6} md={4}>
-      <div className="album-item">
-        {/* Image as a Button */}
-        <Button onClick={handleOpenDialog} className="album-image-button">
-          <img
-            src={album.image}
-            alt={album.albumName}
-            className="album-image"
-          />
-        </Button>
-        <p className="album-title">{album.albumName}</p>
-        <p className="album-artist">{album.artistName}</p>
-        <div className="button-container">
-          {/* <Button variant="contained" color="primary" className="buy-button">
+      </div>
+      <Grid item xs={12} sm={6} md={4}>
+        <div className="album-item">
+          {/* Image as a Button */}
+          <Button onClick={handleOpenDialog} className="album-image-button">
+            <img
+              src={album.image}
+              alt={album.albumName}
+              className="album-image"
+            />
+          </Button>
+          <p className="album-title">{album.albumName}</p>
+          <p className="album-artist">{album.artistName}</p>
+          <div className="button-container">
+            {/* <Button variant="contained" color="primary" className="buy-button">
             Buy
           </Button> */}
-          {/*AddToCartButton component */}
-          <AddToCartButton album={album} />
+            {/*AddToCartButton component */}
+            <AddToCartButton album={album} />
 
-          {/* <Button
+            {/* <Button
             variant="contained"
             color="secondary"
             className="wishlist-button"
           >
             Wishlist
           </Button> */}
-          {/*AddToCartButton component */}
-          <AddToWishlistButton album={album} />
+            {/*AddToCartButton component */}
+            <AddToWishlistButton album={album} />
+          </div>
         </div>
-      </div>
 
-      {/* Dialog */}
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>{album.albumName}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {/* You can customize the content here */}
-            <div>
+        {/* Dialog */}
+        <Dialog open={openDialog} onClose={handleCloseDialog}>
+          <DialogTitle>{album.albumName}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              {/* You can customize the content here */}
               <div>
-                Release Date: {new Date(album.releaseDate).toLocaleDateString()}
+                <div>
+                  Release Date:{' '}
+                  {new Date(album.releaseDate).toLocaleDateString()}
+                </div>
+                <div>Average Rating: {album.averageRating}</div>
               </div>
-              <div>Average Rating: {album.averageRating}</div>
-            </div>
-          </DialogContentText>
-        </DialogContent>
-      </Dialog>
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
       </Grid>
     </AlbumItemWrapper>
   );

@@ -57,6 +57,7 @@ function Album({ album }) {
         >
           Wishlist
         </Button>
+        </div>
     <Grid item xs={12} sm={6} md={4}>
       <div className="album-item">
         {/* Image as a Button */}
@@ -103,6 +104,7 @@ function Album({ album }) {
           </DialogContentText>
         </DialogContent>
       </Dialog>
+      </Grid>
     </AlbumItemWrapper>
   );
 }

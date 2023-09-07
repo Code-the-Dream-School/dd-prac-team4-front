@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom'; // You can use react-router-dom for handling links
+import { Link } from 'react-router-dom';
 import Logout from './Logout';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 
@@ -28,7 +28,14 @@ const Navbar = () => {
           Home
         </Button>
         {/*only if user is logged in can see the logout button  */}
-        {isLoggedIn && <Logout />}
+        {isLoggedIn && (
+          <>
+            <Button color="inherit" component={Link} to="/profile">
+              Profile
+            </Button>
+            <Logout />
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );

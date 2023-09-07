@@ -48,7 +48,7 @@ const CheckoutPage = (/*{ album, quantity, subtotal, tax, total}*/) => {
     };
 
     fetchData();
-  }, [subtotal, album, quantity, tax, total, setClientSecret]);
+  }, [setClientSecret]);
 
   const appearance = {
     theme: 'stripe',

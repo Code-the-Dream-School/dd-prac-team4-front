@@ -1,21 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Button,
-  Card,
-  CardContent,
-  CardActions,
-  Table,
-  TableRow,
-  TableCell,
-  getImageListItemBarUtilityClass,
-} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Card, CardContent, Table, TableRow, TableCell } from '@mui/material';
+// import { useNavigate } from 'react-router-dom';
 // import { getUserProfile } from './api';
 import { Avatar } from '@mui/material';
 
 export default function PersonalProfile() {
-  const navigate = useNavigate();
-  const [userData, setUserData] = useState({
+  const [userData, _setUserData] = useState({
     name: 'John',
     email: 'john@hotmail.com',
     password: 'hello',

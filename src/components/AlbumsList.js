@@ -16,6 +16,7 @@ import {
   Typography,
   Box,
   Grid,
+  Tooltip,
 } from '@mui/material';
 
 const AlbumsList = () => {
@@ -140,7 +141,7 @@ const AlbumsList = () => {
       </Grid>
 
       {albums.length > 0 ? (
-        <AlbumGrid albums={albums} />
+        <AlbumGrid albums={albums} wishListId={0} />
       ) : (
         <Box
           sx={{

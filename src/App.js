@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import UserRegistration from './components/UserRegistration';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import CheckoutPage from './components/Purchase/CheckoutPage';
 import WishListView from './components/wishList/WishListView';
+import UserProfile from './components/UserProfile';
 
 function App() {
   const { status } = useAuth();
@@ -25,6 +26,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/wishlist" element={<WishListView />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </>
   );

@@ -1,10 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
+// import { Button } from 'reactstrap';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import UserProfile from './components/UserProfile'; // Import the UserProfile component
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { makeServer } from './util/mirageServer'; //mocking backend server
 import { AuthProvider } from '@akosasante/react-auth-context';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';

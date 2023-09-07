@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   List,
@@ -10,8 +10,6 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { clearCart } from '../redux/shoppingCart';
-
-import axios from 'axios';
 
 const OrderSidebar = () => {
   //path to env variable
@@ -39,7 +37,7 @@ const OrderSidebar = () => {
     };
     //clear the cart
     dispatch(clearCart());
-    //navigate to checkout page
+    //navigate to checkout page and send order data as state
     navigate('/checkout', { state: { orderData } });
   };
 
@@ -71,6 +69,7 @@ const OrderSidebar = () => {
         <ListItem>
           <ListItemText
             primary={`Subtotal: ${subtotal.toLocaleString('en-US', {
+              //display the amount as string with $
               style: 'currency',
               currency: 'USD',
             })}`}

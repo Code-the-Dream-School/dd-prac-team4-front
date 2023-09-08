@@ -2,8 +2,19 @@ import React, { useState, useEffect } from 'react';
 import AlbumGrid from '../AlbumGrid';
 import axiosInstance from '../../apis/axiosClient';
 
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import { Typography } from '@mui/material';
+
+const containerStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  minHeight: '100vh',
+};
+
 const WishListView = () => {
-  const [albums, setAlbums] = useState();
+  const [albums, setAlbums] = useState([]);
   const [wishListId, setWishListId] = useState();
 
   //fetch wishlist album from API
@@ -14,22 +25,38 @@ const WishListView = () => {
         const wishlistData = response.data.wishlist;
         setWishListId(wishlistData._id); //set the state for wishlist id
         setAlbums(wishlistData.albums); //set the state for wishlist albums
-        // Store each album id from wishlist in local storage
+
+        // Store object in local storage where keys are album id and value is the whole album
+        const wishlistAlbumsToStore = {};
         wishlistData.albums.forEach((album) => {
-          localStorage.setItem(
-            `wishListAlbums-${album._id}`,
-            JSON.stringify(true)
-          );
+          wishlistAlbumsToStore[album._id] = album;
         });
+        localStorage.setItem(
+          'wishlistAlbums',
+          JSON.stringify(wishlistAlbumsToStore)
+        );
       } catch (error) {
         console.error('Error fetching wishlist:', error);
       }
     };
-
     fetchWishlist();
   }, []);
 
-  return <AlbumGrid albums={albums} wishListId={wishListId} />;
+  return (
+    <Container style={containerStyle}>
+      <Typography
+        variant="h3"
+        style={{ fontWeight: 'bold', fontStyle: 'italic', margin: '1em 0' }}
+      >
+        Wishlist
+      </Typography>
+      {albums.length === 0 ? (
+        <Typography variant="body1">No albums in your wishlist</Typography>
+      ) : (
+        <AlbumGrid albums={albums} wishListId={wishListId} />
+      )}
+    </Container>
+  );
 };
 
 export default WishListView;

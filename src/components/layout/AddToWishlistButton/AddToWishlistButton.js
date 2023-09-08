@@ -10,9 +10,12 @@ const AddToWishlistButton = ({ album, wishListId }) => {
   const navigate = useNavigate();
   const isUserLoggedIn = status === AuthStatus.LoggedIn;
 
+  const wishlistEndpoint = '/wishlist';
+
   useEffect(() => {
-    const storedAddedStatus =
-      JSON.parse(localStorage.getItem(`wishListAlbums-${album._id}`)) || false;
+    const storedWishlist =
+      JSON.parse(localStorage.getItem('wishlistAlbums')) || {};
+    const storedAddedStatus = album._id in storedWishlist;
     setIsAdded(storedAddedStatus);
   }, [album._id]);
 
@@ -21,7 +24,12 @@ const AddToWishlistButton = ({ album, wishListId }) => {
       await axiosInstance.patch(
         `${wishlistEndpoint}/${wishListId}/add_album/${album._id}`
       );
-      localStorage.setItem(`wishListAlbums-${album._id}`, JSON.stringify(true));
+      //get wishlist albums form local storage object
+      const wishlistAlbums = JSON.parse(localStorage.getItem('wishlistAlbums'));
+      //add the album id to object
+      wishlistAlbums[album._id] = album;
+      // re save the object to local storage
+      localStorage.setItem('wishlistAlbums', JSON.stringify(wishlistAlbums));
       setIsAdded(true);
     } catch (error) {
       console.error('Error adding album to wishlist:', error);
@@ -33,11 +41,15 @@ const AddToWishlistButton = ({ album, wishListId }) => {
       await axiosInstance.patch(
         `${wishlistEndpoint}/${wishListId}/remove_album/${album._id}`
       );
-      localStorage.setItem(
-        `wishListAlbums-${album._id}`,
-        JSON.stringify(false)
-      );
+      //get wishlist albums form local storage object
+      const wishlistAlbums = JSON.parse(localStorage.getItem('wishlistAlbums'));
+      //remove album id from object
+      delete wishlistAlbums[album._id];
+      //re save the object to local storage
+      localStorage.setItem('wishlistAlbums', JSON.stringify(wishlistAlbums));
       setIsAdded(false);
+      // refresh the page so that album no longer display in the page
+      navigate(0);
     } catch (error) {
       console.error('Error removing album from wishlist:', error);
     }

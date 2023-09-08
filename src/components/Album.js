@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
-import { Tooltip } from '@mui/material';
+import { ButtonGroup, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import AddToWishlistButton from './layout/AddToWishlistButton/AddToWishlistButton';
 
-const AlbumItemWrapper = styled('div')(({ theme }) => ({
+const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
   // Your styles for album item
 }));
 
@@ -26,7 +26,6 @@ const AlbumTitle = styled('h3')({
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 });
-import AddToWishlistButton from './layout/AddToWishlistButton/AddToWishlistButton';
 
 function Album({ album, wishListId }) {
   const [openDialog, setOpenDialog] = useState(false);
@@ -48,45 +47,25 @@ function Album({ album, wishListId }) {
         <AlbumTitle>{album.albumName}</AlbumTitle>
       </Tooltip>
       <p className="album-artist">{album.artistName}</p>
-      <div className="button-container">
+      <ButtonGroup>
         <AddToCartButton album={album} />
         <AddToWishlistButton album={album} wishListId={wishListId} />
-      </div>
-      <Grid item xs={12} sm={6} md={4}>
-        <div className="album-item">
-          {/* Image as a Button */}
-          <Button onClick={handleOpenDialog} className="album-image-button">
-            <img
-              src={album.image}
-              alt={album.albumName}
-              className="album-image"
-            />
-          </Button>
-          <p className="album-title">{album.albumName}</p>
-          <p className="album-artist">{album.artistName}</p>
-          <div className="button-container">
-            <AddToCartButton album={album} />
-            <AddToWishlistButton album={album} wishListId={wishListId} />
-          </div>
-        </div>
-
-        {/* Dialog */}
-        <Dialog open={openDialog} onClose={handleCloseDialog}>
-          <DialogTitle>{album.albumName}</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              {/* You can customize the content here */}
+      </ButtonGroup>
+      {/* Dialog */}
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>{album.albumName}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {/* You can customize the content here */}
+            <div>
               <div>
-                <div>
-                  Release Date:{' '}
-                  {new Date(album.releaseDate).toLocaleDateString()}
-                </div>
-                <div>Average Rating: {album.averageRating}</div>
+                Release Date: {new Date(album.releaseDate).toLocaleDateString()}
               </div>
-            </DialogContentText>
-          </DialogContent>
-        </Dialog>
-      </Grid>
+              <div>Average Rating: {album.averageRating}</div>
+            </div>
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
     </AlbumItemWrapper>
   );
 }

@@ -26,7 +26,6 @@ const AlbumsList = () => {
   const [searchTerm, setSearchTerm] = useState(''); // for search input filed value
   const [message, setMessage] = useState(''); // for not found message
   const [errorMessage, setErrorMessage] = useState(''); // for error message
-  const [wishListAlbums, setWishListAlbums] = useState();
   const [wishListId, setWishListId] = useState();
 
   //make an API call with search values to backend and return the result
@@ -65,14 +64,15 @@ const AlbumsList = () => {
         const response = await axiosInstance.post(`/wishlist/`); //use axiosInstance to send cookie token with request
         const wishlistData = response.data.wishlist;
         setWishListId(wishlistData._id);
-        setWishListAlbums(wishlistData.albums);
-        // Store each album id from wishlist in local storage
+        // Store object in local storage where keys are album id and value is the whole album
+        const wishlistAlbumsToStore = {};
         wishlistData.albums.forEach((album) => {
-          localStorage.setItem(
-            `wishListAlbums-${album._id}`,
-            JSON.stringify(true)
-          );
+          wishlistAlbumsToStore[album._id] = album;
         });
+        localStorage.setItem(
+          'wishlistAlbums',
+          JSON.stringify(wishlistAlbumsToStore)
+        );
       } catch (error) {
         console.error('Error fetching wishlist:', error);
       }
@@ -80,7 +80,7 @@ const AlbumsList = () => {
 
     fetchWishlist();
   }, []);
-  console.log('wishlist id ' + wishListId);
+
   //call the function to make API request for search input value
   const handleSearch = () => {
     fetchAlbums(searchType, searchTerm, limit);

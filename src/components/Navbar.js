@@ -34,6 +34,9 @@ const Navbar = () => {
               Profile
             </Button>
             <Logout />
+            <Button color="inherit" component={Link} to="/wishlist">
+              Wishlist
+            </Button>
           </>
         )}
       </Toolbar>

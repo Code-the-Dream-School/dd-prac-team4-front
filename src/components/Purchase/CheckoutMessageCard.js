@@ -13,7 +13,7 @@ const stripePromise = loadStripe(
 );
 
 const CheckoutMessageCard = ({
-  isLoading = { isLoading },
+  isLoading,
   clientSecret,
   totalItemsPurchased,
   updateStatus,

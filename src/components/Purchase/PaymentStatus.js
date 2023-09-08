@@ -48,7 +48,7 @@ const PaymentStatus = ({ clientSecret, updateStatus }) => {
           break;
       }
     });
-  }, [stripe]);
+  }, [stripe, clientSecret]);
 
   useEffect(() => {
     updateStatus(isSuccess);

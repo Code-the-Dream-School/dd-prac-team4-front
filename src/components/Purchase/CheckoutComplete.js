@@ -9,6 +9,7 @@ import CheckoutMessageCard from './CheckoutMessageCard';
 const ordersEndpoint = '/orders';
 
 const CheckoutComplete = () => {
+  // eslint-disable-next-line
   const [searchParams, setSearchParams] = useSearchParams();
   const clientSecret = searchParams.get('payment_intent_client_secret');
   const orderId = searchParams.get('orderId');
@@ -44,7 +45,7 @@ const CheckoutComplete = () => {
       }
     };
     orderDetails(orderId);
-  }, [clientSecret]);
+  }, [clientSecret, orderId]);
 
   // Calculate the total number of items purchased
   let totalItemsPurchased = 0;

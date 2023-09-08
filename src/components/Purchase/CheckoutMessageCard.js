@@ -20,15 +20,19 @@ const CheckoutMessageCard = ({
 }) => {
   const { user } = useAuth();
   const userEmail = user.user.email;
-  const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
+  const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(null);
 
   // Callback function to update isPaymentSuccessful
   const updatePaymentStatus = (isSuccess) => {
-    setIsPaymentSuccessful(isSuccess);
+    if (isSuccess !== null) {
+      setIsPaymentSuccessful(isSuccess);
+    }
   };
 
   useEffect(() => {
-    updateStatus(isPaymentSuccessful);
+    if (isPaymentSuccessful !== null) {
+      updateStatus(isPaymentSuccessful);
+    }
   }, [updateStatus, isPaymentSuccessful]);
 
   return (

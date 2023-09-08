@@ -17,9 +17,13 @@ const CheckoutComplete = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [orderData, setOrderData] = useState('');
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
+  const [isPaymentLoading, setIsPaymentLoading] = useState(true);
+
+  const bothLoaded = !isLoading && !isPaymentLoading;
 
   // Callback function to update isPaymentSuccessful
   const updatePaymentStatus = (isSuccess) => {
+    setIsPaymentLoading(false);
     setIsPaymentSuccessful(isSuccess);
   };
 
@@ -65,8 +69,8 @@ const CheckoutComplete = () => {
 
           <Grid item xs={12} sm={6}>
             <Paper className={`${style.paper} ${style.rightPaper}`}>
-              {isLoading && <Loader className="small-spinner" />}
-              {!isLoading && (
+              {!bothLoaded && <Loader className="small-spinner" />}
+              {bothLoaded && (
                 <>
                   {!isPaymentSuccessful && (
                     <Typography variant="h6">

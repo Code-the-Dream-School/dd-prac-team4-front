@@ -5,7 +5,7 @@ import StyledBackButton from '../layout/BackButton/StyledBackButton';
 const PaymentStatus = ({ clientSecret, updateStatus }) => {
   const stripe = useStripe();
   const [message, setMessage] = useState(null);
-  const [isSuccess, setIsSuccess] = useState(false); // New state for success status
+  const [isSuccess, setIsSuccess] = useState(null); // New state for success status
 
   useEffect(() => {
     if (!stripe) {

@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
+import axiosInstance from '../apis/axiosClient';
 
 import {
   Container,
@@ -16,7 +17,6 @@ import {
   Typography,
   Box,
   Grid,
-  Tooltip,
 } from '@mui/material';
 
 const AlbumsList = () => {
@@ -26,6 +26,8 @@ const AlbumsList = () => {
   const [searchTerm, setSearchTerm] = useState(''); // for search input filed value
   const [message, setMessage] = useState(''); // for not found message
   const [errorMessage, setErrorMessage] = useState(''); // for error message
+  const [wishListAlbums, setWishListAlbums] = useState();
+  const [wishListId, setWishListId] = useState();
 
   //make an API call with search values to backend and return the result
   const fetchAlbums = async (searchType, searchTerm, limit) => {
@@ -56,6 +58,29 @@ const AlbumsList = () => {
     fetchAlbums('albumName', '', 10);
   }, []);
 
+  //fetch wishlist album from API
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const response = await axiosInstance.post(`/wishlist/`); //use axiosInstance to send cookie token with request
+        const wishlistData = response.data.wishlist;
+        setWishListId(wishlistData._id);
+        setWishListAlbums(wishlistData.albums);
+        // Store each album id from wishlist in local storage
+        wishlistData.albums.forEach((album) => {
+          localStorage.setItem(
+            `wishListAlbums-${album._id}`,
+            JSON.stringify(true)
+          );
+        });
+      } catch (error) {
+        console.error('Error fetching wishlist:', error);
+      }
+    };
+
+    fetchWishlist();
+  }, []);
+  console.log('wishlist id ' + wishListId);
   //call the function to make API request for search input value
   const handleSearch = () => {
     fetchAlbums(searchType, searchTerm, limit);
@@ -94,7 +119,7 @@ const AlbumsList = () => {
     </React.Fragment>
   );
   //end of snackbar
-  // const url = 'https://api.spotify.com/v1/albums/3XDtRvXV5DR1xZfvcneG2C';
+
   return (
     <Container>
       {/* display snackbar if any error happened during API fetch */}
@@ -141,7 +166,7 @@ const AlbumsList = () => {
       </Grid>
 
       {albums.length > 0 ? (
-        <AlbumGrid albums={albums} wishListId={0} />
+        <AlbumGrid albums={albums} wishListId={wishListId} />
       ) : (
         <Box
           sx={{

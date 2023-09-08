@@ -50,7 +50,7 @@ function Album({ album, wishListId }) {
       <p className="album-artist">{album.artistName}</p>
       <div className="button-container">
         <AddToCartButton album={album} />
-        <AddToWishlistButton album={album} />
+        <AddToWishlistButton album={album} wishListId={wishListId} />
       </div>
       <Grid item xs={12} sm={6} md={4}>
         <div className="album-item">
@@ -66,7 +66,7 @@ function Album({ album, wishListId }) {
           <p className="album-artist">{album.artistName}</p>
           <div className="button-container">
             <AddToCartButton album={album} />
-            <AddToWishlistButton album={album} />
+            <AddToWishlistButton album={album} wishListId={wishListId} />
           </div>
         </div>
 

@@ -1,10 +1,8 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import Album from './Album';
-import { json } from 'react-router-dom';
 
 function AlbumGrid({ albums, wishListId }) {
-  console.log('album grid albums ' + JSON.stringify(albums));
   return (
     <Grid container spacing={2}>
       {albums.map((album) => (

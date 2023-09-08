@@ -11,9 +11,16 @@ const WishListView = () => {
     const fetchWishlist = async () => {
       try {
         const response = await axiosInstance.post(`/wishlist/`); //use axiosInstance to send cookie token with request
-        console.log('albums ' + JSON.stringify(response.data.wishlist));
-        setAlbums(response.data.wishlist.albums);
-        setWishListId(response.data.wishlist.id);
+        const wishlistData = response.data.wishlist;
+        setWishListId(wishlistData._id); //set the state for wishlist id
+        setAlbums(wishlistData.albums); //set the state for wishlist albums
+        // Store each album id from wishlist in local storage
+        wishlistData.albums.forEach((album) => {
+          localStorage.setItem(
+            `wishListAlbums-${album._id}`,
+            JSON.stringify(true)
+          );
+        });
       } catch (error) {
         console.error('Error fetching wishlist:', error);
       }

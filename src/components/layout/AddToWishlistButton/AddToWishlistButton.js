@@ -6,34 +6,24 @@ import { useNavigate } from 'react-router-dom';
 
 const wishlistEndpoint = '/wishlist';
 
-const AddToWishlistButton = ({ album }) => {
+const AddToWishlistButton = ({ album, wishListId }) => {
   const [isAdded, setIsAdded] = useState(false);
   const { status } = useAuth();
   const navigate = useNavigate();
   const isUserLoggedIn = status === AuthStatus.LoggedIn;
 
-  const fetchOrCreateWishlist = async () => {
-    try {
-      const response = await axiosInstance.post(wishlistEndpoint);
-      return response.data.wishlist._id; // Return the wishlist ID
-    } catch (error) {
-      console.error('Error creating wishlist:', error);
-    }
-  };
-
   useEffect(() => {
     const storedAddedStatus =
-      JSON.parse(localStorage.getItem(`addedStatus-${album._id}`)) || false;
+      JSON.parse(localStorage.getItem(`wishListAlbums-${album._id}`)) || false;
     setIsAdded(storedAddedStatus);
   }, [album._id]);
 
   const addToWishlist = async () => {
-    const wishlistId = await fetchOrCreateWishlist(); // Fetch the wishlist ID
     try {
       await axiosInstance.patch(
-        `${wishlistEndpoint}/${wishlistId}/add_album/${album._id}`
+        `${wishlistEndpoint}/${wishListId}/add_album/${album._id}`
       );
-      localStorage.setItem(`addedStatus-${album._id}`, JSON.stringify(true));
+      localStorage.setItem(`wishListAlbums-${album._id}`, JSON.stringify(true));
       setIsAdded(true);
     } catch (error) {
       console.error('Error adding album to wishlist:', error);
@@ -41,12 +31,14 @@ const AddToWishlistButton = ({ album }) => {
   };
 
   const removeFromWishlist = async () => {
-    const wishlistId = await fetchOrCreateWishlist(); // Fetch the wishlist ID
     try {
       await axiosInstance.patch(
-        `${wishlistEndpoint}/${wishlistId}/remove_album/${album._id}`
+        `${wishlistEndpoint}/${wishListId}/remove_album/${album._id}`
       );
-      localStorage.setItem(`addedStatus-${album._id}`, JSON.stringify(false));
+      localStorage.setItem(
+        `wishListAlbums-${album._id}`,
+        JSON.stringify(false)
+      );
       setIsAdded(false);
     } catch (error) {
       console.error('Error removing album from wishlist:', error);

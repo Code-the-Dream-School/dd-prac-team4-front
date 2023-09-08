@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import UserRegistration from './components/UserRegistration';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
@@ -6,7 +6,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import CheckoutPage from './components/Purchase/CheckoutPage';
-import AlbumsList from './components/AlbumsList';
+import UserProfile from './components/UserProfile';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/checkout/completed" element={<CheckoutComplete />} />
-        <Route path="/albumslist" element={<AlbumsList />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </>
   );

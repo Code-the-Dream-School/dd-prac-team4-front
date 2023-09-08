@@ -44,6 +44,7 @@ const AlbumPreview = ({
             height={height}
             frameBorder={frameBorder}
             style={{ borderRadius: 8, ...style }}
+            allow={allow}
             {...props}
           />
         </div>

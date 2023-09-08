@@ -1,5 +1,5 @@
 {
-  "extends": ["prettier"],
+  "extends": ["prettier", "react-app", "react-app/jest"],
   "env": {
     "es2022": true,
     "browser": true
@@ -11,5 +11,10 @@
     "ecmaVersion": 2023,
     "sourceType": "module"
   },
-  "rules": {}
+  "rules": {
+    "no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ]
+  }
 }

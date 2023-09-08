@@ -1,12 +1,31 @@
 import React, { useState } from 'react';
-import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
+import { ButtonGroup, Tooltip } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import AddToWishlistButton from './layout/AddToWishlistButton/AddToWishlistButton';
+
+const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
+  // Your styles for album item
+}));
+
+const AlbumImage = styled('img')({
+  width: '100%',
+  maxWidth: '200px', // Adjust this value to make the images larger
+  height: 'auto',
+  marginBottom: '10px',
+});
+
+const AlbumTitle = styled('h3')({
+  fontWeight: 'bold',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
 
 function Album({ album }) {
   const [openDialog, setOpenDialog] = useState(false);
@@ -20,37 +39,18 @@ function Album({ album }) {
   };
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
-      <div className="album-item">
-        {/* Image as a Button */}
-        <Button onClick={handleOpenDialog} className="album-image-button">
-          <img
-            src={album.image}
-            alt={album.albumName}
-            className="album-image"
-          />
-        </Button>
-        <p className="album-title">{album.albumName}</p>
-        <p className="album-artist">{album.artistName}</p>
-        <div className="button-container">
-          {/* <Button variant="contained" color="primary" className="buy-button">
-            Buy
-          </Button> */}
-          {/*AddToCartButton component */}
-          <AddToCartButton album={album} />
-
-          {/* <Button
-            variant="contained"
-            color="secondary"
-            className="wishlist-button"
-          >
-            Wishlist
-          </Button> */}
-          {/*AddToCartButton component */}
-          <AddToWishlistButton album={album} />
-        </div>
-      </div>
-
+    <AlbumItemWrapper>
+      <Button onClick={handleOpenDialog} className="album-image-button">
+        <AlbumImage src={album.image} alt={album.albumName} />
+      </Button>
+      <Tooltip title={album.albumName} arrow>
+        <AlbumTitle>{album.albumName}</AlbumTitle>
+      </Tooltip>
+      <p className="album-artist">{album.artistName}</p>
+      <ButtonGroup>
+        <AddToCartButton album={album} />
+        <AddToWishlistButton album={album} />
+      </ButtonGroup>
       {/* Dialog */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>{album.albumName}</DialogTitle>
@@ -66,7 +66,7 @@ function Album({ album }) {
           </DialogContentText>
         </DialogContent>
       </Dialog>
-    </Grid>
+    </AlbumItemWrapper>
   );
 }
 

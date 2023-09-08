@@ -1,0 +1,8 @@
+.paper {
+  padding: 1.5rem;
+}
+
+.leftPaper {
+  box-shadow: none !important;
+  min-height: 50vh;
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useStripe } from '@stripe/react-stripe-js';
 import StyledBackButton from '../layout/BackButton/StyledBackButton';
 
-const PaymentStatus = ({ clientSecret, updateStatus, isLoading }) => {
+const PaymentStatus = ({ clientSecret, updateStatus }) => {
   const stripe = useStripe();
   const [message, setMessage] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false); // New state for success status
@@ -57,25 +57,21 @@ const PaymentStatus = ({ clientSecret, updateStatus, isLoading }) => {
   return (
     <>
       <div>
-        {!isLoading && (
+        {isSuccess === true ? (
+          message
+        ) : (
           <>
-            {isSuccess === true ? (
-              message
-            ) : (
-              <>
-                {message}
-                {/* Renders a custom StyledBackButton component with a link to the payment page, 
+            {message}
+            {/* Renders a custom StyledBackButton component with a link to the payment page, 
             styled by default with a className "link-color" color, and text "Go to payment page" 
             which passed to the component as a child */}
-                <StyledBackButton
-                  linkName={'/checkout'}
-                  className={'link-color'}
-                  children
-                >
-                  <span>Go to payment page</span>
-                </StyledBackButton>
-              </>
-            )}
+            <StyledBackButton
+              linkName={'/checkout'}
+              className={'link-color'}
+              children
+            >
+              <span>Go to payment page</span>
+            </StyledBackButton>
           </>
         )}
       </div>

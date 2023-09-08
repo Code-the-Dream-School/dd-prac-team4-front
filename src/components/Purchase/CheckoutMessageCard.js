@@ -40,7 +40,6 @@ const CheckoutMessageCard = ({
               <PaymentStatus
                 clientSecret={clientSecret}
                 updateStatus={updatePaymentStatus}
-                isLoading={isLoading}
               />
             </Elements>
           </Typography>

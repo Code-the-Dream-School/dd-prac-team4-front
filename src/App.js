@@ -1,6 +1,6 @@
 import React from 'react';
 import UserRegistration from './components/user/UserRegistration';
-import SignIn from './components/SignIn';
+import SignIn from './components/userAuth/SignIn';
 import Home from './components/Home';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';

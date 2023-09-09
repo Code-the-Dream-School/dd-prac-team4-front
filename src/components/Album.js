@@ -27,7 +27,7 @@ const AlbumTitle = styled('h3')({
   whiteSpace: 'nowrap',
 });
 
-function Album({ album }) {
+function Album({ album, wishListId }) {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleOpenDialog = () => {
@@ -49,7 +49,7 @@ function Album({ album }) {
       <p className="album-artist">{album.artistName}</p>
       <ButtonGroup>
         <AddToCartButton album={album} />
-        <AddToWishlistButton album={album} />
+        <AddToWishlistButton album={album} wishListId={wishListId} />
       </ButtonGroup>
       {/* Dialog */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>

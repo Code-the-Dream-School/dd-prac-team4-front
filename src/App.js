@@ -8,6 +8,7 @@ import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import CheckoutPage from './components/Purchase/CheckoutPage';
 import UserProfile from './components/UserProfile';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
   const { status } = useAuth();
@@ -27,6 +28,7 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/checkout/completed" element={<CheckoutComplete />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
   );

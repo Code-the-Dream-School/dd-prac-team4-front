@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import AlbumGrid from '../AlbumGrid';
 import axiosInstance from '../../apis/axiosClient';
-
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
 
+//container style
 const containerStyle = {
   display: 'flex',
   flexDirection: 'column',

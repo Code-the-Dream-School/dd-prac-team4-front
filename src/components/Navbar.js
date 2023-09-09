@@ -33,10 +33,11 @@ const Navbar = () => {
             <Button color="inherit" component={Link} to="/profile">
               Profile
             </Button>
-            <Logout />
+
             <Button color="inherit" component={Link} to="/wishlist">
               Wishlist
             </Button>
+            <Logout />
           </>
         )}
       </Toolbar>

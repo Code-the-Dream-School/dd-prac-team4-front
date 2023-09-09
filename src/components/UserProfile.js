@@ -1,54 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Card,
   CardContent,
-  CardActions,
   Table,
+  TableBody, // Import TableBody
   TableRow,
   TableCell,
-  getImageListItemBarUtilityClass,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-// import { getUserProfile } from './api';
 import { Avatar } from '@mui/material';
-import axios from 'axios';
+import { useAuth } from '@akosasante/react-auth-context';
 
 export default function PersonalProfile() {
   const navigate = useNavigate();
-  const { user, status } = useAuth();
-  const [userData, setUserData] = useState(null); 
+  const { user: authUser } = useAuth();
   const [showCreditCardInfo, setShowCreditCardInfo] = useState(false);
 
-  
   const handleSeeMoreClick = () => {
     setShowCreditCardInfo(!showCreditCardInfo);
   };
 
-  useEffect(() => {
-    if (status === AuthStatus.LoggedIn) {
-
-      axios.get('http://localhost:8000/api/v1/user') 
-      .then((response) => {
-          setUserData(response.data); // Update user data in state
-        })
-        .catch((error) => {
-          // Handle errors, e.g., display an error message
-          console.error('Error fetching user data:', error);
-        });
-    }
-  }, 
-  [status]);
-
-
   return (
-    <Card className="mt-2 border-0 rounded-0 shadow-sm">
+    <Card style={{ marginTop: '2rem', border: 'none', borderRadius: '0', boxShadow: 'none' }}>
       <CardContent>
-        <h3 className="text-uppercase">My Profile</h3>
-        <div className="text-center">
+        <h3 style={{ textTransform: 'uppercase' }}>My Profile</h3>
+        <div style={{ textAlign: 'center' }}>
           <Avatar
             src={
-              userData?.profileImage?.url ||
+              authUser.user?.profileImage?.url ||
               'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp'
             }
             alt="user profile"
@@ -61,51 +41,47 @@ export default function PersonalProfile() {
             }}
           />
         </div>
-        <Table responsive striped hover className="text-center mt-5">
-        <tbody>
-  <TableRow>
-    <TableCell>USERNAME</TableCell>
-    <TableCell>{userData?.name}</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>NAME</TableCell>
-    <TableCell>{userData?.name}</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>EMAIL</TableCell>
-    <TableCell>{userData?.email}</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Password</TableCell>
-    <TableCell>{userData?.password}</TableCell>
-  </TableRow>
-  {showCreditCardInfo && (
-    <>
-      <TableRow>
-        <TableCell>Credit Card Number</TableCell>
-        <TableCell>{userData?.creditCard?.cardNumber}</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Expiration</TableCell>
-        <TableCell>{userData?.creditCard?.expiration}</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>CVV</TableCell>
-        <TableCell>{userData?.creditCard?.cvv}</TableCell>
-      </TableRow>
-    </>
-  )}
-</tbody>
+        <Table style={{ marginTop: '5rem' }}>
+          <TableBody> {/* Use TableBody */}
+            <TableRow>
+              <TableCell>USERNAME</TableCell>
+              <TableCell>{authUser.user?.name}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>NAME</TableCell>
+              <TableCell>{authUser.user?.name}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>EMAIL</TableCell>
+              <TableCell>{authUser.user?.email}</TableCell>
+            </TableRow>
+            {showCreditCardInfo && (
+              <>
+                <TableRow>
+                  <TableCell>Credit Card Number</TableCell>
+                  <TableCell>{authUser.user?.creditCard?.cardNumber}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Expiration</TableCell>
+                  <TableCell>{authUser.user?.creditCard?.expiration}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>CVV</TableCell>
+                  <TableCell>{authUser.user?.creditCard?.cvv}</TableCell>
+                </TableRow>
+              </>
+            )}
+          </TableBody>
         </Table>
         {/* Add "See More" button */}
         <Button onClick={handleSeeMoreClick} color="primary">
           {showCreditCardInfo ? 'Hide Credit Card Info' : 'See More'}
-      
-          </Button>
+        </Button>
       </CardContent>
     </Card>
   );
 }
+
 
 
 

@@ -1,32 +1,72 @@
-import React from 'react';
-import Grid from '@mui/material/Grid';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
+import { ButtonGroup, Tooltip } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import AddToWishlistButton from './layout/AddToWishlistButton/AddToWishlistButton';
 
-function Album({ album }) {
+const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
+  // Your styles for album item
+}));
+
+const AlbumImage = styled('img')({
+  width: '100%',
+  maxWidth: '200px', // Adjust this value to make the images larger
+  height: 'auto',
+  marginBottom: '10px',
+});
+
+const AlbumTitle = styled('h3')({
+  fontWeight: 'bold',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
+
+function Album({ album, wishListId }) {
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   return (
-    <Grid item xs={12} sm={6} md={4}>
-      <div className="album-item">
-        <img src={album.image} alt={album.albumName} className="album-image" />
-        <p className="album-title">{album.albumName}</p>
-        <p className="album-artist">{album.artistName}</p>
-        <div className="button-container">
-          {/* <Button variant="contained" color="primary" className="buy-button">
-            Buy
-          </Button> */}
-          {/*AddToCartButton component */}
-          <AddToCartButton album={album} />
-
-          <Button
-            variant="contained"
-            color="secondary"
-            className="wishlist-button"
-          >
-            Wishlist
-          </Button>
-        </div>
-      </div>
-    </Grid>
+    <AlbumItemWrapper>
+      <Button onClick={handleOpenDialog} className="album-image-button">
+        <AlbumImage src={album.image} alt={album.albumName} />
+      </Button>
+      <Tooltip title={album.albumName} arrow>
+        <AlbumTitle>{album.albumName}</AlbumTitle>
+      </Tooltip>
+      <p className="album-artist">{album.artistName}</p>
+      <ButtonGroup>
+        <AddToCartButton album={album} />
+        <AddToWishlistButton album={album} wishListId={wishListId} />
+      </ButtonGroup>
+      {/* Dialog */}
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>{album.albumName}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {/* You can customize the content here */}
+            <div>
+              <div>
+                Release Date: {new Date(album.releaseDate).toLocaleDateString()}
+              </div>
+              <div>Average Rating: {album.averageRating}</div>
+            </div>
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
+    </AlbumItemWrapper>
   );
 }
 

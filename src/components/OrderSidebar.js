@@ -12,17 +12,16 @@ import { useNavigate } from 'react-router-dom';
 import { clearCart } from '../redux/shoppingCart';
 
 const OrderSidebar = () => {
-  //path to env variable
-  const envPath = process.env.REACT_APP_API_BASE_PATH;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  //function to round number to 2 decimal digits
+  const roundedNumber = (num) => Math.round((num + Number.EPSILON) * 100) / 100;
   // values come from Redux store
   const itemsInCart = useSelector((state) => state.cart);
-  const subtotal = useSelector((state) => state.cart.subtotal); //total price of all items
+  const subtotal = roundedNumber(useSelector((state) => state.cart.subtotal)); //total price of all items
   const tax = useSelector((state) => state.cart.tax);
-  const total = useSelector((state) => state.cart.totalAmount); //total amount after tax
+  const total = roundedNumber(useSelector((state) => state.cart.totalAmount)); //total amount after tax
 
   const handleCheckout = () => {
     // Create the order data object
@@ -53,8 +52,8 @@ const OrderSidebar = () => {
         <Typography variant="h6">Order Summery</Typography>
         {Object.values(itemsInCart.items).map((item) => {
           return (
-            <>
-              <ListItem key={item.album.id}>
+            <React.Fragment key={item.album.id}>
+              <ListItem>
                 <ListItemText
                   primary={item.album.albumName}
                   secondary={`Artist: ${item.album.artistName}, Price: $${item.album.price}`}
@@ -63,7 +62,7 @@ const OrderSidebar = () => {
               <ListItem>
                 <ListItemText primary={`Quantity: ${item.quantity}`} />
               </ListItem>
-            </>
+            </React.Fragment>
           );
         })}
         <ListItem>
@@ -77,7 +76,8 @@ const OrderSidebar = () => {
         </ListItem>
         <ListItem>
           <ListItemText
-            primary={`Tax: ${tax.toLocaleString('en-US', {
+            // display the $ amount of tax instead of %
+            primary={`Tax: ${(tax * subtotal).toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
             })}`}

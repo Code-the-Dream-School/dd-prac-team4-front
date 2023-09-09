@@ -5,6 +5,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
 import OrderSidebar from './OrderSidebar';
+import axiosInstance from '../apis/axiosClient';
+
 import {
   Container,
   TextField,
@@ -25,12 +27,13 @@ const AlbumsList = () => {
   const [searchTerm, setSearchTerm] = useState(''); // for search input filed value
   const [message, setMessage] = useState(''); // for not found message
   const [errorMessage, setErrorMessage] = useState(''); // for error message
+  const [wishListId, setWishListId] = useState();
 
   //make an API call with search values to backend and return the result
   const fetchAlbums = async (searchType, searchTerm, limit) => {
     try {
       const response = await axios.get(
-        'http://localhost:8000/api/v1/albums/filter',
+        `${process.env.REACT_APP_API_BASE_PATH}/albums/filter`,
         {
           params: {
             limit,
@@ -53,6 +56,30 @@ const AlbumsList = () => {
   //display 10 albums when first user visit this page
   useEffect(() => {
     fetchAlbums('albumName', '', 10);
+  }, []);
+
+  //fetch wishlist album from API
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const response = await axiosInstance.post(`/wishlist/`); //use axiosInstance to send cookie token with request
+        const wishlistData = response.data.wishlist;
+        setWishListId(wishlistData._id);
+        // Store object in local storage where keys are album id and value is the whole album
+        const wishlistAlbumsToStore = {};
+        wishlistData.albums.forEach((album) => {
+          wishlistAlbumsToStore[album._id] = album;
+        });
+        localStorage.setItem(
+          'wishlistAlbums',
+          JSON.stringify(wishlistAlbumsToStore)
+        );
+      } catch (error) {
+        console.error('Error fetching wishlist:', error);
+      }
+    };
+
+    fetchWishlist();
   }, []);
 
   //call the function to make API request for search input value
@@ -139,11 +166,11 @@ const AlbumsList = () => {
           </Button>
         </Grid>
       </Grid>
-      {/* end of searchbar  */}
+      {/* end of searchbar grid */}
       <Grid container spacing={2}>
         <Grid item xs={12} md={9}>
           {albums.length > 0 ? (
-            <AlbumGrid albums={albums} />
+            <AlbumGrid albums={albums} wishListId={wishListId} />
           ) : (
             <Box
               sx={{
@@ -152,13 +179,11 @@ const AlbumsList = () => {
                 mb: '20px',
               }}
             >
-              {/* no result found message */}
               <Typography variant="h4">{message}</Typography>
             </Box>
           )}
         </Grid>
         <Grid item xs={12} md={3}>
-          {/* Display the OrderSidebar component as a sidebar */}
           <OrderSidebar />
         </Grid>
       </Grid>

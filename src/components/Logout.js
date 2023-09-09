@@ -1,6 +1,6 @@
 import { useLogout } from '@akosasante/react-auth-context';
 import { useNavigate } from 'react-router-dom';
-import { Button, Container } from '@mui/material';
+import { Button } from '@mui/material';
 
 const Logout = () => {
   // for navigate to other component
@@ -9,7 +9,7 @@ const Logout = () => {
 
   const errorHandler = (error) => console.error('Error during logout: ', error);
 
-  const { submit: signOut, loading } = useLogout({
+  const { submit: signOut } = useLogout({
     errorHandler,
     apiUrl: `${envPath}/auth/logout`,
   });

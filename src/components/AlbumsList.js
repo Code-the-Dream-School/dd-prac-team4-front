@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
 import axiosInstance from '../apis/axiosClient';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 import {
   Container,
@@ -21,41 +23,47 @@ import {
 
 const AlbumsList = () => {
   const [albums, setAlbums] = useState([]); // for albums
-  const [limit, setLimit] = useState(1); // for pagination
+  const [limit, setLimit] = useState(12); // for pagination
   const [searchType, setSearchType] = useState('albumName'); //default value for select input
   const [searchTerm, setSearchTerm] = useState(''); // for search input filed value
   const [message, setMessage] = useState(''); // for not found message
   const [errorMessage, setErrorMessage] = useState(''); // for error message
   const [wishListId, setWishListId] = useState();
+  const [currentPage, setCurrentPage] = useState(1); // Track current page
 
   //make an API call with search values to backend and return the result
-  const fetchAlbums = async (searchType, searchTerm, limit) => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_BASE_PATH}/albums/filter`,
-        {
-          params: {
-            limit,
-            [searchType]: searchTerm,
-          },
+  const fetchAlbums = useCallback(
+    async (searchType, searchTerm) => {
+      try {
+        const offset = (currentPage - 1) * limit;
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_PATH}/albums/filter`,
+          {
+            params: {
+              limit: limit,
+              [searchType]: searchTerm,
+              offset,
+            },
+          }
+        );
+        const searchResult = response.data.albums;
+        setAlbums(searchResult);
+        if (searchResult.length === 0) {
+          setMessage('No result found');
         }
-      );
-      const searchResult = response.data.albums;
-      setAlbums(searchResult);
-      if (searchResult.length === 0) {
-        setMessage('No result found');
+      } catch (error) {
+        console.error('Error fetching albums:', error);
+        setErrorMessage(error.message);
+        setOpen(true);
       }
-    } catch (error) {
-      console.error('Error fetching albums:', error);
-      setErrorMessage(error.message);
-      setOpen(true);
-    }
-  };
+    },
+    [currentPage, limit]
+  );
 
   //display 10 albums when first user visit this page
   useEffect(() => {
-    fetchAlbums('albumName', '', 10);
-  }, []);
+    fetchAlbums('albumName', '');
+  }, [fetchAlbums, currentPage]); // Refetch albums when the page changes
 
   //fetch wishlist album from API
   useEffect(() => {
@@ -119,6 +127,9 @@ const AlbumsList = () => {
     </React.Fragment>
   );
   //end of snackbar
+  const handlePageChange = (event, page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <Container>
@@ -166,13 +177,32 @@ const AlbumsList = () => {
       </Grid>
 
       {albums.length > 0 ? (
-        <AlbumGrid albums={albums} wishListId={wishListId} />
+        <>
+          <AlbumGrid albums={albums} wishListId={wishListId} />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              mt: '3rem',
+              mb: '2rem',
+            }}
+          >
+            <Stack spacing={2}>
+              <Pagination
+                count={6} // Replace with the total number of pages (on this moment we have 69 albums / 12 albums per page)
+                page={currentPage}
+                color="primary"
+                onChange={handlePageChange}
+              />
+            </Stack>
+          </Box>
+        </>
       ) : (
         <Box
           sx={{
             textAlign: 'center',
-            mt: '20px',
-            mb: '20px',
+            mt: '1.25rem',
+            mb: '1.25rem',
           }}
         >
           <Typography variant="h4">{message}</Typography>

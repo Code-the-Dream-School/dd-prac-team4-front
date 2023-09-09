@@ -3,6 +3,9 @@ import Button from '@mui/material/Button';
 import axiosInstance from '../../../apis/axiosClient'; // axios instance
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import { useNavigate } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
+import FavoriteIcon from '@mui/icons-material/Favorite'; // Heart icon
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const AddToWishlistButton = ({ album, wishListId }) => {
   const [isAdded, setIsAdded] = useState(false);
@@ -74,25 +77,21 @@ const AddToWishlistButton = ({ album, wishListId }) => {
   return (
     <>
       {isAdded ? (
-        <Button
-          variant="contained"
+        <IconButton
           color="secondary"
-          className="wishlist-button"
           aria-label="Remove from Wishlist"
           onClick={handleRemoveFromWishlist}
         >
-          Remove from Wishlist
-        </Button>
+          <FavoriteIcon />
+        </IconButton>
       ) : (
-        <Button
-          variant="contained"
+        <IconButton
           color="secondary"
-          className="wishlist-button"
           aria-label="Add to Wishlist"
           onClick={handleaddToWishlist}
         >
-          Add to Wishlist
-        </Button>
+          <FavoriteBorderIcon />
+        </IconButton>
       )}
     </>
   );

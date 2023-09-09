@@ -4,6 +4,9 @@ import { addItem, reduceItem } from '../../../redux/shoppingCart';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 
 const AddToCartButton = ({ album }) => {
   const dispatch = useDispatch();
@@ -28,15 +31,17 @@ const AddToCartButton = ({ album }) => {
   };
 
   return (
-    <Button
-      variant="contained"
+    <IconButton
       color="primary"
-      className="buy-button"
       aria-label={itemsInCart[album.id] ? 'Remove from cart' : 'Add to Cart'}
       onClick={handleAddToCart}
     >
-      {itemsInCart[album.id] ? 'Remove from Cart' : 'Add to Cart'}
-    </Button>
+      {itemsInCart[album.id] ? (
+        <RemoveShoppingCartIcon />
+      ) : (
+        <AddShoppingCartIcon />
+      )}
+    </IconButton>
   );
 };
 

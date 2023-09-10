@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem, reduceItem } from '../../../redux/shoppingCart';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
+import Tooltip from '@mui/material/IconButton';
 
 const AddToCartButton = ({ album }) => {
   const dispatch = useDispatch();
@@ -37,9 +37,13 @@ const AddToCartButton = ({ album }) => {
       onClick={handleAddToCart}
     >
       {itemsInCart[album.id] ? (
-        <RemoveShoppingCartIcon />
+        <Tooltip title="Remove from cart">
+          <RemoveShoppingCartIcon color="primary" />
+        </Tooltip>
       ) : (
-        <AddShoppingCartIcon />
+        <Tooltip title="Add to cart">
+          <AddShoppingCartIcon color="primary" />
+        </Tooltip>
       )}
     </IconButton>
   );

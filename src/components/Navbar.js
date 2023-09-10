@@ -89,31 +89,29 @@ const Navbar = () => {
                 Home
               </Button>
             </MenuItem>
-            {!isLoggedIn && (
-              <>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Button color="inherit" component={Link} to="/signIn">
-                    Login
-                  </Button>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Button color="inherit" component={Link} to="/register">
-                    Signup
-                  </Button>
-                </MenuItem>
-              </>
+            {!isLoggedIn && ([
+              <MenuItem key='login' onClick={handleCloseUserMenu}>
+                <Button color="inherit" component={Link} to="/signIn">
+                  Login
+                </Button>
+              </MenuItem>,
+              <MenuItem key='signup' onClick={handleCloseUserMenu}>
+                <Button color="inherit" component={Link} to="/register">
+                  Signup
+                </Button>
+              </MenuItem>
+              ]
             )}
-            {isLoggedIn && (
-              <>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Button color="inherit" component={Link} to="/profile">
-                    Profile
-                  </Button>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Logout />
-                </MenuItem>
-              </>
+            {isLoggedIn && ([
+              <MenuItem key='profile' onClick={handleCloseUserMenu}>
+                <Button color="inherit" component={Link} to="/profile">
+                  Profile
+                </Button>
+              </MenuItem>,
+              <MenuItem key='logout' onClick={handleCloseUserMenu}>
+                <Logout />
+              </MenuItem>
+              ]
             )}
           </Menu>
         </Box>

@@ -190,7 +190,7 @@ function Album({ album }) {
             </Box>
           </DialogTitle>
           <DialogContent>
-            <DialogContentText>
+            <div>
               {/* You can customize the content here */}
               <Box className="card-design-main">
                 <Box className="card-design">

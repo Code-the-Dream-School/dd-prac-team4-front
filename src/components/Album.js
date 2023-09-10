@@ -112,14 +112,6 @@ function Album({ album, wishListId }) {
         rating: editObj.rating,
       };
 
-      const editTest = {
-        title: editObj.title,
-        comment: editObj.comment,
-        rating: editObj.rating,
-        user: editObj.user,
-        album: editObj.album,
-      };
-
       await axiosInstance.patch(`/reviews/${editObj._id}`, editData);
 
       const data = reviewList.map((val) => {

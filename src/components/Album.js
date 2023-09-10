@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import Grid from '@mui/material/Grid';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
-import { ButtonGroup, Tooltip } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import axiosInstance from '../apis/axiosClient';
 import './Album.css';
@@ -47,11 +45,7 @@ function Album({ album, wishListId }) {
 
   const { status, user } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
-  // const { user } = useAuth;
-  // const { user } = useAuth;
-  console.log(user);
   const loginID = user?.user?._id || user.userId;
-  console.log('isLoggedIn=====', loginID);
 
   const handleOpenDialog = async () => {
     try {

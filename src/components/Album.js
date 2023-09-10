@@ -209,7 +209,7 @@ function Album({ album }) {
                 </Box>
 
                 <Typography className="title" variant="h5">
-                  Review:
+                  Reviews:
                 </Typography>
                 {reviewList.map((val) => (
                   <div className="rate-card" key={val._id}>

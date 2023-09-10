@@ -17,7 +17,7 @@ const Navbar = () => {
           style={{ height: '2.5rem', marginRight: '0.625rem' }}
         />
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Music
+          BeatBazaar
         </Typography>
         {/*when user is loggedin can not see login and signup buttons  */}
         {!isLoggedIn && (

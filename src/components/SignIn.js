@@ -160,7 +160,7 @@ export default function SignIn() {
       </Box>
       {/* useLogin hook errors */}
       <Snackbar
-        open={!!errors}
+        open={!!errors || open}
         autoHideDuration={6000}
         onClose={handleClose}
         message={errors?.msg} // Use the error message from the errors object

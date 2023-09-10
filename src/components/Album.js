@@ -6,15 +6,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
-import { Tooltip } from '@mui/material';
+import { ButtonGroup, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import axiosInstance from '../apis/axiosClient';
 import './Album.css';
 import { Box, TextField, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
+import AddToWishlistButton from './layout/AddToWishlistButton/AddToWishlistButton';
 
-const AlbumItemWrapper = styled('div')(({ theme }) => ({
+const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
   // Your styles for album item
 }));
 
@@ -31,9 +32,8 @@ const AlbumTitle = styled('h3')({
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 });
-import AddToWishlistButton from './layout/AddToWishlistButton/AddToWishlistButton';
 
-function Album({ album }) {
+function Album({ album, wishListId }) {
   const [openDialog, setOpenDialog] = useState(false);
   const [reviewList, setReviewList] = useState([]);
   const [formData, setFormData] = useState({
@@ -43,12 +43,15 @@ function Album({ album }) {
   });
   const [isEdit, setIsEdit] = useState('');
   const [editObj, setEditObj] = useState('');
-  const [loginID, setLoginID] = useState('');
+  // const [loginID, setLoginID] = useState('');
 
-  const { status } = useAuth();
+  const { status, user } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
-
-  console.log('isLoggedIn=====', isLoggedIn)
+  // const { user } = useAuth;
+  // const { user } = useAuth;
+  console.log(user);
+  const loginID = user?.user?._id || user.userId;
+  console.log('isLoggedIn=====', loginID);
 
   const handleOpenDialog = async () => {
     try {
@@ -141,9 +144,6 @@ function Album({ album }) {
     }
   };
 
-  const { user } = useAuth
-  const loginID = user?.user?.id
-
   return (
     <AlbumItemWrapper>
       <Box
@@ -164,13 +164,7 @@ function Album({ album }) {
         <Typography className="album-artist">{album.artistName}</Typography>
         <Box className="button-container">
           <AddToCartButton album={album} />
-          <Button
-            variant="contained"
-            color="secondary"
-            className="wishlist-button"
-          >
-            Wishlist
-          </Button>
+          <AddToWishlistButton album={album} wishListId={wishListId} />
         </Box>
         <Dialog
           open={openDialog}
@@ -278,31 +272,32 @@ function Album({ album }) {
                           {new Date(val.createdAt).toLocaleDateString()}
                         </Typography>
                         <Typography>{val.comment}</Typography>
-                        {isLoggedIn &&
-                        <Box sx={{ display: 'flex', gap: '10px' }}>
-                          <Button
-                            className="delete-btn btn"
-                            onClick={() => handleDeleteReview(val._id)}
-                            disabled={loginID !== val.user}
-                          >
-                            Delete
-                          </Button>
-                          <Button
-                            className="edit-btn btn"
-                            onClick={() => {
-                              setIsEdit(val._id);
-                              setEditObj(val);
-                            }}
-                            disabled={loginID !== val.user}
-                          >
-                            Edit
-                          </Button>
-                        </Box> }
+                        {isLoggedIn && (
+                          <Box sx={{ display: 'flex', gap: '10px' }}>
+                            <Button
+                              className="delete-btn btn"
+                              onClick={() => handleDeleteReview(val._id)}
+                              disabled={loginID !== val.user}
+                            >
+                              Delete
+                            </Button>
+                            <Button
+                              className="edit-btn btn"
+                              onClick={() => {
+                                setIsEdit(val._id);
+                                setEditObj(val);
+                              }}
+                              disabled={loginID !== val.user}
+                            >
+                              Edit
+                            </Button>
+                          </Box>
+                        )}
                       </>
                     )}
                   </div>
                 ))}
-                {show() && (
+                {show && (
                   <Box className="rate-card">
                     <Box className="input-main">
                       <TextField
@@ -350,7 +345,7 @@ function Album({ album }) {
                   </Box>
                 )}
               </Box>
-            </DialogContentText>
+            </div>
           </DialogContent>
         </Dialog>
       </Box>

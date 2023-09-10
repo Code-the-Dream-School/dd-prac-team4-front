@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import Logout from './Logout';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import MenuIcon from '@mui/icons-material/Menu';
-import './Navbar.css'
+import './Navbar.css';
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -63,7 +63,7 @@ const Navbar = () => {
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
-            onClick={event => setAnchorElUser(event.currentTarget)}
+            onClick={(event) => setAnchorElUser(event.currentTarget)}
             color="inherit"
           >
             <MenuIcon />
@@ -89,30 +89,31 @@ const Navbar = () => {
                 Home
               </Button>
             </MenuItem>
-            {!isLoggedIn && ([
-              <MenuItem key='login' onClick={handleCloseUserMenu}>
+            {!isLoggedIn && [
+              <MenuItem key="login" onClick={handleCloseUserMenu}>
                 <Button color="inherit" component={Link} to="/signIn">
                   Login
                 </Button>
               </MenuItem>,
-              <MenuItem key='signup' onClick={handleCloseUserMenu}>
+              <MenuItem key="signup" onClick={handleCloseUserMenu}>
                 <Button color="inherit" component={Link} to="/register">
                   Signup
                 </Button>
-              </MenuItem>
-              ]
-            )}
-            {isLoggedIn && ([
-              <MenuItem key='profile' onClick={handleCloseUserMenu}>
+              </MenuItem>,
+            ]}
+            {isLoggedIn && [
+              <MenuItem key="profile" onClick={handleCloseUserMenu}>
                 <Button color="inherit" component={Link} to="/profile">
                   Profile
                 </Button>
+                <Button color="inherit" component={Link} to="/wishlist">
+                  Wishlist
+                </Button>
               </MenuItem>,
-              <MenuItem key='logout' onClick={handleCloseUserMenu}>
+              <MenuItem key="logout" onClick={handleCloseUserMenu}>
                 <Logout />
-              </MenuItem>
-              ]
-            )}
+              </MenuItem>,
+            ]}
           </Menu>
         </Box>
       </Toolbar>

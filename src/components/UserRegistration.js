@@ -102,11 +102,11 @@ const UserRegistration = () => {
   };
 
   //card info input fields
-  const { meta, getCardNumberProps, getExpiryDateProps, getCVCProps } =
+  const { _meta, getCardNumberProps, getExpiryDateProps, getCVCProps } =
     usePaymentInputs();
 
   //payment type selection
-  const [selectedOption, setSelectedOption] = useState('paypal'); // Initialize with the default payment option
+  // const [selectedOption, setSelectedOption] = useState('paypal'); // Initialize with the default payment option
   const paymentOptions = [
     {
       value: 'paypal',

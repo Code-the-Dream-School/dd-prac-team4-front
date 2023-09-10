@@ -9,6 +9,7 @@ import CheckoutPage from './components/Purchase/CheckoutPage';
 import WishListView from './components/wishList/WishListView';
 import UserProfile from './components/UserProfile';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
   const { status } = useAuth();
@@ -29,6 +30,7 @@ function App() {
         <Route path="/wishlist" element={<WishListView />} />
         <Route path="/checkout/completed" element={<CheckoutComplete />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
   );

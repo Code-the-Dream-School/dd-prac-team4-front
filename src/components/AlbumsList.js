@@ -130,7 +130,12 @@ const AlbumsList = () => {
         message={errorMessage}
         action={action}
       />
-      <Grid sx={{marginTop:'20px'}} container spacing={2} justifyContent="center">
+      <Grid
+        sx={{ marginTop: '20px' }}
+        container
+        spacing={2}
+        justifyContent="center"
+      >
         <Grid item xs={12} sm={2}>
           <FormControl variant="outlined" fullWidth>
             <InputLabel>Search By</InputLabel>

@@ -219,7 +219,7 @@ function Album({ album }) {
                   Review:
                 </Typography>
                 {reviewList.map((val) => (
-                  <div className="rate-card">
+                  <div className="rate-card" key={val._id}>
                     {isEdit === val._id ? (
                       <Box className="input-main">
                         <TextField

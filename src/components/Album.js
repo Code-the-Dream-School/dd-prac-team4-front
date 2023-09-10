@@ -71,10 +71,7 @@ function Album({ album }) {
     });
   };
 
-  const show = () => {
-    const data = reviewList.filter((val) => val.user === loginID);
-    return data.length === 0 && isLoggedIn;
-  };
+  const show = isLoggedIn && !reviewList.some((val) => val.user === loginID);
 
   const handleAddReview = async () => {
     try {

@@ -7,7 +7,7 @@ import {
 } from '@stripe/react-stripe-js';
 import style from './CheckoutForm.module.css';
 
-export default function CheckoutForm({ paymentAmount, order, orderId }) {
+export default function CheckoutForm({ paymentAmount, orderId }) {
   const stripe = useStripe();
   const elements = useElements();
 

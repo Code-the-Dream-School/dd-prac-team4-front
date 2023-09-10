@@ -15,7 +15,7 @@ const stripePromise = loadStripe(
 
 const CheckoutPage = () => {
   const [clientSecret, setClientSecret] = useState('');
-  const [orderId, setOrderId] = useState();
+  const [orderId, setOrderId] = useState(null);
   const location = useLocation();
   // Extract order data from navigation.state
   const { orderData } = location.state || {};
@@ -52,14 +52,10 @@ const CheckoutPage = () => {
   return (
     <>
       <div className={style['payment-form']}>
-        {clientSecret && orderId && (
+        {clientSecret && orderId !== null && (
           <>
             <Elements options={options} stripe={stripePromise}>
-              <CheckoutForm
-                paymentAmount={orderData.total}
-                order={orderData}
-                orderId={orderId}
-              />
+              <CheckoutForm paymentAmount={orderData.total} orderId={orderId} />
             </Elements>
           </>
         )}

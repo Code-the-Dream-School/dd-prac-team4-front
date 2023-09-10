@@ -239,13 +239,13 @@ function Album({ album }) {
                         />
                         <TextField
                           id="outlined-basic"
+                          type="number"
                           label="Enter rating between 1 to 5"
                           value={editObj.rating}
                           onChange={(e) =>
                             setEditObj({ ...editObj, rating: e.target.value })
                           }
-                          min={1}
-                          max={5}
+                          InputProps={{ inputProps: { min: 1, max: 5 } }}
                           variant="outlined"
                         />
 

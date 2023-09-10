@@ -63,7 +63,7 @@ const Navbar = () => {
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
-            onClick={() => setAnchorElUser(true)}
+            onClick={event => setAnchorElUser(event.currentTarget)}
             color="inherit"
           >
             <MenuIcon />

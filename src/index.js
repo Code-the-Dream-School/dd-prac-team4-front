@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom'; // Keep this line
 import React from 'react';
 import App from './App';
 import { Provider } from 'react-redux';
@@ -28,8 +29,7 @@ const defaultTheme = createTheme({
   palette: { primary: { main: '#3f51b5' }, mode: 'light' }, // Change "main" to set the primary color
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.render( // Use ReactDOM.render for rendering the app
   <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
     <BrowserRouter>
@@ -39,7 +39,8 @@ root.render(
         </Provider>
       </AuthProvider>
     </BrowserRouter>
-  </ThemeProvider>
+  </ThemeProvider>,
+  document.getElementById('root')
 );
 
 

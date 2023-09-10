@@ -4,10 +4,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import AddToCartButton from './layout/AddToCartButton/AddToCartButton';
+import AddToCartButton from '../layout/AddToCartButton/AddToCartButton';
 import { ButtonGroup, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import AddToWishlistButton from './layout/AddToWishlistButton/AddToWishlistButton';
+import AddToWishlistButton from '../layout/AddToWishlistButton/AddToWishlistButton';
 
 const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
   // Your styles for album item

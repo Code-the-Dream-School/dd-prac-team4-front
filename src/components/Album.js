@@ -141,12 +141,8 @@ function Album({ album }) {
     }
   };
 
-  useEffect(() => {
-    if(isLoggedIn){
-      const ID = JSON.parse(localStorage.getItem('auth_user'));
-      ID.userId ? setLoginID(ID.userId) : setLoginID(ID.user.id);
-    }
-  }, []);
+  const { user } = useAuth
+  const loginID = user?.user?.id
 
   return (
     <AlbumItemWrapper>

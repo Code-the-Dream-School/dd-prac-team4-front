@@ -272,7 +272,7 @@ function Album({ album }) {
                         <Typography className="rate-data">
                           {val.title}
                         </Typography>
-                        <Typography>Rate: {val.rating}</Typography>
+                        <Typography>Rating: {val.rating}</Typography>
                         <Typography>
                           Posted on{' '}
                           {new Date(val.createdAt).toLocaleDateString()}

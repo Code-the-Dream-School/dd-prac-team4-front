@@ -55,16 +55,6 @@ function PageNotFound() {
   return (
     <ThemeProvider theme={theme}>
       <NotFoundBody>
-        <Typography
-          variant="h4"
-          style={{
-            color: theme.palette.text.primary,
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          Page not found
-        </Typography>
         <NotFoundPageContainer>
           <NotFoundWrapper>
             <Typography

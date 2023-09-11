@@ -3,10 +3,12 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+// import DialogTitle from '@mui/material/DialogTitle';
 import AddToCartButton from '../layout/AddToCartButton/AddToCartButton';
 import { ButtonGroup, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import AlbumPreview from './AlbumPreview';
+import DialogActions from '@mui/material/DialogActions';
 import AddToWishlistButton from '../layout/AddToWishlistButton/AddToWishlistButton';
 
 const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
@@ -53,17 +55,23 @@ function Album({ album, wishListId }) {
       </ButtonGroup>
       {/* Dialog */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>{album.albumName}</DialogTitle>
+        {/* <DialogTitle>{album.albumName}</DialogTitle> */}
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            X
+          </Button>
+        </DialogActions>
         <DialogContent>
           <DialogContentText>
             {/* You can customize the content here */}
-            <div>
+            {/* <div>
               <div>
                 Release Date: {new Date(album.releaseDate).toLocaleDateString()}
               </div>
               <div>Average Rating: {album.averageRating}</div>
-            </div>
+            </div> */}
           </DialogContentText>
+          <AlbumPreview apiUrl={album.spotifyUrl} />
         </DialogContent>
       </Dialog>
     </AlbumItemWrapper>

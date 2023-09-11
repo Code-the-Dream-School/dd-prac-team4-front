@@ -33,9 +33,6 @@ const AlbumPreview = ({
   return (
     <Card variant="outlined">
       <CardContent>
-        <Typography variant="h6" component="div">
-          Album Preview
-        </Typography>
         <div style={{ marginTop: '1rem' }}>
           <iframe
             title="Spotify Web Player"

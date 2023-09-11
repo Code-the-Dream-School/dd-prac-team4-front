@@ -33,6 +33,7 @@ const CheckoutPage = () => {
 
         setOrderId(response.data.order._id);
         setClientSecret(response.data.clientSecret);
+        return response.data.clientSecret;
       } catch (error) {
         // Handle error here
         console.error('Error fetching data:', error);
@@ -40,6 +41,8 @@ const CheckoutPage = () => {
     };
     fetchData();
   }, [location.state]);
+  console.log('Order data ' + JSON.stringify(orderData));
+  console.log('client secret ' + clientSecret);
 
   const appearance = {
     theme: 'stripe',

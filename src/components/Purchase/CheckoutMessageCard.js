@@ -19,7 +19,7 @@ const CheckoutMessageCard = ({
   updateStatus,
 }) => {
   const { user } = useAuth();
-  const userEmail = user.user.email;
+  const userEmail = user.email;
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(null);
 
   // Callback function to update isPaymentSuccessful
@@ -59,7 +59,7 @@ const CheckoutMessageCard = ({
                     totalItemsPurchased === 1 ? 'album' : 'albums'
                   } has been completed.`}
                   <br />
-                  {`A confirmation email was sent to ${userEmail}`}
+                  {/* {`A confirmation email was sent to ${userEmail}`} */}
                 </Typography>
               ) : (
                 <Typography variant="h8">

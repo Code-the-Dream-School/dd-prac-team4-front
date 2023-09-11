@@ -207,22 +207,21 @@ const UserRegistration = () => {
           />
         </Box>
         <FormControl sx={{ width: '100%' }}>
-
-        <TextField
-          label="Expiration Date"
-          name="expiry"
-          variant="outlined"
-          margin="normal"
-          inputProps={getExpiryDateProps({})}
-        />
-        <TextField
-          label="CVV"
-          variant="outlined"
-          margin="normal"
-          inputProps={getCVCProps({})}
-        />
+          <TextField
+            label="Expiration Date"
+            name="expiry"
+            variant="outlined"
+            margin="normal"
+            inputProps={getExpiryDateProps({})}
+          />
+          <TextField
+            label="CVV"
+            variant="outlined"
+            margin="normal"
+            inputProps={getCVCProps({})}
+          />
+        </FormControl>
         <FormControl>
-
           <RadioGroup
             aria-label="demo-row-radio-buttons-group-label"
             name="preferredPaymentOption"

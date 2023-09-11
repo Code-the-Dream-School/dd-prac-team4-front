@@ -36,7 +36,13 @@ const CheckoutPage = () => {
       }
     };
     fetchData();
-  }, [location.state]);
+  }, [
+    location.state,
+    orderData.orderItems,
+    orderData.subtotal,
+    orderData.tax,
+    orderData.total,
+  ]);
 
   const appearance = {
     theme: 'stripe',

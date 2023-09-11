@@ -4,7 +4,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
-import axiosInstance from '../apis/axiosClient';
+import OrderSidebar from '../OrderSidebar';
+import axiosInstance from '../../apis/axiosClient';
 
 import {
   Container,
@@ -130,12 +131,8 @@ const AlbumsList = () => {
         message={errorMessage}
         action={action}
       />
-      <Grid
-        sx={{ marginTop: '20px' }}
-        container
-        spacing={2}
-        justifyContent="center"
-      >
+      {/* start of searchbar grid */}
+      <Grid container spacing={2} justifyContent="center" sx={{ my: 2 }}>
         <Grid item xs={12} sm={2}>
           <FormControl variant="outlined" fullWidth>
             <InputLabel>Search By</InputLabel>
@@ -169,20 +166,27 @@ const AlbumsList = () => {
           </Button>
         </Grid>
       </Grid>
-
-      {albums.length > 0 ? (
-        <AlbumGrid albums={albums} wishListId={wishListId} />
-      ) : (
-        <Box
-          sx={{
-            textAlign: 'center',
-            mt: '20px',
-            mb: '20px',
-          }}
-        >
-          <Typography variant="h4">{message}</Typography>
-        </Box>
-      )}
+      {/* end of searchbar grid */}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={9}>
+          {albums.length > 0 ? (
+            <AlbumGrid albums={albums} wishListId={wishListId} />
+          ) : (
+            <Box
+              sx={{
+                textAlign: 'center',
+                mt: '20px',
+                mb: '20px',
+              }}
+            >
+              <Typography variant="h4">{message}</Typography>
+            </Box>
+          )}
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <OrderSidebar />
+        </Grid>
+      </Grid>
     </Container>
   );
 };

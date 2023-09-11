@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AlbumGrid from '../AlbumGrid';
+import AlbumGrid from '../album/AlbumGrid';
 import axiosInstance from '../../apis/axiosClient';
 import Container from '@mui/material/Container';
 import { Typography } from '@mui/material';

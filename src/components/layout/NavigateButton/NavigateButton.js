@@ -3,7 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 //The NavigateButton lets us navigate to another screen in our app
-const NavigateButton = ({ linkName, variant, color, children, className }) => {
+const NavigateButton = ({
+  linkName,
+  variant,
+  color,
+  children,
+  className,
+  startIcon,
+  style,
+}) => {
   // linkName is a destination name of the route
   const navigate = useNavigate();
   const clickHandler = () => {
@@ -17,6 +25,8 @@ const NavigateButton = ({ linkName, variant, color, children, className }) => {
           variant={variant}
           color={color}
           className={className}
+          startIcon={startIcon}
+          style={style}
         >
           {children}
         </Button>

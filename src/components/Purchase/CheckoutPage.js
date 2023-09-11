@@ -40,7 +40,13 @@ const CheckoutPage = () => {
       }
     };
     fetchData();
-  }, [location.state]);
+  }, [
+    location.state,
+    orderData.orderItems,
+    orderData.subtotal,
+    orderData.tax,
+    orderData.total,
+  ]);
   console.log('Order data ' + JSON.stringify(orderData));
   console.log('client secret ' + clientSecret);
 

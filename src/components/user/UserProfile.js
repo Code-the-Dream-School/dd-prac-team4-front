@@ -50,8 +50,6 @@ export default function PersonalProfile() {
         </div>
         <Table style={{ marginTop: '5rem' }}>
           <TableBody>
-            {' '}
-            {/* Use TableBody */}
             <TableRow>
               <TableCell>USERNAME</TableCell>
               <TableCell>{authUser.user?.name}</TableCell>

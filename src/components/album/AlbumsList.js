@@ -4,7 +4,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
-import axiosInstance from '../apis/axiosClient';
+import OrderSidebar from '../OrderSidebar';
+import axiosInstance from '../../apis/axiosClient';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
@@ -144,7 +145,8 @@ const AlbumsList = () => {
         message={errorMessage}
         action={action}
       />
-      <Grid container spacing={2} justifyContent="center">
+      {/* start of searchbar grid */}
+      <Grid container spacing={2} justifyContent="center" sx={{ my: 2 }}>
         <Grid item xs={12} sm={2}>
           <FormControl variant="outlined" fullWidth>
             <InputLabel>Search By</InputLabel>
@@ -178,39 +180,46 @@ const AlbumsList = () => {
           </Button>
         </Grid>
       </Grid>
-
-      {albums.length > 0 ? (
-        <>
-          <AlbumGrid albums={albums} wishListId={wishListId} />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              mt: '3rem',
-              mb: '2rem',
-            }}
-          >
-            <Stack spacing={2}>
-              <Pagination
-                count={6} // Replace with the total number of pages (on this moment we have 69 albums / 12 albums per page)
-                page={currentPage}
-                color="primary"
-                onChange={handlePageChange}
-              />
-            </Stack>
-          </Box>
-        </>
-      ) : (
-        <Box
-          sx={{
-            textAlign: 'center',
-            mt: '1.25rem',
-            mb: '1.25rem',
-          }}
-        >
-          <Typography variant="h4">{message}</Typography>
-        </Box>
-      )}
+      {/* end of searchbar grid */}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={9}>
+          {albums.length > 0 ? (
+            <>
+              <AlbumGrid albums={albums} wishListId={wishListId} />
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  mt: '3rem',
+                  mb: '2rem',
+                }}
+              >
+                <Stack spacing={2}>
+                  <Pagination
+                    count={6} // Replace with the total number of pages (on this moment we have 69 albums / 12 albums per page)
+                    page={currentPage}
+                    color="primary"
+                    onChange={handlePageChange}
+                  />
+                </Stack>
+              </Box>
+            </>
+          ) : (
+            <Box
+              sx={{
+                textAlign: 'center',
+                mt: '1.25rem',
+                mb: '1.25rem',
+              }}
+            >
+              <Typography variant="h4">{message}</Typography>
+            </Box>
+          )}
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <OrderSidebar />
+        </Grid>
+      </Grid>
     </Container>
   );
 };

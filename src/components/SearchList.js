@@ -2,7 +2,7 @@
 
 // function SearchList({ albums }) {
 //   return (
-//     <ul className="album-list">
+//     <ul className="album-list">node --version
 //       {albums.map((album) => (
 //         <li key={album._id} className="album-item">
 //           <img src={album.image} alt={album.albumName} className="album-image" />
@@ -15,3 +15,4 @@
 // }
 
 // export default SearchList;
+

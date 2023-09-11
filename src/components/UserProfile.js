@@ -1,44 +1,69 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Card,
   CardContent,
-  CardActions,
   Table,
+  TableBody,
   TableRow,
   TableCell,
-  getImageListItemBarUtilityClass,
+  TextField,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-// import { getUserProfile } from './api';
 import { Avatar } from '@mui/material';
+import { useAuth } from '@akosasante/react-auth-context';
+import axios from 'axios';
 
 export default function PersonalProfile() {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState({
-    name: 'John',
-    email: 'john@hotmail.com',
-    password: 'hello',
-  });
+  const { user: authUser } = useAuth();
+  const [showCreditCardInfo, setShowCreditCardInfo] = useState(false);
+  const [editedName, setEditedName] = useState(authUser.user?.name || '');
+  const [editedEmail, setEditedEmail] = useState(authUser.user?.email || '');
+  const [editedCardNumber, setEditedCardNumber] = useState(
+    authUser.user?.creditCard?.cardNumber || ''
+  );
+  const [editedExpiration, setEditedExpiration] = useState(
+    authUser.user?.creditCard?.expiration || ''
+  );
+  const [editedCVV, setEditedCVV] = useState(authUser.user?.creditCard?.cvv || '');
 
-  // useEffect(() => {
-  //   getUserProfile()
-  //     .then(response => {
-  //       setUserData(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching user profile:', error);
-  //     });
-  // }, []);
+  const handleSeeMoreClick = () => {
+    setShowCreditCardInfo(!showCreditCardInfo);
+  };
+
+  const handleSaveChanges = async () => {
+    try {
+      const updatedData = {
+        name: editedName,
+        email: editedEmail,
+        creditCard: {
+          cardNumber: editedCardNumber,
+          expiration: editedExpiration,
+          cvv: editedCVV,
+        },
+      };
+
+      
+      await axios.put('http://your-backend-api-url/update-user', updatedData, {
+      });
+
+
+      // Notify the user that changes were saved
+      alert('Changes saved successfully!');
+    } catch (error) {
+      console.error('Error saving changes:', error);
+    }
+  };
 
   return (
-    <Card className="mt-2 border-0 rounded-0 shadow-sm">
+    <Card style={{ marginTop: '2rem', border: 'none', borderRadius: '0', boxShadow: 'none' }}>
       <CardContent>
-        <h3 className="text-uppercase">My Profile</h3>
-        <div className="text-center">
+        <h3 style={{ textTransform: 'uppercase' }}>My Profile</h3>
+        <div style={{ textAlign: 'center' }}>
           <Avatar
             src={
-              userData?.profileImage?.url ||
+              authUser.user?.profileImage?.url ||
               'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp'
             }
             alt="user profile"
@@ -51,34 +76,98 @@ export default function PersonalProfile() {
             }}
           />
         </div>
-        <Table responsive striped hover className="text-center mt-5">
-          <tbody>
+        <Table style={{ marginTop: '5rem' }}>
+          <TableBody>
             <TableRow>
               <TableCell>USERNAME</TableCell>
-              <TableCell>{userData?.name}</TableCell>
+              <TableCell>
+                {authUser.user?.name}
+                <Button onClick={() => setEditedName(authUser.user?.name)}>Reset</Button>
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>NAME</TableCell>
-              <TableCell>{userData?.name}</TableCell>
+              <TableCell>
+                {showCreditCardInfo ? (
+                  <TextField
+                    label="Name"
+                    variant="outlined"
+                    fullWidth
+                    value={editedName}
+                    onChange={(e) => setEditedName(e.target.value)}
+                  />
+                ) : (
+                  authUser.user?.name
+                )}
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>EMAIL</TableCell>
-              <TableCell>{userData?.email}</TableCell>
+              <TableCell>
+                {showCreditCardInfo ? (
+                  <TextField
+                    label="Email"
+                    variant="outlined"
+                    fullWidth
+                    value={editedEmail}
+                    onChange={(e) => setEditedEmail(e.target.value)}
+                  />
+                ) : (
+                  authUser.user?.email
+                )}
+              </TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Password</TableCell>
-              <TableCell>{userData?.password}</TableCell>
-            </TableRow>
-          </tbody>
+            {showCreditCardInfo && (
+              <>
+                <TableRow>
+                  <TableCell>Credit Card Number</TableCell>
+                  <TableCell>
+                    <TextField
+                      label="Credit Card"
+                      variant="outlined"
+                      fullWidth
+                      value={editedCardNumber}
+                      onChange={(e) => setEditedCardNumber(e.target.value)}
+                    />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Expiration</TableCell>
+                  <TableCell>
+                    <TextField
+                      label="Expiration Date"
+                      variant="outlined"
+                      fullWidth
+                      value={editedExpiration}
+                      onChange={(e) => setEditedExpiration(e.target.value)}
+                    />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>CVV</TableCell>
+                  <TableCell>
+                    <TextField
+                      label="CVV"
+                      variant="outlined"
+                      fullWidth
+                      value={editedCVV}
+                      onChange={(e) => setEditedCVV(e.target.value)}
+                    />
+                  </TableCell>
+                </TableRow>
+              </>
+            )}
+          </TableBody>
         </Table>
-      </CardContent>
-      {/* {userData?.id === user?.id && (
-        <CardActions className='justify-content-center'>
-          <Button onClick={handleUpdateProfileClick} color='warning' startIcon={<EditIcon />}>
-            Update Profile
+        <Button onClick={handleSeeMoreClick} color="primary">
+          {showCreditCardInfo ? 'Hide Credit Card Info' : 'See More'}
+        </Button>
+        {showCreditCardInfo && (
+          <Button onClick={handleSaveChanges} variant="contained" color="primary">
+            Save Changes
           </Button>
-        </CardActions>
-      )} */}
+        )}
+      </CardContent>
     </Card>
   );
 }

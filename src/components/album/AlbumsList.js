@@ -4,6 +4,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
+import OrderSidebar from '../OrderSidebar';
+import axiosInstance from '../../apis/axiosClient';
 
 import {
   Container,
@@ -25,6 +27,7 @@ const AlbumsList = () => {
   const [searchTerm, setSearchTerm] = useState(''); // for search input filed value
   const [message, setMessage] = useState(''); // for not found message
   const [errorMessage, setErrorMessage] = useState(''); // for error message
+  const [wishListId, setWishListId] = useState();
 
   //make an API call with search values to backend and return the result
   const fetchAlbums = async (searchType, searchTerm, limit) => {
@@ -53,6 +56,30 @@ const AlbumsList = () => {
   //display 10 albums when first user visit this page
   useEffect(() => {
     fetchAlbums('albumName', '', 10);
+  }, []);
+
+  //fetch wishlist album from API
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const response = await axiosInstance.post(`/wishlist/`); //use axiosInstance to send cookie token with request
+        const wishlistData = response.data.wishlist;
+        setWishListId(wishlistData._id);
+        // Store object in local storage where keys are album id and value is the whole album
+        const wishlistAlbumsToStore = {};
+        wishlistData.albums.forEach((album) => {
+          wishlistAlbumsToStore[album._id] = album;
+        });
+        localStorage.setItem(
+          'wishlistAlbums',
+          JSON.stringify(wishlistAlbumsToStore)
+        );
+      } catch (error) {
+        console.error('Error fetching wishlist:', error);
+      }
+    };
+
+    fetchWishlist();
   }, []);
 
   //call the function to make API request for search input value
@@ -104,7 +131,8 @@ const AlbumsList = () => {
         message={errorMessage}
         action={action}
       />
-      <Grid container spacing={2} justifyContent="center">
+      {/* start of searchbar grid */}
+      <Grid container spacing={2} justifyContent="center" sx={{ my: 2 }}>
         <Grid item xs={12} sm={2}>
           <FormControl variant="outlined" fullWidth>
             <InputLabel>Search By</InputLabel>
@@ -138,20 +166,27 @@ const AlbumsList = () => {
           </Button>
         </Grid>
       </Grid>
-
-      {albums.length > 0 ? (
-        <AlbumGrid albums={albums} />
-      ) : (
-        <Box
-          sx={{
-            textAlign: 'center',
-            mt: '20px',
-            mb: '20px',
-          }}
-        >
-          <Typography variant="h4">{message}</Typography>
-        </Box>
-      )}
+      {/* end of searchbar grid */}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={9}>
+          {albums.length > 0 ? (
+            <AlbumGrid albums={albums} wishListId={wishListId} />
+          ) : (
+            <Box
+              sx={{
+                textAlign: 'center',
+                mt: '20px',
+                mb: '20px',
+              }}
+            >
+              <Typography variant="h4">{message}</Typography>
+            </Box>
+          )}
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <OrderSidebar />
+        </Grid>
+      </Grid>
     </Container>
   );
 };

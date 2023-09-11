@@ -1,5 +1,5 @@
 import React from 'react';
-import AlbumsList from './AlbumsList';
+import AlbumsList from './album/AlbumsList';
 
 function Home() {
   return (

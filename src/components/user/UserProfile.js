@@ -8,12 +8,12 @@ import {
   TableRow,
   TableCell,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { Avatar } from '@mui/material';
 import { useAuth } from '@akosasante/react-auth-context';
 
 export default function PersonalProfile() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { user: authUser } = useAuth();
   const [showCreditCardInfo, setShowCreditCardInfo] = useState(false);
 
@@ -22,7 +22,14 @@ export default function PersonalProfile() {
   };
 
   return (
-    <Card style={{ marginTop: '2rem', border: 'none', borderRadius: '0', boxShadow: 'none' }}>
+    <Card
+      style={{
+        marginTop: '2rem',
+        border: 'none',
+        borderRadius: '0',
+        boxShadow: 'none',
+      }}
+    >
       <CardContent>
         <h3 style={{ textTransform: 'uppercase' }}>My Profile</h3>
         <div style={{ textAlign: 'center' }}>
@@ -42,7 +49,9 @@ export default function PersonalProfile() {
           />
         </div>
         <Table style={{ marginTop: '5rem' }}>
-          <TableBody> {/* Use TableBody */}
+          <TableBody>
+            {' '}
+            {/* Use TableBody */}
             <TableRow>
               <TableCell>USERNAME</TableCell>
               <TableCell>{authUser.user?.name}</TableCell>
@@ -82,18 +91,12 @@ export default function PersonalProfile() {
   );
 }
 
-
-
-
-
-
-
-
-
- {/* {userData?.id === user?.id && (
+// {
+/* {userData?.id === user?.id && (
         <CardActions className='justify-content-center'>
           <Button onClick={handleUpdateProfileClick} color='warning' startIcon={<EditIcon />}>
             Update Profile
           </Button>
         </CardActions>
-      )} */}
+      )} */
+// }

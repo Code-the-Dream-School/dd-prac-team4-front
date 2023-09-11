@@ -30,12 +30,13 @@ const AlbumsList = () => {
   const [errorMessage, setErrorMessage] = useState(''); // for error message
   const [wishListId, setWishListId] = useState();
   const [currentPage, setCurrentPage] = useState(1); // Track current page
+  const [lastSearchTerm, setLastSearchTerm] = useState('');
 
   //make an API call with search values to backend and return the result
   const fetchAlbums = useCallback(
-    async (searchType, searchTerm) => {
+    async (searchType, searchTerm, page = 1) => {
       try {
-        const offset = (currentPage - 1) * limit;
+        const offset = (page - 1) * limit;
         const response = await axios.get(
           `${process.env.REACT_APP_API_BASE_PATH}/albums/filter`,
           {
@@ -57,13 +58,12 @@ const AlbumsList = () => {
         setOpen(true);
       }
     },
-    [currentPage, limit]
+    [/*currentPage,*/ limit]
   );
 
-  //display 10 albums when first user visit this page
   useEffect(() => {
-    fetchAlbums('albumName', '');
-  }, [fetchAlbums, currentPage]); // Refetch albums when the page changes
+    fetchAlbums(searchType, searchTerm); // Use current search term
+  }, [fetchAlbums, searchType, searchTerm]); // Refetch albums when the page changes
 
   //fetch wishlist album from API
   useEffect(() => {
@@ -91,7 +91,9 @@ const AlbumsList = () => {
 
   //call the function to make API request for search input value
   const handleSearch = () => {
-    fetchAlbums(searchType, searchTerm, limit);
+    setLastSearchTerm(searchTerm);
+    setCurrentPage(1);
+    fetchAlbums(searchType, searchTerm);
   };
 
   //clear search input and make an empty API call
@@ -129,6 +131,7 @@ const AlbumsList = () => {
   //end of snackbar
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
+    fetchAlbums(searchType, lastSearchTerm, page);
   };
 
   return (

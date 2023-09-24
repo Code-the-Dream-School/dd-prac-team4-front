@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
+import AlbumChat from '../album/AlbumChat';
 
 const AlbumPreview = ({
   apiUrl,
@@ -31,6 +32,8 @@ const AlbumPreview = ({
   }, [apiUrl]);
 
   return (
+    <div>
+      <AlbumChat />
     <Card variant="outlined">
       <CardContent>
         <Typography variant="h6" component="div">
@@ -50,6 +53,7 @@ const AlbumPreview = ({
         </div>
       </CardContent>
     </Card>
+    </div>
   );
 };
 

@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 
 const AlbumChat = ({ apiUrl }) => {
   useEffect(() => {
-    const socket = io('http://localhost:8000');
+    const socket = io(process.env.REACT_APP_SOCKET_BASE_PATH);
 
     // Subscribe to the album chat channel using albumId
     const regexPattern = /\/albums\/([a-zA-Z0-9]+)/;
@@ -14,6 +14,7 @@ const AlbumChat = ({ apiUrl }) => {
       // Сonnection is established with the Socket.io server
       socket.on('connect', () => {
         // Request to the server to join the album chat
+        console.log('Connected to WebSocket server');
         socket.emit('join:album_chat', albumId);
       });
     }
@@ -21,6 +22,7 @@ const AlbumChat = ({ apiUrl }) => {
     // Disconnect from the socket when the component unmounts
     return () => {
       // Disconnect from the server
+      console.log('Disconnected from WebSocket server');
       socket.disconnect();
     };
   }, [apiUrl]);

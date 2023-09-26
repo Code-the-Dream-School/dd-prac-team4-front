@@ -33,26 +33,26 @@ const AlbumPreview = ({
 
   return (
     <div>
-      <AlbumChat />
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h6" component="div">
-          Album Preview
-        </Typography>
-        <div style={{ marginTop: '1rem' }}>
-          <iframe
-            title="Spotify Web Player"
-            src={spotifyUrl}
-            width={width}
-            height={height}
-            frameBorder={frameBorder}
-            style={{ borderRadius: 8, ...style }}
-            allow={allow}
-            {...props}
-          />
-        </div>
-      </CardContent>
-    </Card>
+      <AlbumChat apiUrl={apiUrl} />
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h6" component="div">
+            Album Preview
+          </Typography>
+          <div style={{ marginTop: '1rem' }}>
+            <iframe
+              title="Spotify Web Player"
+              src={spotifyUrl}
+              width={width}
+              height={height}
+              frameBorder={frameBorder}
+              style={{ borderRadius: 8, ...style }}
+              allow={allow}
+              {...props}
+            />
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

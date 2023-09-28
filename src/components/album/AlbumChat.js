@@ -16,6 +16,11 @@ const AlbumChat = ({ apiUrl }) => {
         // Request to the server to join the album chat
         console.log('Connected to WebSocket server');
         socket.emit('join:album_chat', albumId);
+
+        // Subscribe to the 'chat:album' channel
+        socket.on('chat:album', (data) => {
+          console.log('Received message from chat:album:', data);
+        });
       });
     }
 

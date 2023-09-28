@@ -10,7 +10,7 @@ import WishListView from './components/wishList/WishListView';
 import UserProfile from './components/user/UserProfile';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
-import AlbumChat from './components/album/AlbumChat';
+import AlbumPreview from './components/album/AlbumPreview';
 
 function App() {
   const { status } = useAuth();
@@ -35,7 +35,7 @@ function App() {
         <Route
           path="/chat"
           element={
-            <AlbumChat apiUrl="https://api.spotify.com/v1/albums/6r1lh7fHMB499vGKtIyJLy" />
+            <AlbumPreview apiUrl="https://api.spotify.com/v1/albums/6r1lh7fHMB499vGKtIyJLy" />
           }
         />
       </Routes>

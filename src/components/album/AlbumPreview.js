@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
+import AlbumChat from '../album/AlbumChat';
 
 const AlbumPreview = ({
   apiUrl,
@@ -31,25 +32,28 @@ const AlbumPreview = ({
   }, [apiUrl]);
 
   return (
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h6" component="div">
-          Album Preview
-        </Typography>
-        <div style={{ marginTop: '1rem' }}>
-          <iframe
-            title="Spotify Web Player"
-            src={spotifyUrl}
-            width={width}
-            height={height}
-            frameBorder={frameBorder}
-            style={{ borderRadius: 8, ...style }}
-            allow={allow}
-            {...props}
-          />
-        </div>
-      </CardContent>
-    </Card>
+    <div>
+      <AlbumChat apiUrl={apiUrl} />
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h6" component="div">
+            Album Preview
+          </Typography>
+          <div style={{ marginTop: '1rem' }}>
+            <iframe
+              title="Spotify Web Player"
+              src={spotifyUrl}
+              width={width}
+              height={height}
+              frameBorder={frameBorder}
+              style={{ borderRadius: 8, ...style }}
+              allow={allow}
+              {...props}
+            />
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

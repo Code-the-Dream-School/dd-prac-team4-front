@@ -1,23 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
 const AlbumChat = ({ apiUrl }) => {
-  useEffect(() => {
-    const socket = io(process.env.REACT_APP_SOCKET_BASE_PATH);
+  const [message, setMessage] = useState('');
 
-    // Subscribe to the album chat channel using albumId
+  // Nandle sending a chat message
+  const handleSendMessage = () => {
+    const socket = io(process.env.REACT_APP_SOCKET_BASE_PATH);
     const regexPattern = /\/albums\/([a-zA-Z0-9]+)/;
     const match = apiUrl.match(regexPattern);
     if (match) {
-      // Extract albumId from the URL
       const albumId = match[1];
-      // Сonnection is established with the Socket.io server
-      socket.on('connect', () => {
-        // Request to the server to join the album chat
-        console.log('Connected to WebSocket server');
-        socket.emit('join:album_chat', albumId);
+      // Emit a chat message to the 'chat:album' channel
+      socket.emit('chat:album', { message, albumId });
+      setMessage(''); // Clear the text input field after sending
+    }
+  };
 
-        // Subscribe to the 'chat:album' channel
+  useEffect(() => {
+    const socket = io(process.env.REACT_APP_SOCKET_BASE_PATH);
+    const regexPattern = /\/albums\/([a-zA-Z0-9]+)/;
+    const match = apiUrl.match(regexPattern);
+    if (match) {
+      const albumId = match[1];
+      socket.on('connect', () => {
+        console.log('Connected to WebSocket server');
+        // Request to join the album chat room
+        socket.emit('join:album_chat', albumId);
         socket.on('chat:album', (data) => {
           console.log('Received message from chat:album:', data);
         });
@@ -26,7 +35,6 @@ const AlbumChat = ({ apiUrl }) => {
 
     // Disconnect from the socket when the component unmounts
     return () => {
-      // Disconnect from the server
       console.log('Disconnected from WebSocket server');
       socket.disconnect();
     };
@@ -35,6 +43,15 @@ const AlbumChat = ({ apiUrl }) => {
   return (
     <div>
       <h2>Album Chat</h2>
+      <div>
+        <input
+          type="text"
+          placeholder="Enter message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <button onClick={handleSendMessage}>Send</button>
+      </div>
     </div>
   );
 };

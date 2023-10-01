@@ -3,14 +3,14 @@ import io from 'socket.io-client';
 
 const AlbumChat = ({ apiUrl }) => {
   const [message, setMessage] = useState('');
+  const [socket, setSocket] = useState(null);
+  const regexPattern = /\/albums\/([a-zA-Z0-9]+)/;
+  const match = apiUrl.match(regexPattern);
+  const albumId = match ? match[1] : null;
 
   // Nandle sending a chat message
   const handleSendMessage = () => {
-    const socket = io(process.env.REACT_APP_SOCKET_BASE_PATH);
-    const regexPattern = /\/albums\/([a-zA-Z0-9]+)/;
-    const match = apiUrl.match(regexPattern);
-    if (match) {
-      const albumId = match[1];
+    if (socket && albumId) {
       // Emit a chat message to the 'chat:album' channel
       socket.emit('chat:album', { message, albumId });
       setMessage(''); // Clear the text input field after sending
@@ -18,27 +18,26 @@ const AlbumChat = ({ apiUrl }) => {
   };
 
   useEffect(() => {
-    const socket = io(process.env.REACT_APP_SOCKET_BASE_PATH);
-    const regexPattern = /\/albums\/([a-zA-Z0-9]+)/;
-    const match = apiUrl.match(regexPattern);
-    if (match) {
-      const albumId = match[1];
-      socket.on('connect', () => {
+    if (albumId && !socket) {
+      const newSocket = io(process.env.REACT_APP_SOCKET_BASE_PATH);
+      newSocket.on('connect', () => {
         console.log('Connected to WebSocket server');
         // Request to join the album chat room
-        socket.emit('join:album_chat', albumId);
-        socket.on('chat:album', (data) => {
+        newSocket.emit('join:album_chat', albumId);
+        newSocket.on('chat:album', (data) => {
           console.log('Received message from chat:album:', data);
         });
       });
+      setSocket(newSocket);
     }
-
     // Disconnect from the socket when the component unmounts
     return () => {
-      console.log('Disconnected from WebSocket server');
-      socket.disconnect();
+      if (socket) {
+        console.log('Disconnected from WebSocket server');
+        socket.disconnect();
+      }
     };
-  }, [apiUrl]);
+  }, [albumId, socket]);
 
   return (
     <div>

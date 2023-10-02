@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import { useAuth } from '@akosasante/react-auth-context';
 
 const AlbumChat = ({ apiUrl }) => {
   const [message, setMessage] = useState('');
@@ -8,11 +9,20 @@ const AlbumChat = ({ apiUrl }) => {
   const match = apiUrl.match(regexPattern);
   const albumId = match ? match[1] : null;
 
+  const { user: loggedInUser } = useAuth();
+  const userId = loggedInUser ? loggedInUser.user.id : null;
+
   // Nandle sending a chat message
   const handleSendMessage = () => {
     if (socket && albumId) {
+      const messageData = {
+        message,
+        albumId,
+        userId,
+      };
+
       // Emit a chat message to the 'chat:album' channel
-      socket.emit('chat:album', { message, albumId });
+      socket.emit('chat:album', messageData);
       setMessage(''); // Clear the text input field after sending
     }
   };

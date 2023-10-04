@@ -10,9 +10,9 @@ const AlbumChat = ({ apiUrl }) => {
   const albumId = match ? match[1] : null;
 
   const { user: loggedInUser } = useAuth();
-  const userId = loggedInUser ? loggedInUser.user.id : null;
+  const userId = loggedInUser?.user?.id;
 
-  // Nandle sending a chat message
+  // Handle sending a chat message
   const handleSendMessage = () => {
     if (socket && albumId) {
       const messageData = {

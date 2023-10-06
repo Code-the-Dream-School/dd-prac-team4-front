@@ -12,6 +12,8 @@ const AlbumChat = ({ apiUrl }) => {
   const { user: loggedInUser } = useAuth();
   const userId = loggedInUser?.user?.id;
 
+  const [messages, setMessages] = useState([]);
+
   // Handle sending a chat message
   const handleSendMessage = () => {
     if (socket && albumId) {
@@ -36,6 +38,9 @@ const AlbumChat = ({ apiUrl }) => {
         newSocket.emit('join:album_chat', albumId);
         newSocket.on('chat:album', (data) => {
           console.log('Received message from chat:album:', data);
+
+          // new message
+          setMessages((prevMessages) => [...prevMessages, data]);
         });
       });
       setSocket(newSocket);
@@ -53,6 +58,13 @@ const AlbumChat = ({ apiUrl }) => {
     <div>
       <h2>Album Chat</h2>
       <div>
+        <div>
+          {messages.map((message, index) => (
+            <div key={index}>
+              {message.userName}: {message.message}
+            </div>
+          ))}
+        </div>
         <input
           type="text"
           placeholder="Enter message"

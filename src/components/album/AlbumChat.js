@@ -11,10 +11,10 @@ const AlbumChat = ({ apiUrl }) => {
   const albumId = match ? match[1] : null;
 
   const { user: loggedInUser } = useAuth();
-  const userId = loggedInUser?.user?.id;
+  const user = loggedInUser?.user?.id;
 
   const [messages, setMessages] = useState([]);
-  const messagesContainerRef = useRef(null); 
+  const messagesContainerRef = useRef(null);
 
   // Handle sending a chat message
   const handleSendMessage = () => {
@@ -22,7 +22,7 @@ const AlbumChat = ({ apiUrl }) => {
       const messageData = {
         message,
         albumId,
-        userId,
+        user,
         isOwnMessage: true,
       };
 
@@ -34,14 +34,15 @@ const AlbumChat = ({ apiUrl }) => {
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); 
+      e.preventDefault();
       handleSendMessage();
     }
   };
 
   const scrollToBottom = () => {
     if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
     }
   };
 
@@ -55,8 +56,15 @@ const AlbumChat = ({ apiUrl }) => {
         newSocket.on('chat:album', (data) => {
           console.log('Received message from chat:album:', data);
 
-          // new message
-          setMessages((prevMessages) => [...prevMessages, data]);
+          // New message with user info
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+              user: data.user,
+              message: data.message,
+              isOwnMessage: data.isOwnMessage,
+            },
+          ]);
 
           scrollToBottom();
         });
@@ -77,57 +85,81 @@ const AlbumChat = ({ apiUrl }) => {
   }, [messages]);
 
   return (
-    <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div
+      style={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Typography variant="h6" component="div" style={{ marginLeft: '20px' }}>
         Album Chat
       </Typography>
-    <div style={{ flex: 1, padding: '16px', width: '95%', maxHeight: '65vh', overflowY: 'auto' }} ref={messagesContainerRef}>
-      
-      {messages.map((message, index) => (
-        <div
-          key={index}
-          style={{
-            display: 'flex',
-            flexDirection: message.isOwnMessage ? 'row-reverse' : 'row',
-            alignItems: 'center',
-            margin: '20px',
-          }}
-        >
+      <div
+        style={{
+          flex: 1,
+          padding: '16px',
+          width: '95%',
+          maxHeight: '65vh',
+          overflowY: 'auto',
+        }}
+        ref={messagesContainerRef}
+      >
+        {messages.map((message, index) => (
           <div
+            key={index}
             style={{
-              backgroundColor: message.isOwnMessage ? '#3f51b5' : 'lightblue',
-              color: message.isOwnMessage ? 'white' : 'black',
-              borderRadius: '8px',
-              padding: '8px 16px',
+              display: 'flex',
+              flexDirection: message.isOwnMessage ? 'row-reverse' : 'row',
+              alignItems: 'center',
+              margin: '20px',
             }}
           >
-            {message.message}
+            <div
+              style={{
+                backgroundColor: message.isOwnMessage ? '#3f51b5' : 'lightblue',
+                color: message.isOwnMessage ? 'white' : 'black',
+                borderRadius: '8px',
+                padding: '8px 16px',
+              }}
+            >
+              <strong>{message.user.name}</strong>: {message.message}
+            </div>
           </div>
+        ))}
+      </div>
+      <div
+        style={{
+          padding: '30px',
+          width: '70%',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'fixed',
+          bottom: 0,
+        }}
+      >
+        <div style={{ flex: 1 }}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            label="Enter message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
         </div>
-      ))}
-    </div>
-    <div style={{ padding: '30px', width: '70%', display: 'flex', alignItems: 'center', position: 'fixed', bottom: 0 }}>
-      <div style={{ flex: 1 }}>
-        <TextField
-          fullWidth
-          variant="outlined"
-          label="Enter message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-      </div>
-      <div style={{ marginLeft: '8px' }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSendMessage}
-        >
-          Send
-        </Button>
+        <div style={{ marginLeft: '8px' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSendMessage}
+          >
+            Send
+          </Button>
+        </div>
       </div>
     </div>
-  </div>
   );
 };
 

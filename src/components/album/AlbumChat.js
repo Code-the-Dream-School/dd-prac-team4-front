@@ -63,6 +63,7 @@ const AlbumChat = ({ apiUrl }) => {
               user: data.user,
               message: data.message,
               isOwnMessage: data.isOwnMessage,
+              _id: data._id, // Use _id as the key
             },
           ]);
 
@@ -106,25 +107,28 @@ const AlbumChat = ({ apiUrl }) => {
         }}
         ref={messagesContainerRef}
       >
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            style={{
-              display: 'flex',
-              flexDirection: message.isOwnMessage ? 'row-reverse' : 'row',
-              alignItems: 'center',
-              margin: '20px',
-            }}
-          >
+        {messages.map((message) => (
+          <div key={message._id}>
             <div
               style={{
-                backgroundColor: message.isOwnMessage ? '#3f51b5' : 'lightblue',
-                color: message.isOwnMessage ? 'white' : 'black',
-                borderRadius: '8px',
-                padding: '8px 16px',
+                display: 'flex',
+                flexDirection: message.isOwnMessage ? 'row-reverse' : 'row',
+                alignItems: 'center',
+                margin: '20px',
               }}
             >
-              <strong>{message.user.name}</strong>: {message.message}
+              <div
+                style={{
+                  backgroundColor: message.isOwnMessage
+                    ? '#3f51b5'
+                    : 'lightblue',
+                  color: message.isOwnMessage ? 'white' : 'black',
+                  borderRadius: '8px',
+                  padding: '8px 16px',
+                }}
+              >
+                <strong>{message.user.username}</strong>: {message.message}
+              </div>
             </div>
           </div>
         ))}

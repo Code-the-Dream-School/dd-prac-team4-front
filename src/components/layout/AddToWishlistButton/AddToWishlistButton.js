@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
 import axiosInstance from '../../../apis/axiosClient'; // axios instance
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import { useNavigate } from 'react-router-dom';
@@ -52,8 +51,10 @@ const AddToWishlistButton = ({ album, wishListId }) => {
       //re save the object to local storage
       localStorage.setItem('wishlistAlbums', JSON.stringify(wishlistAlbums));
       setIsAdded(false);
-      // refresh the page so that album no longer display in the page
-      navigate(0);
+      // refresh the page so that album no longer display in the page -- only if we're on the wishlist page, not on the album list page
+      if (window.location.pathname === '/wishlist') {
+        navigate(0);
+      }
     } catch (error) {
       console.error('Error removing album from wishlist:', error);
     }

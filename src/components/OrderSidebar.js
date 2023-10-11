@@ -22,6 +22,7 @@ const OrderSidebar = () => {
   const subtotal = roundedNumber(useSelector((state) => state.cart.subtotal)); //total price of all items
   const tax = useSelector((state) => state.cart.tax);
   const total = roundedNumber(useSelector((state) => state.cart.totalAmount)); //total amount after tax
+
   //64fd67815fca88489ab99564
   const handleCheckout = () => {
     // Create the order data object

@@ -66,6 +66,7 @@ export default function PersonalProfile() {
         </Table>
       </CardContent>
       {/* {userData?.id === user?.id && (
+
         <CardActions className='justify-content-center'>
           <Button onClick={handleUpdateProfileClick} color='warning' startIcon={<EditIcon />}>
             Update Profile
@@ -75,3 +76,4 @@ export default function PersonalProfile() {
     </Card>
   );
 }
+

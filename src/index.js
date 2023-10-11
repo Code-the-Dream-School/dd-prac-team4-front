@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -28,7 +28,7 @@ const authSettings = {
 
 // Set up a default colour pallete / theme for our whole app using material-ui ThemeProvider context component
 const defaultTheme = createTheme({
-  palette: { main: '#3f51b5', mode: 'light' },
+  palette: { primary: { main: '#3f51b5' }, mode: 'light' }, // Change "main" to set the primary color
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

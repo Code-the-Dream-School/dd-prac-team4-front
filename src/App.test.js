@@ -17,6 +17,6 @@ test('render home page', async () => {
       <App />
     </BrowserRouter>
   );
-  const linkElement = await screen.findByText(/Music/i);
+  const linkElement = await screen.findByText(/BeatBazaar/i);
   expect(linkElement).toBeInTheDocument();
 });

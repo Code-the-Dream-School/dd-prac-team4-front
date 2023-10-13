@@ -57,10 +57,12 @@ const AlbumChat = ({ apiUrl }) => {
           console.log('Received message from chat:album:', data);
 
           const isOwnMessage = loggedInUserId === data.user._id; // Determine isOwnMessage
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            { ...data, isOwnMessage },
-          ]);
+          const messageWithKey = {
+            ...data,
+            isOwnMessage,
+            messageKey: uuidv4(),
+          }; // will add key to the message
+          setMessages((prevMessages) => [...prevMessages, messageWithKey]);
 
           scrollToBottom();
         });
@@ -103,7 +105,7 @@ const AlbumChat = ({ apiUrl }) => {
         ref={messagesContainerRef}
       >
         {messages.map((message) => (
-          <div key={uuidv4()}>
+          <div key={message.messageKey}>
             <div
               style={{
                 display: 'flex',

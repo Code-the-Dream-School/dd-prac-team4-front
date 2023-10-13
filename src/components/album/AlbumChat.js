@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
 import { useAuth } from '@akosasante/react-auth-context';
 import { Typography, TextField, Button } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 
 const AlbumChat = ({ apiUrl }) => {
   const [message, setMessage] = useState('');
@@ -11,7 +12,7 @@ const AlbumChat = ({ apiUrl }) => {
   const albumId = match ? match[1] : null;
 
   const { user: loggedInUser } = useAuth();
-  const user = loggedInUser?.user?.id;
+  const loggedInUserId = loggedInUser?.user?.id;
 
   const [messages, setMessages] = useState([]);
   const messagesContainerRef = useRef(null);
@@ -22,8 +23,7 @@ const AlbumChat = ({ apiUrl }) => {
       const messageData = {
         message,
         albumId,
-        user,
-        isOwnMessage: true,
+        user: loggedInUserId,
       };
 
       // Emit a chat message to the 'chat:album' channel
@@ -56,15 +56,10 @@ const AlbumChat = ({ apiUrl }) => {
         newSocket.on('chat:album', (data) => {
           console.log('Received message from chat:album:', data);
 
-          // New message with user info
+          const isOwnMessage = loggedInUserId === data.user._id; // Determine isOwnMessage
           setMessages((prevMessages) => [
             ...prevMessages,
-            {
-              user: data.user,
-              message: data.message,
-              isOwnMessage: data.isOwnMessage,
-              _id: data._id, // Use _id as the key
-            },
+            { ...data, isOwnMessage },
           ]);
 
           scrollToBottom();
@@ -79,7 +74,7 @@ const AlbumChat = ({ apiUrl }) => {
         socket.disconnect();
       }
     };
-  }, [albumId, socket]);
+  }, [albumId, socket, loggedInUserId]);
 
   useEffect(() => {
     scrollToBottom();
@@ -108,7 +103,7 @@ const AlbumChat = ({ apiUrl }) => {
         ref={messagesContainerRef}
       >
         {messages.map((message) => (
-          <div key={message._id}>
+          <div key={uuidv4()}>
             <div
               style={{
                 display: 'flex',
@@ -127,7 +122,7 @@ const AlbumChat = ({ apiUrl }) => {
                   padding: '8px 16px',
                 }}
               >
-                <strong>{message.user.username}</strong>: {message.message}
+                <strong>{message.user.name}</strong>: {message.message}
               </div>
             </div>
           </div>

@@ -32,20 +32,22 @@ const AlbumPreview = ({
   }, [apiUrl]);
 
   return (
-          <CardContent style={{ marginTop: '1rem', width: '100%', display: 'flex'}}>
-            <iframe
-              title="Spotify Web Player"
-              src={spotifyUrl}
-              width={width}
-              height={height}
-              frameBorder={frameBorder}
-              style={{ borderRadius: 8, ...style, border: 'none'}}
-              allow={allow}
-              {...props}
-            />
-            <div style={{ width: '100%', display: 'flex' }}><AlbumChat apiUrl={apiUrl} /></div>
-          </CardContent>
-);
+    <CardContent style={{ marginTop: '1rem', width: '100%', display: 'flex' }}>
+      <iframe
+        title="Spotify Web Player"
+        src={spotifyUrl}
+        width={width}
+        height={height}
+        frameBorder={frameBorder}
+        style={{ borderRadius: 8, ...style, border: 'none' }}
+        allow={allow}
+        {...props}
+      />
+      <div style={{ width: '100%', display: 'flex' }}>
+        <AlbumChat apiUrl={apiUrl} />
+      </div>
+    </CardContent>
+  );
 };
 
 export default AlbumPreview;

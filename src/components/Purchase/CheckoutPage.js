@@ -34,7 +34,6 @@ const CheckoutPage = () => {
         setOrderId(response.data.order._id);
         setClientSecret(response.data.clientSecret);
         return response.data.clientSecret;
-
       } catch (error) {
         // Handle error here
         console.error('Error fetching data:', error);

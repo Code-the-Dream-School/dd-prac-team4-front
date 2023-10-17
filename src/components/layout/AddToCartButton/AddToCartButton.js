@@ -30,16 +30,6 @@ const AddToCartButton = ({ album }) => {
     }
   };
 
-  const buttonLabel = itemsInCart[album.id]
-    ? 'Remove from cart'
-    : 'Add to cart';
-  const CartIcon = () =>
-    itemsInCart[album.id] ? (
-      <RemoveShoppingCartIcon color="primary" />
-    ) : (
-      <AddShoppingCartIcon color="primary" />
-    );
-
   return (
     <IconButton
       color="primary"

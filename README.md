@@ -2,7 +2,6 @@
 
 The Music App is a React application where users can stream music, add songs to wishlist and select and buy songs.
 
-
 ## Screenshots
 
 At the start of the app an option to sign up or log in will be presented to the user
@@ -35,10 +34,8 @@ Github Actions for running linting and formatting on each PR push.
 
 Contributors for the development of The Music App are
 
-* [Masooma Jafari](https://github.com/JafariM)
-* [Raheim Grant](https://github.com/Rjjayy)
-* [Alona Vladymyrova](https://github.com/AlonaVladymyrovaTrinity)
-* [Musab Kara]()
-* [Alberto Reyes](https://github.com/dayofthetech)
-
-
+- [Masooma Jafari](https://github.com/JafariM)
+- [Raheim Grant](https://github.com/Rjjayy)
+- [Alona Vladymyrova](https://github.com/AlonaVladymyrovaTrinity)
+- [Musab Kara]()
+- [Alberto Reyes](https://github.com/dayofthetech)

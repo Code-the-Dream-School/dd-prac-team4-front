@@ -35,10 +35,10 @@ Github Actions for running linting and formatting on each PR push.
 
 Contributors for the development of The Music App are
 
-[Masooma Jafari](https://github.com/JafariM)
-[Raheim Grant](https://github.com/Rjjayy)
-[Alona Vladymyrova](https://github.com/AlonaVladymyrovaTrinity)
-[Musab Kara]()
-[Alberto Reyes](https://github.com/dayofthetech)
+* [Masooma Jafari](https://github.com/JafariM)
+* [Raheim Grant](https://github.com/Rjjayy)
+* [Alona Vladymyrova](https://github.com/AlonaVladymyrovaTrinity)
+* [Musab Kara]()
+* [Alberto Reyes](https://github.com/dayofthetech)
 
 

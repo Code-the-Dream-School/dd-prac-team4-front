@@ -187,40 +187,19 @@ const UserRegistration = () => {
           margin="normal"
           inputProps={getCardNumberProps({})}
         />
-
-        <Box sx={{ display: 'flex', width: '100%' }}>
-          <TextField
-            sx={{ width: '100%' }}
-            label="Expiration Date"
-            name="expiry"
-            variant="outlined"
-            margin="normal"
-            inputProps={getExpiryDateProps({})}
-          />
-          <Box sx={{ width: '20px' }}></Box>
-          <TextField
-            sx={{ width: '100%' }}
-            label="CVV"
-            variant="outlined"
-            margin="normal"
-            inputProps={getCVCProps({})}
-          />
-        </Box>
-        <FormControl sx={{ width: '100%' }}>
-          <TextField
-            label="Expiration Date"
-            name="expiry"
-            variant="outlined"
-            margin="normal"
-            inputProps={getExpiryDateProps({})}
-          />
-          <TextField
-            label="CVV"
-            variant="outlined"
-            margin="normal"
-            inputProps={getCVCProps({})}
-          />
-        </FormControl>
+        <TextField
+          label="Expiration Date"
+          name="expiry"
+          variant="outlined"
+          margin="normal"
+          inputProps={getExpiryDateProps({})}
+        />
+        <TextField
+          label="CVV"
+          variant="outlined"
+          margin="normal"
+          inputProps={getCVCProps({})}
+        />
         <FormControl>
           <RadioGroup
             aria-label="demo-row-radio-buttons-group-label"

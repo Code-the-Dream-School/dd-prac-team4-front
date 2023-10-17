@@ -37,7 +37,7 @@
     "test": "craco test --transformIgnorePatterns 'node_modules/(?!axios)/' --detectOpenHandles --silent",
     "test:ci": "craco test --watchAll=false --transformIgnorePatterns 'node_modules/(?!axios)/' --detectOpenHandles --silent",
     "eject": "react-scripts eject",
-    "format:all": "npx prettier --write .",
+    "format": "npx prettier --write .",
     "format:check": "npx prettier --check .",
     "lint:fix": "eslint --fix src",
     "lint:check": "eslint src"

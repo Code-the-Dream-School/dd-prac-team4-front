@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../../apis/axiosClient'; // axios instance
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import { useNavigate } from 'react-router-dom';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
+import IconButton from '@mui/material/Tooltip';
+import Tooltip from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite'; // Heart icon
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 

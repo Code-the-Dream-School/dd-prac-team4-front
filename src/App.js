@@ -10,6 +10,7 @@ import WishListView from './components/wishList/WishListView';
 import UserProfile from './components/user/UserProfile';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
+import AlbumChat from './components/album/AlbumChat';
 
 function App() {
   const { status } = useAuth();
@@ -30,6 +31,13 @@ function App() {
         <Route path="/wishlist" element={<WishListView />} />
         <Route path="/checkout/completed" element={<CheckoutComplete />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route
+          path="/chat"
+          element={
+            <AlbumChat spotifyUrl="https://api.spotify.com/v1/albums/6r1lh7fHMB499vGKtIyJLy" />
+          }
+        />
+        {/* Below route is the catch-all route. It **MUST** be the last route because react-router checks the routes from top-to-bottom */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>

@@ -34,7 +34,7 @@ function App() {
         <Route
           path="/chat"
           element={
-            <AlbumChat apiUrl="https://api.spotify.com/v1/albums/6r1lh7fHMB499vGKtIyJLy" />
+            <AlbumChat spotifyUrl="https://api.spotify.com/v1/albums/6r1lh7fHMB499vGKtIyJLy" />
           }
         />
         {/* Below route is the catch-all route. It **MUST** be the last route because react-router checks the routes from top-to-bottom */}

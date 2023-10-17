@@ -22,37 +22,25 @@ export function makeServer() {
       const baseAPIPath = process.env.REACT_APP_API_BASE_PATH;
 
       // route to submit user registration form
-      this.post(
-        `${baseAPIPath}/auth/register`,
-        (schema, request) => {
-          let attrs = JSON.parse(request.requestBody);
-          console.log(attrs);
-        }
-      );
+      this.post(`${baseAPIPath}/auth/register`, (schema, request) => {
+        let attrs = JSON.parse(request.requestBody);
+        console.debug('REQUEST BODY FOR ' + request.url + ': ', attrs);
+      });
       // route to login user
-      this.post(
-        `${baseAPIPath}/auth/login`,
-        (schema, request) => {
-          let attrs = JSON.parse(request.requestBody);
-          console.log(attrs);
-        }
-      );
+      this.post(`${baseAPIPath}/auth/login`, (schema, request) => {
+        let attrs = JSON.parse(request.requestBody);
+        console.debug('REQUEST BODY FOR ' + request.url + ': ', attrs);
+      });
       // route to logout user
-      this.post(
-        `${baseAPIPath}/auth/logout`,
-        (schema, request) => {
-          let attrs = JSON.parse(request.requestBody);
-          console.log(attrs);
-        }
-      );
+      this.post(`${baseAPIPath}/auth/logout`, (schema, request) => {
+        let attrs = JSON.parse(request.requestBody);
+        console.debug('REQUEST BODY FOR ' + request.url + ': ', attrs);
+      });
       // route to get current user
-      this.get(
-        `${baseAPIPath}/auth/users/showMe`,
-        (schema, request) => {
-          let attrs = JSON.parse(request.requestBody);
-          console.log(attrs);
-        }
-      );
+      this.get(`${baseAPIPath}/auth/users/showMe`, (schema, request) => {
+        let attrs = JSON.parse(request.requestBody);
+        console.debug('REQUEST BODY FOR ' + request.url + ': ', attrs);
+      });
 
       this.passthrough(baseAPIPath + '/*'); // everything else will try to actually call the backend
     },

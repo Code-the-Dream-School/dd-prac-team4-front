@@ -4,11 +4,11 @@ import { useAuth } from '@akosasante/react-auth-context';
 import { Typography, TextField, Button } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 
-const AlbumChatBox = ({ apiUrl }) => {
+const AlbumChatBox = ({ spotifyUrl }) => {
   const [message, setMessage] = useState('');
   const [socket, setSocket] = useState(null);
   const regexPattern = /\/albums\/([a-zA-Z0-9]+)/;
-  const match = apiUrl.match(regexPattern);
+  const match = spotifyUrl.match(regexPattern);
   const albumId = match ? match[1] : null;
 
   const { user: loggedInUser } = useAuth();

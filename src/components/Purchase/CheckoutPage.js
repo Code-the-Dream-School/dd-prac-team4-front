@@ -15,6 +15,8 @@ const stripePromise = loadStripe(
 
 const CheckoutPage = () => {
   const [clientSecret, setClientSecret] = useState('');
+
+  const [orderId, setOrderId] = useState(null);
   const location = useLocation();
   // Extract order data from navigation.state
   const { orderData } = location.state || {};
@@ -29,7 +31,9 @@ const CheckoutPage = () => {
           tax: orderData.tax,
           total: orderData.total,
         });
+        setOrderId(response.data.order._id);
         setClientSecret(response.data.clientSecret);
+        return response.data.clientSecret;
       } catch (error) {
         // Handle error here
         console.error('Error fetching data:', error);
@@ -44,6 +48,9 @@ const CheckoutPage = () => {
     orderData.total,
   ]);
 
+  console.log('Order data ' + JSON.stringify(orderData));
+  console.log('client secret ' + clientSecret);
+
   const appearance = {
     theme: 'stripe',
   };
@@ -55,10 +62,10 @@ const CheckoutPage = () => {
   return (
     <>
       <div className={style['payment-form']}>
-        {clientSecret && (
+        {clientSecret && orderId !== null && (
           <>
             <Elements options={options} stripe={stripePromise}>
-              <CheckoutForm paymentAmount={orderData.total} order={orderData} />
+              <CheckoutForm paymentAmount={orderData.total} orderId={orderId} />
             </Elements>
           </>
         )}

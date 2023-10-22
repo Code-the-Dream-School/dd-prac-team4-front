@@ -1,0 +1,13 @@
+#menu-appbar .MuiList-root.MuiList-padding {
+  width: 100px !important;
+}
+
+#menu-appbar .MuiMenuItem-root.MuiMenuItem-gutters {
+  min-height: fit-content;
+  display: flex;
+  justify-content: center;
+}
+
+#menu-appbar .MuiButton-root.MuiButton-text.MuiButton-textInherit {
+  padding: 0;
+}

@@ -179,6 +179,7 @@ const AlbumsList = () => {
                 mb: '20px',
               }}
             >
+              {/* no result found message */}
               <Typography variant="h4">{message}</Typography>
             </Box>
           )}

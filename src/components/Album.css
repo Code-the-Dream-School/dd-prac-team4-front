@@ -1,0 +1,65 @@
+/* .album-modal-main {
+} */
+
+.album-modal-main .MuiPaper-elevation.MuiPaper-rounded {
+  /* max-width: 400px; */
+  width: 100%;
+}
+
+.album-modal-main .btn {
+  padding: 5px 15px;
+  background: transparent;
+  border-radius: 5px;
+  outline: none;
+}
+
+.album-modal-main .delete-btn {
+  border: 1px solid red;
+  color: red;
+}
+
+.album-modal-main .edit-btn {
+  border: 1px solid black;
+  color: black;
+}
+.album-modal-main .rate-card {
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 14px;
+  margin-bottom: 20px;
+}
+.album-modal-main .rate-data {
+  margin-top: 0;
+  color: black;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.album-modal-main .rate-card p {
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+/* .album-modal-main .rate-card div{
+    margin-top: 10px;
+} */
+.card-design {
+  display: flex;
+  gap: 20px;
+}
+
+.album-modal-main .rate-card .input-main {
+  margin-top: 0;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+/* .album-modal-main .rate-card .input-main input,.album-modal-main .rate-card .input-main textarea{
+    width: 50%;
+} */
+
+.card-design-main .title {
+  font-size: 18px;
+  color: #494949;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}

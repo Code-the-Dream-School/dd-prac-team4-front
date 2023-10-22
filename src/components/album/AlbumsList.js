@@ -24,7 +24,8 @@ import {
 
 const AlbumsList = () => {
   const [albums, setAlbums] = useState([]); // for albums
-  const [limit, setLimit] = useState(12); // for pagination
+  const limit = 12;
+  // const [limit, setLimit] = useState(12); // for pagination
   const [searchType, setSearchType] = useState('albumName'); //default value for select input
   const [searchTerm, setSearchTerm] = useState(''); // for search input filed value
   const [message, setMessage] = useState(''); // for not found message
@@ -63,8 +64,10 @@ const AlbumsList = () => {
   );
 
   useEffect(() => {
-    fetchAlbums(searchType, searchTerm); // Use current search term
-  }, [fetchAlbums, searchType, searchTerm]); // Refetch albums when the page changes
+    //   fetchAlbums(searchType, searchTerm); // Use current search term
+    // }, [fetchAlbums, searchType, searchTerm); // Refetch albums when the page changes
+    fetchAlbums(searchType, lastSearchTerm); // Use current search term
+  }, [fetchAlbums, searchType, lastSearchTerm]); // Refetch albums when the submitted search changes
 
   //fetch wishlist album from API
   useEffect(() => {
@@ -94,16 +97,15 @@ const AlbumsList = () => {
   const handleSearch = () => {
     setLastSearchTerm(searchTerm);
     setCurrentPage(1);
-    fetchAlbums(searchType, searchTerm);
   };
 
   //clear search input and make an empty API call
   const handleClear = () => {
     setSearchType('albumName');
     setSearchTerm('');
-    setLimit(1);
+    // setLimit(1);
     setMessage('');
-    fetchAlbums('albumName', '', 0);
+    // fetchAlbums('albumName', '', 1);
   };
 
   // snackbar start

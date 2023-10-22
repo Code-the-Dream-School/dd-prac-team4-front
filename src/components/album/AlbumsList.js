@@ -212,6 +212,7 @@ const AlbumsList = () => {
                 mb: '1.25rem',
               }}
             >
+              {/* no result found message */}
               <Typography variant="h4">{message}</Typography>
             </Box>
           )}

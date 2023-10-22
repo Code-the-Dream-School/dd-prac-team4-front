@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -15,20 +15,20 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 //   makeServer({ environment: 'development' });
 // }
 
-const envPath = process.env.REACT_APP_API_BASE_PATH;
+const baseAPIPath = process.env.REACT_APP_API_BASE_PATH;
 
 const authSettings = {
-  getCurrentUserPath: `${envPath}/users/showMe`,
-  loginPath: `${envPath}/v1/auth/login`,
+  getCurrentUserPath: `${baseAPIPath}/users/showMe`,
+  loginPath: `${baseAPIPath}/v1/auth/login`,
   logoutRedirectPath: '/',
   defaultAxiosOptions: {
     withCredentials: true,
   },
 };
 
-// Set up a default colour pallete / theme for our whole app using material-ui ThemeProvider context component
+// Set up a default colour pallette / theme for our whole app using material-ui ThemeProvider context component
 const defaultTheme = createTheme({
-  palette: { main: '#3f51b5', mode: 'light' },
+  palette: { primary: { main: '#3f51b5' }, mode: 'light' }, // Change "main" to set the primary color
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

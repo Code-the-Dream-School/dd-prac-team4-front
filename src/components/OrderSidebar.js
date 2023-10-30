@@ -32,7 +32,9 @@ const OrderSidebar = () => {
   };
 
   const handleRemove = (album) => {
-    dispatch(reduceItem({ album, quantity: itemsInCart.items[album.id].quantity }));
+    dispatch(
+      reduceItem({ album, quantity: itemsInCart.items[album.id].quantity })
+    );
   };
 
   const handleClearCart = () => {
@@ -77,7 +79,8 @@ const OrderSidebar = () => {
                 />
               </ListItem>
               <ListItem>
-              <Button onClick={() => handleAdd(item.album)}>+</Button>
+                <ListItemText primary={`Quantity: ${item.quantity}`} />
+                <Button onClick={() => handleAdd(item.album)}>+</Button>
                 <Button onClick={() => handleReduce(item.album)}>-</Button>
                 <Button onClick={() => handleRemove(item.album)}>Remove</Button>
               </ListItem>

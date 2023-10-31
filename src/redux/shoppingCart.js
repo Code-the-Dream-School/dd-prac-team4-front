@@ -72,7 +72,7 @@ const shoppingCartReducer = createSlice({
     },
     addToWishlist(state, action) {
       const { album } = action.payload;
-      console.log("Album ID to add to wishlist:", album.id);
+      console.log('Album ID to add to wishlist:', album.id);
       axiosInstance
         .post('/wishlist/', { albumId: album.id })
         .then((response) => {

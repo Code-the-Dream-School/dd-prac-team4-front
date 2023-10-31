@@ -28,7 +28,6 @@ const OrderSidebar = () => {
     dispatch(addToWishlist({ album }));
   };
 
-
   //64fd67815fca88489ab99564
   const handleCheckout = () => {
     // Create the order data object

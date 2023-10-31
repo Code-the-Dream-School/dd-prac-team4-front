@@ -9,7 +9,7 @@ import {
   Box,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { clearCart } from '../redux/shoppingCart';
+import { clearCart, reduceItem, addToWishlist } from '../redux/shoppingCart';
 
 const OrderSidebar = () => {
   const navigate = useNavigate();
@@ -22,6 +22,12 @@ const OrderSidebar = () => {
   const subtotal = roundedNumber(useSelector((state) => state.cart.subtotal)); //total price of all items
   const tax = useSelector((state) => state.cart.tax);
   const total = roundedNumber(useSelector((state) => state.cart.totalAmount)); //total amount after tax
+
+  const handleMoveToWishlist = (album) => {
+    dispatch(reduceItem({ album, quantity: 1 }));
+    dispatch(addToWishlist({ album }));
+  };
+
 
   //64fd67815fca88489ab99564
   const handleCheckout = () => {
@@ -62,6 +68,9 @@ const OrderSidebar = () => {
               </ListItem>
               <ListItem>
                 <ListItemText primary={`Quantity: ${item.quantity}`} />
+                <Button onClick={() => handleMoveToWishlist(item.album)}>
+                  Move to Wishlist
+                </Button>
               </ListItem>
             </React.Fragment>
           );

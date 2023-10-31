@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axiosInstance from './../apis/axiosClient';
 
 // Helper function to save cart state to localStorage
 const saveCartToLocalStorage = (cartState) => {
@@ -69,8 +70,21 @@ const shoppingCartReducer = createSlice({
 
       saveCartToLocalStorage(state);
     },
+    addToWishlist(state, action) {
+      const { album } = action.payload;
+      console.log("Album ID to add to wishlist:", album.id);
+      axiosInstance
+        .post('/wishlist/', { albumId: album.id })
+        .then((response) => {
+          console.log('Album added to wishlist:', response.data);
+        })
+        .catch((error) => {
+          console.error('Error adding album to wishlist:', error);
+        });
+    },
   },
 });
 
-export const { addItem, reduceItem, clearCart } = shoppingCartReducer.actions;
+export const { addItem, reduceItem, clearCart, addToWishlist } =
+  shoppingCartReducer.actions;
 export default shoppingCartReducer.reducer;

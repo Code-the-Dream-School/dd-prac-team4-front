@@ -9,7 +9,7 @@ import {
   Box,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { clearCart } from '../redux/shoppingCart';
+import { clearCart, addItem, reduceItem } from '../redux/shoppingCart';
 
 const OrderSidebar = () => {
   const navigate = useNavigate();
@@ -22,6 +22,24 @@ const OrderSidebar = () => {
   const subtotal = roundedNumber(useSelector((state) => state.cart.subtotal)); //total price of all items
   const tax = useSelector((state) => state.cart.tax);
   const total = roundedNumber(useSelector((state) => state.cart.totalAmount)); //total amount after tax
+
+  const handleAdd = (album) => {
+    dispatch(addItem({ album, quantity: 1 }));
+  };
+
+  const handleReduce = (album) => {
+    dispatch(reduceItem({ album, quantity: 1 }));
+  };
+
+  const handleRemove = (album) => {
+    dispatch(
+      reduceItem({ album, quantity: itemsInCart.items[album.id].quantity })
+    );
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
 
   //64fd67815fca88489ab99564
   const handleCheckout = () => {
@@ -62,6 +80,9 @@ const OrderSidebar = () => {
               </ListItem>
               <ListItem>
                 <ListItemText primary={`Quantity: ${item.quantity}`} />
+                <Button onClick={() => handleAdd(item.album)}>+</Button>
+                <Button onClick={() => handleReduce(item.album)}>-</Button>
+                <Button onClick={() => handleRemove(item.album)}>Remove</Button>
               </ListItem>
             </React.Fragment>
           );
@@ -91,6 +112,11 @@ const OrderSidebar = () => {
               currency: 'USD',
             })}`}
           />
+        </ListItem>
+        <ListItem>
+          <Button variant="contained" color="primary" onClick={handleClearCart}>
+            Clear Cart
+          </Button>
         </ListItem>
         <ListItem>
           <Button variant="contained" color="primary" onClick={handleCheckout}>

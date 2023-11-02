@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState,  } from 'react';
+import {  useAuth } from '@akosasante/react-auth-context';
 import { Card, CardContent, Table, TableRow, TableCell, TextField, Button } from '@mui/material';
-import { Avatar } from '@mui/material';
+import { Avatar, Alert } from '@mui/material';
 import axiosInstance from '../../apis/axiosClient';
-
-export default function PersonalProfile() {
+import { useNavigate } from 'react-router-dom';
+export default function PersonalProfileEditForm() {
   const [userData, setUserData] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -14,20 +15,13 @@ export default function PersonalProfile() {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   const [successMessagePassword, setSuccessMessagePassword] = useState('');
+  
+  const navigate = useNavigate(); // Initialize useNavigate
 
-  const fetchCurrentUser = async () => {
-    try {
-      const response = await axiosInstance.get('/users/showMe');
-      setUserData(response.data.user);
-    } catch (error) {
-      console.error('Error fetching current user', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCurrentUser();
-  }, []);
-
+  const { user } = useAuth(); 
+   let currentUserData = user.user ; //he user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
+//AKOS: here got in linter   Line 21:4:  'userData' is constant  - if we want here to reassign it to userData on line 7- should we leave it as is?
+ 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -58,9 +52,12 @@ export default function PersonalProfile() {
           oldPassword: '',
           newPassword: '',
         });
+        // Navigate back to the user profile page
+        navigate('/profile'); // Use the navigate function
       } catch (error) {
         // Handle errors and update the state with validation errors
-        setErrors(error.response.data.errors);
+        setErrors(error.response.data.msg);
+        <Alert severity="error">{errors}</Alert>
         setSuccessMessage(''); // Clear any previous success message
       }
     }
@@ -93,8 +90,11 @@ export default function PersonalProfile() {
           newPassword: '',
         });
       } catch (error) {
+        setErrors(error.response.data.msg); 
         // Handle errors and update the state with validation errors
-        setErrors(error.response.data.errors);
+        <Alert severity="error">{errors}</Alert>
+        //AKOS: shouldn't we show here in alert errors state (changed on line 95)?
+      
         setSuccessMessagePassword(''); // Clear any previous success message for password change
       }
     }
@@ -118,13 +118,15 @@ export default function PersonalProfile() {
           />
         </div>
         {successMessage && (
-          <div className="text-success">{successMessage}</div>
+          <Alert severity="success">{successMessage}</Alert>
+         
         )}
         {successMessagePassword && (
-          <div className="text-success" >{successMessagePassword}</div>
+          <Alert severity="info">{successMessagePassword}</Alert>
+          
         )}
         <form onSubmit={handleProfileSubmit}>
-          <Table responsive striped hover className="text-center mt-5">
+          <Table className="text-center mt-5">
             <tbody>
               <TableRow>
                 <TableCell>USERNAME</TableCell>
@@ -147,6 +149,7 @@ export default function PersonalProfile() {
                 <TableCell>
                   <TextField
                     name="email"
+                    type="email"
                     value={formData.email}
                     onChange={handleInputChange}
                     error={errors.email ? true : false}
@@ -161,7 +164,7 @@ export default function PersonalProfile() {
           </Button>
         </form>
         <form onSubmit={handlePasswordSubmit}>
-          <Table responsive striped hover className="text-center mt-5">
+          <Table  className="text-center mt-5">
             <tbody>
               <TableRow>
                 <TableCell>OLD PASSWORD</TableCell>
@@ -195,6 +198,7 @@ export default function PersonalProfile() {
             Change Password
           </Button>
         </form>
+
       </CardContent>
     </Card>
   );

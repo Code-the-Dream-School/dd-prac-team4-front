@@ -17,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import './Navbar.css';
 
 import Logo from '../images/Logo.png';
+import ThemeSwitcher from './ThemeSwitcher';
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -40,6 +41,7 @@ const Navbar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           BeatBazaar
         </Typography>
+
         <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
           {/*when user is loggedin can not see login and signup buttons  */}
           {!isLoggedIn && (
@@ -55,6 +57,7 @@ const Navbar = () => {
           <Button color="inherit" component={Link} to="/home">
             Home
           </Button>
+
           {/*only if user is logged in can see the logout button  */}
           {isLoggedIn && (
             <>
@@ -65,6 +68,7 @@ const Navbar = () => {
             </>
           )}
         </Box>
+        <ThemeSwitcher />
         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
           <IconButton
             size="large"
@@ -76,6 +80,7 @@ const Navbar = () => {
           >
             <MenuIcon />
           </IconButton>
+
           <Menu
             sx={{ mt: '25px' }}
             id="menu-appbar"

@@ -34,14 +34,14 @@ const AlbumPreview = ({
     setSpotifyEmbedUrl(spotifyAlbumUrl);
 
     // Fetch MongoDB album ID from  API
-    // AKOS: how would I get the id of the album in this album preview component to pass it later  to ReviewsList.js as a prop on line 66?
-    // I am absolutely wrong here when i pass here spotify id instead of album id
+    // AKOS: how would I get the id of the album in this album preview component to pass it later  to ReviewsList.js as a prop on line 68?
+    // mongo album id is not being set and instead of it it passes spotify id
     axiosInstance
-      .get(`/album/${albumId}`)
+      .get(`/albums/${albumId}`)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.album._id);
 
-        setMongoAlbumId(response.data);
+        setMongoAlbumId(response.data.album._id);
       })
       .catch((error) => {
         console.error('Error fetching MongoDB album ID:', error);

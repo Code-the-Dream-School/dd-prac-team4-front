@@ -9,7 +9,7 @@ import {
   Box,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { clearCart, reduceItem, addToWishlist, reduceItem } from '../redux/shoppingCart';
+import { clearCart, reduceItem, addToWishlist, addItem } from '../redux/shoppingCart';
 
 const OrderSidebar = () => {
   const navigate = useNavigate();

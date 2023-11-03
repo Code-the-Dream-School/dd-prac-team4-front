@@ -20,10 +20,13 @@ function ForgotPassword() {
 
   return (
     <div>
-      <h2>Forgot Password</h2>
+      <h2>Forgot your Password</h2>
+      <p>
+        Please enter your email below and will send you a reset password email
+      </p>
       <input
         type="email"
-        placeholder="Enter your email"
+        placeholder="johnDoe@example.com"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />

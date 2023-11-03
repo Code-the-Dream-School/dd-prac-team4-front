@@ -8,6 +8,9 @@
   },
   "dependencies": {
     "@akosasante/react-auth-context": "github:akosasante/react-auth-context",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.14.3",
     "@mui/material": "^5.14.3",
     "@mui/styled-engine-sc": "^5.12.0",

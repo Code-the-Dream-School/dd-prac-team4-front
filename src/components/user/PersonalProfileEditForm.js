@@ -5,7 +5,7 @@ import { Avatar, Alert } from '@mui/material';
 import axiosInstance from '../../apis/axiosClient';
 import { useNavigate } from 'react-router-dom';
 export default function PersonalProfileEditForm() {
-  const [userData, setUserData] = useState(null);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,12 +15,12 @@ export default function PersonalProfileEditForm() {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   const [successMessagePassword, setSuccessMessagePassword] = useState('');
-  
+  const [serverErrors, setServerErrors] = useState(''); //  state for server errors
+
   const navigate = useNavigate(); // Initialize useNavigate
 
   const { user } = useAuth(); 
-   let currentUserData = user.user ; //he user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
-//AKOS: here got in linter   Line 21:4:  'userData' is constant  - if we want here to reassign it to userData on line 7- should we leave it as is?
+   const userData  = user.user ; //he user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -55,9 +55,9 @@ export default function PersonalProfileEditForm() {
         // Navigate back to the user profile page
         navigate('/profile'); // Use the navigate function
       } catch (error) {
-        // Handle errors and update the state with validation errors
-        setErrors(error.response.data.msg);
-        <Alert severity="error">{errors}</Alert>
+        setErrors({});
+        setServerErrors({serverMsg: error?.response?.data?.msg}); // Set server errors
+        
         setSuccessMessage(''); // Clear any previous success message
       }
     }
@@ -90,10 +90,10 @@ export default function PersonalProfileEditForm() {
           newPassword: '',
         });
       } catch (error) {
-        setErrors(error.response.data.msg); 
-        // Handle errors and update the state with validation errors
-        <Alert severity="error">{errors}</Alert>
-        //AKOS: shouldn't we show here in alert errors state (changed on line 95)?
+        setErrors({});
+        setServerErrors({serverMsg: error?.response?.data?.msg}); // Set server errors
+       
+ 
       
         setSuccessMessagePassword(''); // Clear any previous success message for password change
       }
@@ -104,6 +104,8 @@ export default function PersonalProfileEditForm() {
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
       <CardContent>
         <h3 className="text-uppercase">My Profile</h3>
+      
+        {serverErrors && <Alert severity="error">{serverErrors.serverMsg}</Alert>}
         <div className="text-center">
           <Avatar
             src={require('../../images/customer.png')}

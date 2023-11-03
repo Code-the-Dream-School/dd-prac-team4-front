@@ -8,6 +8,7 @@ function ThemeSwitcher() {
 
   const toggleTheme = () => {
     setIsDarkTheme((prevTheme) => !prevTheme);
+    console.log('isDarkTheme:', isDarkTheme);
   };
 
   return (

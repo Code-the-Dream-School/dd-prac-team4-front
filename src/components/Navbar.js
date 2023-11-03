@@ -19,7 +19,7 @@ import './Navbar.css';
 import Logo from '../images/Logo.png';
 import ThemeSwitcher from './ThemeSwitcher';
 
-const Navbar = () => {
+const Navbar = ({ isDarkTheme }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleCloseUserMenu = () => {
@@ -31,7 +31,13 @@ const Navbar = () => {
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
   return (
-    <AppBar position="static" style={{ marginBottom: '2rem' }}>
+    <AppBar
+      position="static"
+      style={{
+        background: isDarkTheme ? '#333' : '#2196f3',
+        marginBottom: '2rem',
+      }}
+    >
       <Toolbar>
         <img
           src={Logo}
@@ -68,7 +74,7 @@ const Navbar = () => {
             </>
           )}
         </Box>
-        <ThemeSwitcher />
+        <ThemeSwitcher isDarkTheme={isDarkTheme} />
         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
           <IconButton
             size="large"

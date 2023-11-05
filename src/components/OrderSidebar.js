@@ -9,7 +9,8 @@ import {
   Box,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { clearCart, reduceItem, addToWishlist, addItem } from '../redux/shoppingCart';
+import { clearCart, reduceItem, addItem } from '../redux/shoppingCart';
+import axiosInstance from './../apis/axiosClient';
 
 const OrderSidebar = () => {
   const navigate = useNavigate();
@@ -23,10 +24,16 @@ const OrderSidebar = () => {
   const tax = useSelector((state) => state.cart.tax);
   const total = roundedNumber(useSelector((state) => state.cart.totalAmount)); //total amount after tax
 
-  const handleMoveToWishlist = (album) => {
-    dispatch(reduceItem({ album, quantity: 1 }));
-    dispatch(addToWishlist({ album }));
-  }
+  const handleMoveToWishlist = async (album) => {
+    dispatch(
+      reduceItem({ album, quantity: itemsInCart.items[album.id].quantity })
+    ); // Reduce the quantity of the item in the cart first
+    const response = await axiosInstance.post('/wishlist'); // Make the call to create or get the wishlist
+    const wishlistId = response.data.wishlist._id;
+    await axiosInstance.patch(`/wishlist/${wishlistId}/add_album/${album.id}`); // Make the call to add the album to the wishlist
+    console.log('Album successfully added to wishlist');
+  };
+
   const handleAdd = (album) => {
     dispatch(addItem({ album, quantity: 1 }));
   };

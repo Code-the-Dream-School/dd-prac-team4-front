@@ -7,21 +7,30 @@ export const albumShape = PropTypes.shape({
   image: PropTypes.string.isRequired,
   // custom validator function takes three arguments
   releaseDate: (props, propName, componentName) => {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(props[propName])) {
-      // format YYYY-MM-DD
-      return new Error(
-        `Invalid prop ${propName} supplied to ${componentName}. Validation failed.`
-      );
+    if (props[propName]) {
+      if (
+        !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(props[propName])
+      ) {
+        // YYYY-MM-DD[T]HH:MM:SS.MS[Z] # formatted as a date-time string in UTC timezone.
+        return new Error(
+          `Invalid prop ${propName} supplied to ${componentName}. 
+          Validation failed. Please provide the date in the format YYYY-MM-DD.`
+        );
+      }
     }
   },
   averageRating: (props, propName, componentName) => {
-    if (
-      typeof props[propName] !== 'number' ||
-      props[propName] < 1 ||
-      props[propName] > 5
-    ) {
+    const value = props[propName];
+    if (typeof value !== 'number') {
       return new Error(
-        `Invalid prop ${propName} supplied to ${componentName}. Validation failed.`
+        `Invalid prop ${propName} supplied to ${componentName}. 
+        Validation failed. Please provide a valid number for averageRating.`
+      );
+    }
+    if (value < 0 || value > 5) {
+      return new Error(
+        `Invalid prop ${propName} supplied to ${componentName}. 
+        Validation failed. Please provide a valid averageRating between 0 and 5.`
       );
     }
   },

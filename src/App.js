@@ -16,6 +16,13 @@ function App() {
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
 
+  const ProtectedRoute = ({ children }) => {
+    if (!isLoggedIn) {
+      return <Navigate to="/signIn" />;
+    }
+    return children;
+  };
+
   return (
     <>
       <Navbar />
@@ -27,14 +34,44 @@ function App() {
         <Route path="/register" element={<UserRegistration />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/wishlist" element={<WishListView />} />
-        <Route path="/checkout/completed" element={<CheckoutComplete />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <CheckoutPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/wishlist"
+          element={
+            <ProtectedRoute>
+              <WishListView />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout/completed"
+          element={
+            <ProtectedRoute>
+              <CheckoutComplete />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/chat"
           element={
-            <AlbumChat spotifyUrl="https://api.spotify.com/v1/albums/6r1lh7fHMB499vGKtIyJLy" />
+            <ProtectedRoute>
+              <AlbumChat spotifyUrl="https://api.spotify.com/v1/albums/6r1lh7fHMB499vGKtIyJLy" />
+            </ProtectedRoute>
           }
         />
         {/* Below route is the catch-all route. It **MUST** be the last route because react-router checks the routes from top-to-bottom */}

@@ -89,15 +89,15 @@ const OrderSidebar = () => {
                   secondary={`Artist: ${item.album.artistName}, Price: $${item.album.price}`}
                 />
               </ListItem>
-              <ListItem>
+              <div>
                 <ListItemText primary={`Quantity: ${item.quantity}`} />
                 <Button onClick={() => handleMoveToWishlist(item.album)}>
-                  Move to Wishlist
+                  Wishlist
                 </Button>
                 <Button onClick={() => handleAdd(item.album)}>+</Button>
                 <Button onClick={() => handleReduce(item.album)}>-</Button>
                 <Button onClick={() => handleRemove(item.album)}>Remove</Button>
-              </ListItem>
+              </div>
             </React.Fragment>
           );
         })}

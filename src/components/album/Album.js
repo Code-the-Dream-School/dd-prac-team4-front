@@ -9,6 +9,8 @@ import { styled } from '@mui/material/styles';
 import AddToWishlistButton from '../layout/AddToWishlistButton/AddToWishlistButton';
 import AlbumPreview from './AlbumPreview';
 import DialogActions from '@mui/material/DialogActions';
+import PropTypes from 'prop-types';
+import { albumShape } from '../../propTypes/albumTypes';
 
 const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
   // Your styles for album item
@@ -74,5 +76,10 @@ function Album({ album, wishListId }) {
     </AlbumItemWrapper>
   );
 }
+
+Album.propTypes = {
+  album: albumShape.isRequired,
+  wishListId: PropTypes.string,
+};
 
 export default Album;

@@ -1,26 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useAuth } from '@akosasante/react-auth-context';
 import { Card, CardContent, Table, TableRow, TableCell } from '@mui/material';
 // import { useNavigate } from 'react-router-dom';
 // import { getUserProfile } from './api';
 import { Avatar } from '@mui/material';
-import axiosInstance from '../../apis/axiosClient';
 
 export default function PersonalProfile() {
-  const [userData, setUserData] = useState(null);
-
-  //fetch current user's information
-  const fetchCurrentUser = async () => {
-    try {
-      const response = await axiosInstance.get('/users/showMe');
-      setUserData(response.data.user);
-    } catch (error) {
-      console.error('Error fetching current user', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCurrentUser();
-  }, []);
+  const { user } = useAuth();
+  const userData = user.user; //the user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
 
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">

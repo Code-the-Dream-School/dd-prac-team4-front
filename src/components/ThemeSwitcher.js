@@ -7,9 +7,10 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-function MyApp() {
+function ToggleColorMode() {
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
+
   return (
     <Box
       sx={{
@@ -39,7 +40,7 @@ function MyApp() {
   );
 }
 
-export default function ToggleColorMode() {
+export default function ThemeSwitcher() {
   const [mode, setMode] = React.useState('light'); // Corrected the initial state declaration
   const colorMode = React.useMemo(
     () => ({
@@ -63,7 +64,7 @@ export default function ToggleColorMode() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <MyApp />
+        <ToggleColorMode />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

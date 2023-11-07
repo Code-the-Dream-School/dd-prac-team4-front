@@ -74,7 +74,7 @@ const Navbar = ({ isDarkTheme }) => {
             </>
           )}
         </Box>
-        <ThemeSwitcher isDarkTheme={isDarkTheme} />
+        <ThemeSwitcher />
         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
           <IconButton
             size="large"

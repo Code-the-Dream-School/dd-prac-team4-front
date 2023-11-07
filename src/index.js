@@ -6,7 +6,7 @@ import store from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
-import { AuthProvider } from '@akosasante/react-auth-context';
+import { RequireAuth } from '@akosasante/react-auth-context'; 
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
 // uncomment to use mock server in development
@@ -37,11 +37,11 @@ root.render(
     {/* Use CSS baseline to set common spacing/sizing across all of our styling */}
     <CssBaseline />
     <BrowserRouter>
-      <AuthProvider {...authSettings}>
+      <RequireAuth {...authSettings}>
         <Provider store={store}>
           <App />
         </Provider>
-      </AuthProvider>
+      </RequireAuth>
     </BrowserRouter>
   </ThemeProvider>
 );

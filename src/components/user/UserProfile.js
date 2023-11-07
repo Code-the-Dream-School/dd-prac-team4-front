@@ -1,8 +1,11 @@
-import { useAuth } from '@akosasante/react-auth-context';
-import { Card, CardContent, Table, TableRow, TableCell } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Card, CardContent, Table, TableRow, TableCell, Button} from '@mui/material';
 // import { useNavigate } from 'react-router-dom';
 // import { getUserProfile } from './api';
 import { Avatar } from '@mui/material';
+import axiosInstance from '../../apis/axiosClient';
+import { Link } from 'react-router-dom';
+import { useAuth } from '@akosasante/react-auth-context';
 
 export default function PersonalProfile() {
   const { user } = useAuth();
@@ -51,6 +54,11 @@ export default function PersonalProfile() {
           </tbody>
         </Table>
       </CardContent>
+      <Link to="/updateUserInfo"> {/* Specify the path where you want to redirect */}
+          <Button color='warning' style={{ backgroundColor: 'lightgrey' }}>
+            Update Profile
+          </Button>
+        </Link>
       {/* {userData?.id === user?.id && (
 
         <CardActions className='justify-content-center'>

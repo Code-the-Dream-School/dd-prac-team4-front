@@ -8,20 +8,6 @@ export default function PersonalProfile() {
   const { user } = useAuth();
   const userData = user.user; //the user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
 
-  // //fetch current user's information
-  // const fetchCurrentUser = async () => {
-  //   try {
-  //     const response = await axiosInstance.get('/users/showMe');
-  //     setUserData(response.data.user);
-  //   } catch (error) {
-  //     console.error('Error fetching current user', error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchCurrentUser();
-  // }, []);
-
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
       <CardContent>

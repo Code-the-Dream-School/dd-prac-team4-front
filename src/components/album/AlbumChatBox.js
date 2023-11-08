@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
 import { useAuth } from '@akosasante/react-auth-context';
 import { Typography, TextField, Button } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
+import axiosInstance from '../../apis/axiosClient';
 
 const AlbumChatBox = ({ spotifyUrl }) => {
   const [message, setMessage] = useState('');
@@ -60,8 +60,7 @@ const AlbumChatBox = ({ spotifyUrl }) => {
           const messageWithKey = {
             ...data,
             isOwnMessage,
-            messageKey: uuidv4(),
-          }; // will add key to the message
+          };
           setMessages((prevMessages) => [...prevMessages, messageWithKey]);
 
           scrollToBottom();
@@ -81,10 +80,8 @@ const AlbumChatBox = ({ spotifyUrl }) => {
   useEffect(() => {
     const fetchRecentMessages = async () => {
       if (albumId && !socket) {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_BASE_PATH}/chat/${albumId}`
-        );
-        const data = await response.json();
+        const { data } = await axiosInstance.get(`/chat/${albumId}`);
+        console.log('Data from server:', data);
         const messagesWithKeys = data.messages.map((message) => ({
           ...message,
           user: { name: message.user },
@@ -182,51 +179,3 @@ const AlbumChatBox = ({ spotifyUrl }) => {
 };
 
 export default AlbumChatBox;
-
-//   useEffect(() => {
-//     const generateMessageWithKey = (data) => {
-//       const isOwnMessage = loggedInUserId === data.user._id;
-//       return {
-//         ...data,
-//         isOwnMessage,
-//         messageKey: uuidv4(),
-//       };
-//     };
-
-//     const fetchRecentMessages = async () => {
-//       const response = await fetch(
-//         `${process.env.REACT_APP_API_BASE_PATH}/chat/${albumId}`
-//       );
-//       const data = await response.json();
-//       const messagesWithKeys = data.messages
-//         .map((message) => ({
-//           ...message,
-//           user: { name: message.user },
-//         }))
-//         .map(generateMessageWithKey);
-//       setMessages(messagesWithKeys);
-//     };
-
-//     if (albumId && !socket) {
-//       const newSocket = io(process.env.REACT_APP_SOCKET_BASE_PATH);
-//       newSocket.on('connect', () => {
-//         console.log('Connected to WebSocket server');
-//         newSocket.emit('join:album_chat', albumId);
-//         newSocket.on('chat:album', (data) => {
-//           const messageWithKey = generateMessageWithKey(data);
-//           setMessages((prevMessages) => [...prevMessages, messageWithKey]);
-//           scrollToBottom();
-//         });
-//       });
-//       setSocket(newSocket);
-//     }
-
-//     fetchRecentMessages();
-//     // Disconnect from the socket when the component unmounts
-//     return () => {
-//       if (socket) {
-//         console.log('Disconnected from WebSocket server');
-//         socket.disconnect();
-//       }
-//     };
-//   }, [albumId, socket, loggedInUserId]);

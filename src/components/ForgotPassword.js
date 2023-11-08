@@ -8,13 +8,12 @@ function ForgotPassword() {
 
   const handleSubmit = async () => {
     try {
-      // Send a POST request to the backend to request a password reset email
       await axiosInstance.post('/api/v1/auth/forgot_password', { email });
-      setMessage('An email will be sent to your address.'); // Show success message
-      setError(''); // Clear any previous error message
+      setMessage('An email will be sent to your address.');
+      setError('');
     } catch (error) {
-      setError('An error occurred. Please try again.'); // Show error message
-      setMessage(''); // Clear any previous success message
+      setError('An error occurred. Please try again.');
+      setMessage('');
     }
   };
 

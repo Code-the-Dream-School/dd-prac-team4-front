@@ -8,6 +8,7 @@ import { ButtonGroup, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import AddToWishlistButton from '../layout/AddToWishlistButton/AddToWishlistButton';
 import AlbumPreview from './AlbumPreview';
+import AlbumReviews from '../review/ReviewsList';
 import DialogActions from '@mui/material/DialogActions';
 
 const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
@@ -68,9 +69,12 @@ function Album({ album, wishListId }) {
               <div>Average Rating: {album.averageRating}</div>
             </div>
           </DialogContentText>
-          <AlbumPreview spotifyUrl={album.spotifyUrl} />
+          <AlbumPreview albumId={album._id} spotifyUrl={album.spotifyUrl} numOfReviews ={album.numOfReviews}>
+            <AlbumReviews albumId={album._id} />
+          </AlbumPreview>
         </DialogContent>
       </Dialog>
+      
     </AlbumItemWrapper>
   );
 }

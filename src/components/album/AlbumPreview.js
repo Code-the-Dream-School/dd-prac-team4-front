@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { CardContent } from '@mui/material';
-import AlbumReviews from '../review/ReviewsList';
 import axiosInstance from '../../apis/axiosClient';
 const AlbumPreview = ({
+  albumId,
   spotifyUrl,
+  numOfReviews,
   style = {},
   wide = false,
   width = wide ? '100%' : 300,
@@ -27,10 +28,10 @@ const AlbumPreview = ({
       return;
     }
     //extract the album id
-    const albumId = match[1];
+    const spotifyAlbumId = match[1];
 
     //  Spotify album URL for embedding
-    const spotifyAlbumUrl = `https://open.spotify.com/embed/album/${albumId}`;
+    const spotifyAlbumUrl = `https://open.spotify.com/embed/album/${spotifyAlbumId}`;
     setSpotifyEmbedUrl(spotifyAlbumUrl);
 
     // Fetch MongoDB album ID from  API
@@ -47,7 +48,7 @@ const AlbumPreview = ({
         console.error('Error fetching MongoDB album ID:', error);
       });
   }, [spotifyUrl]);
-
+  //console.log("Children:", children.type);
   return (
     <CardContent style={{ marginTop: '1rem', width: '100%', display: 'flex' }}>
       <iframe
@@ -60,12 +61,15 @@ const AlbumPreview = ({
         allow={allow}
         {...props}
       />
-      {children && (
-        <div style={{ width: '100%', display: 'flex' }}>{children}</div>
-      )}
-      <div>
-        <AlbumReviews albumId={mongoAlbumId} />
-      </div>
+
+ {children && numOfReviews === 0 ? (
+      <p>No reviews available for this album</p>
+    ) : (
+      <div style={{ width: '100%', display: 'flex' }}>
+        {children}
+      </div>)
+    }
+ 
     </CardContent>
   );
 };

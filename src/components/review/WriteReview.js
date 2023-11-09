@@ -27,7 +27,7 @@ const WriteReview = ({ albumId, refreshReviews }) => {
 
     try {
       const response = await axiosInstance.post(`/reviews/album/${albumId}`, {
-        user: user._id, // my id for tests
+        user: user._id, 
         album: albumId,
         title: formData.title,
         rating: formData.rating,

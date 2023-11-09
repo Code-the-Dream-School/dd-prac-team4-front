@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -31,14 +31,28 @@ const AlbumTitle = styled('h3')({
 
 function Album({ album, wishListId }) {
   const [openDialog, setOpenDialog] = useState(false);
-
+  const [reviewsUpdated, setReviewsUpdated] = useState(false);
   const handleOpenDialog = () => {
     setOpenDialog(true);
   };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
+    // Reset the reviewsUpdated state when the dialog is closed
+    setReviewsUpdated(false);
   };
+  // Function to refresh reviews
+  const refreshReviews = () => {
+    // Set reviewsUpdated to true to trigger a re-render of AlbumReviews
+    setReviewsUpdated(true);
+  };
+
+  useEffect(() => {
+    // If reviews are updated, reset the state after rendering AlbumReviews
+    if (reviewsUpdated) {
+      setReviewsUpdated(false);
+    }
+  }, [reviewsUpdated]);
 
   return (
     <AlbumItemWrapper>
@@ -69,12 +83,15 @@ function Album({ album, wishListId }) {
               <div>Average Rating: {album.averageRating}</div>
             </div>
           </DialogContentText>
-          <AlbumPreview albumId={album._id} spotifyUrl={album.spotifyUrl} numOfReviews ={album.numOfReviews}>
-            <AlbumReviews albumId={album._id} />
-          </AlbumPreview>
         </DialogContent>
+        <AlbumPreview
+          albumId={album._id}
+          spotifyUrl={album.spotifyUrl}
+          numOfReviews={album.numOfReviews}
+        >
+          <AlbumReviews albumId={album._id} />
+        </AlbumPreview>
       </Dialog>
-      
     </AlbumItemWrapper>
   );
 }

@@ -11,7 +11,7 @@ const AlbumReviews = ({ albumId }) => {
       try {
         const response = await axiosInstance.get(`/reviews/album/${albumId}`);
         console.log(response.data.allProductReviews);
-        
+
         const { allProductReviews } = response.data;
         setReviews(allProductReviews);
         setLoading(false);

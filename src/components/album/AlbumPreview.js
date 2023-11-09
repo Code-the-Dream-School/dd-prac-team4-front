@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CardContent } from '@mui/material';
 import axiosInstance from '../../apis/axiosClient';
+import WriteReview from '../review/WriteReview';
 const AlbumPreview = ({
   albumId,
   spotifyUrl,
@@ -50,27 +51,29 @@ const AlbumPreview = ({
   }, [spotifyUrl]);
   //console.log("Children:", children.type);
   return (
-    <CardContent style={{ marginTop: '1rem', width: '100%', display: 'flex' }}>
-      <iframe
-        title="Spotify Web Player"
-        src={spotifyEmbedUrl}
-        width={width}
-        height={height}
-        frameBorder={frameBorder}
-        style={{ borderRadius: 8, ...style, border: 'none' }}
-        allow={allow}
-        {...props}
-      />
+    <>
+      <CardContent
+        style={{ marginTop: '1rem', width: '100%', display: 'flex' }}
+      >
+        <iframe
+          title="Spotify Web Player"
+          src={spotifyEmbedUrl}
+          width={width}
+          height={height}
+          frameBorder={frameBorder}
+          style={{ borderRadius: 8, ...style, border: 'none' }}
+          allow={allow}
+          {...props}
+        />
 
- {children && numOfReviews === 0 ? (
-      <p>No reviews available for this album</p>
-    ) : (
-      <div style={{ width: '100%', display: 'flex' }}>
-        {children}
-      </div>)
-    }
- 
-    </CardContent>
+        {children && numOfReviews === 0 ? (
+          <p>No reviews available for this album</p>
+        ) : (
+          <div style={{ width: '100%', display: 'flex' }}>{children}</div>
+        )}
+      </CardContent>
+      <WriteReview />
+    </>
   );
 };
 

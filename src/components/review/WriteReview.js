@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../apis/axiosClient';
-
+import { useAuth } from '@akosasante/react-auth-context';
 const WriteReview = ({ albumId, refreshReviews }) => {
   const [formData, setFormData] = useState({
     user: null,
@@ -11,6 +11,7 @@ const WriteReview = ({ albumId, refreshReviews }) => {
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +27,7 @@ const WriteReview = ({ albumId, refreshReviews }) => {
 
     try {
       const response = await axiosInstance.post(`/reviews/album/${albumId}`, {
-        user: '64f89c8ee770c1c0a79f6e77', // my id for tests
+        user: user._id, // my id for tests
         album: albumId,
         title: formData.title,
         rating: formData.rating,
@@ -97,5 +98,5 @@ const WriteReview = ({ albumId, refreshReviews }) => {
 
 export default WriteReview;
 
-//Akos: I had to hardcode the userId- not sure where to retrieve it from? 
+//Akos: I had to hardcode the userId- not sure where to retrieve it from?
 //need to check later id this option 'write a review' is shown only to users who didn't leave a review for this/that album yet

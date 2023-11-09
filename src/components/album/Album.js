@@ -11,6 +11,7 @@ import AlbumPreview from './AlbumPreview';
 import AlbumReviews from '../review/ReviewsList';
 import DialogActions from '@mui/material/DialogActions';
 
+
 const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
   // Your styles for album item
 }));

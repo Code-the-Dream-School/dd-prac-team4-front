@@ -1,11 +1,18 @@
-import React, { useState,  } from 'react';
-import {  useAuth } from '@akosasante/react-auth-context';
-import { Card, CardContent, Table, TableRow, TableCell, TextField, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { useAuth } from '@akosasante/react-auth-context';
+import {
+  Card,
+  CardContent,
+  Table,
+  TableRow,
+  TableCell,
+  TextField,
+  Button,
+} from '@mui/material';
 import { Avatar, Alert } from '@mui/material';
 import axiosInstance from '../../apis/axiosClient';
 import { useNavigate } from 'react-router-dom';
 export default function PersonalProfileEditForm() {
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,9 +26,9 @@ export default function PersonalProfileEditForm() {
 
   const navigate = useNavigate(); // Initialize useNavigate
 
-  const { user } = useAuth(); 
-   const userData  = user.user ; //he user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
- 
+  const { user } = useAuth();
+  const userData = user.user; //he user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -32,8 +39,8 @@ export default function PersonalProfileEditForm() {
     if (!formData.name || !formData.email) {
       // Check if either name or email is empty
       setErrors({
-        name: !formData.name ? "Name is required" : "",
-        email: !formData.email ? "Email is required" : "",
+        name: !formData.name ? 'Name is required' : '',
+        email: !formData.email ? 'Email is required' : '',
       });
     } else {
       try {
@@ -46,7 +53,8 @@ export default function PersonalProfileEditForm() {
         console.log('User profile updated:', response.data);
         setErrors({}); // Clear any previous errors
         setSuccessMessage('User profile saved successfully.'); // Set success message
-        setFormData({ // Clear the form
+        setFormData({
+          // Clear the form
           name: '',
           email: '',
           oldPassword: '',
@@ -56,8 +64,8 @@ export default function PersonalProfileEditForm() {
         navigate('/profile'); // Use the navigate function
       } catch (error) {
         setErrors({});
-        setServerErrors({serverMsg: error?.response?.data?.msg}); // Set server errors
-        
+        setServerErrors({ serverMsg: error?.response?.data?.msg }); // Set server errors
+
         setSuccessMessage(''); // Clear any previous success message
       }
     }
@@ -68,22 +76,26 @@ export default function PersonalProfileEditForm() {
     if (!formData.oldPassword || !formData.newPassword) {
       // Check if either oldPassword or newPassword is empty
       setErrors({
-        oldPassword: !formData.oldPassword ? "Old Password is required" : "",
-        newPassword: !formData.newPassword ? "New Password is required" : "",
+        oldPassword: !formData.oldPassword ? 'Old Password is required' : '',
+        newPassword: !formData.newPassword ? 'New Password is required' : '',
       });
     } else {
       try {
         // Call the backend API to update the user's password
-        const response = await axiosInstance.patch('/users/updateUserPassword', {
-          oldPassword: formData.oldPassword,
-          newPassword: formData.newPassword,
-        });
+        const response = await axiosInstance.patch(
+          '/users/updateUserPassword',
+          {
+            oldPassword: formData.oldPassword,
+            newPassword: formData.newPassword,
+          }
+        );
         // Handle success (e.g., show a success message)
         console.log('Password updated:', response.data);
         setSuccessMessagePassword('Password changed successfully.'); // Set success message for password change
         setErrors({}); // Clear any previous errors
         setSuccessMessage(''); // Clear any previous success message for profile update
-        setFormData({ // Clear the form
+        setFormData({
+          // Clear the form
           name: '',
           email: '',
           oldPassword: '',
@@ -91,10 +103,8 @@ export default function PersonalProfileEditForm() {
         });
       } catch (error) {
         setErrors({});
-        setServerErrors({serverMsg: error?.response?.data?.msg}); // Set server errors
-       
- 
-      
+        setServerErrors({ serverMsg: error?.response?.data?.msg }); // Set server errors
+
         setSuccessMessagePassword(''); // Clear any previous success message for password change
       }
     }
@@ -104,8 +114,10 @@ export default function PersonalProfileEditForm() {
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
       <CardContent>
         <h3 className="text-uppercase">My Profile</h3>
-      
-        {serverErrors && <Alert severity="error">{serverErrors.serverMsg}</Alert>}
+
+        {serverErrors && (
+          <Alert severity="error">{serverErrors.serverMsg}</Alert>
+        )}
         <div className="text-center">
           <Avatar
             src={require('../../images/customer.png')}
@@ -119,13 +131,9 @@ export default function PersonalProfileEditForm() {
             }}
           />
         </div>
-        {successMessage && (
-          <Alert severity="success">{successMessage}</Alert>
-         
-        )}
+        {successMessage && <Alert severity="success">{successMessage}</Alert>}
         {successMessagePassword && (
           <Alert severity="info">{successMessagePassword}</Alert>
-          
         )}
         <form onSubmit={handleProfileSubmit}>
           <Table className="text-center mt-5">
@@ -166,7 +174,7 @@ export default function PersonalProfileEditForm() {
           </Button>
         </form>
         <form onSubmit={handlePasswordSubmit}>
-          <Table  className="text-center mt-5">
+          <Table className="text-center mt-5">
             <tbody>
               <TableRow>
                 <TableCell>OLD PASSWORD</TableCell>
@@ -200,7 +208,6 @@ export default function PersonalProfileEditForm() {
             Change Password
           </Button>
         </form>
-
       </CardContent>
     </Card>
   );

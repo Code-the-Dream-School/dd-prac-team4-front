@@ -32,7 +32,7 @@ function App() {
         <Route path="/wishlist" element={<WishListView />} />
         <Route path="/checkout/completed" element={<CheckoutComplete />} />
         <Route path="/profile" element={<UserProfile />} />
-        <Route path="/forgot_password" element={<ForgotPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route
           path="/chat"
           element={

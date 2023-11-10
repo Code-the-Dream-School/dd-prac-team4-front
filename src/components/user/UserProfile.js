@@ -1,4 +1,6 @@
+
 import React, { useEffect, useState } from 'react';
+
 import {
   Card,
   CardContent,
@@ -7,10 +9,8 @@ import {
   TableCell,
   Button,
 } from '@mui/material';
-// import { useNavigate } from 'react-router-dom';
-// import { getUserProfile } from './api';
+
 import { Avatar } from '@mui/material';
-import axiosInstance from '../../apis/axiosClient';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@akosasante/react-auth-context';
 

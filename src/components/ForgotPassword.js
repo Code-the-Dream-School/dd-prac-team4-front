@@ -8,7 +8,7 @@ function ForgotPassword() {
 
   const handleSubmit = async () => {
     try {
-      await axiosInstance.post('/api/v1/auth/forgot_password', { email });
+      await axiosInstance.post('auth/forgot_password', { email });
       setMessage('An email will be sent to your address.');
       setError('');
     } catch (error) {

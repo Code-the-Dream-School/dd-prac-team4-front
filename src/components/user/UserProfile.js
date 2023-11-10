@@ -1,26 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Table, TableRow, TableCell } from '@mui/material';
+import { Card, CardContent, Table, TableRow, TableCell, Button} from '@mui/material';
 // import { useNavigate } from 'react-router-dom';
 // import { getUserProfile } from './api';
 import { Avatar } from '@mui/material';
 import axiosInstance from '../../apis/axiosClient';
+import { Link } from 'react-router-dom';
+import { useAuth } from '@akosasante/react-auth-context';
 
 export default function PersonalProfile() {
-  const [userData, setUserData] = useState(null);
-
-  //fetch current user's information
-  const fetchCurrentUser = async () => {
-    try {
-      const response = await axiosInstance.get('/users/showMe');
-      setUserData(response.data.user);
-    } catch (error) {
-      console.error('Error fetching current user', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCurrentUser();
-  }, []);
+  const { user } = useAuth();
+  const userData = user.user; //the user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
 
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
@@ -65,6 +54,11 @@ export default function PersonalProfile() {
           </tbody>
         </Table>
       </CardContent>
+      <Link to="/updateUserInfo"> {/* Specify the path where you want to redirect */}
+          <Button color='warning' style={{ backgroundColor: 'lightgrey' }}>
+            Update Profile
+          </Button>
+        </Link>
       {/* {userData?.id === user?.id && (
 
         <CardActions className='justify-content-center'>

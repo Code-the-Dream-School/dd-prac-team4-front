@@ -8,6 +8,7 @@ import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import CheckoutPage from './components/Purchase/CheckoutPage';
 import WishListView from './components/wishList/WishListView';
 import UserProfile from './components/user/UserProfile';
+import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
 import AlbumChat from './components/album/AlbumChat';
@@ -33,6 +34,7 @@ function App() {
         <Route path="/checkout/completed" element={<CheckoutComplete />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/updateUserInfo" element={<PersonalProfileEditForm />} />
         <Route
           path="/chat"
           element={

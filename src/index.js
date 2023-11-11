@@ -6,7 +6,7 @@ import store from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
-import { RequireAuth } from '@akosasante/react-auth-context'; 
+import { AuthProvider } from '@akosasante/react-auth-context';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
 // uncomment to use mock server in development
@@ -19,7 +19,7 @@ const baseAPIPath = process.env.REACT_APP_API_BASE_PATH;
 
 const authSettings = {
   getCurrentUserPath: `${baseAPIPath}/users/showMe`,
-  loginPath: `${baseAPIPath}/v1/auth/login`,
+  loginPath: '/signIn',
   logoutRedirectPath: '/',
   defaultAxiosOptions: {
     withCredentials: true,
@@ -37,11 +37,11 @@ root.render(
     {/* Use CSS baseline to set common spacing/sizing across all of our styling */}
     <CssBaseline />
     <BrowserRouter>
-      <RequireAuth {...authSettings}>
+      <AuthProvider {...authSettings}>
         <Provider store={store}>
           <App />
         </Provider>
-      </RequireAuth>
+      </AuthProvider>
     </BrowserRouter>
   </ThemeProvider>
 );

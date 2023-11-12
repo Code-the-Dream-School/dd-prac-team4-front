@@ -1,7 +1,7 @@
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
@@ -40,32 +40,21 @@ function ToggleColorMode() {
   );
 }
 
-export default function ThemeSwitcher() {
-  const [mode, setMode] = React.useState('light'); // Corrected the initial state declaration
-  const colorMode = React.useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
-    [setMode]
-  );
-
-  const theme = React.useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-        },
-      }),
-    [mode]
-  );
+function ThemeSwitcher({ toggleDarkMode }) {
+  const theme = useTheme();
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <ToggleColorMode />
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <Box>
+      <ToggleColorMode />
+      <button
+        onClick={() =>
+          toggleDarkMode(theme.palette.mode === 'light' ? 'dark' : 'light')
+        }
+      >
+        Toggle Dark Mode
+      </button>
+    </Box>
   );
 }
+
+export default ThemeSwitcher;

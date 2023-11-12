@@ -17,14 +17,12 @@ import './Navbar.css';
 import Logo from '../images/Logo.png';
 import ThemeSwitcher from './ThemeSwitcher';
 
-const Navbar = ({ isDarkTheme }) => {
+const Navbar = ({ toggleDarkMode, mode }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  console.log(anchorElUser);
 
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
@@ -32,7 +30,7 @@ const Navbar = ({ isDarkTheme }) => {
     <AppBar
       position="static"
       style={{
-        background: isDarkTheme ? '#333' : '#2196f3',
+        background: mode === 'dark' ? '#333' : '#2196f3',
         marginBottom: '2rem',
       }}
     >
@@ -72,7 +70,7 @@ const Navbar = ({ isDarkTheme }) => {
             </>
           )}
         </Box>
-        <ThemeSwitcher />
+        <ThemeSwitcher toggleDarkMode={toggleDarkMode} />
         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
           <IconButton
             size="large"

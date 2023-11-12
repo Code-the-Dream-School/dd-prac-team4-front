@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import UserRegistration from './components/user/UserRegistration';
 import SignIn from './components/userAuth/SignIn';
 import Home from './components/Home';
@@ -11,14 +11,28 @@ import UserProfile from './components/user/UserProfile';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
 import AlbumChat from './components/album/AlbumChat';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
 function App() {
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
 
+  const [mode, setMode] = useState('light');
+
+  const toggleDarkMode = (value) => {
+    setMode(value);
+  };
+
+  const theme = createTheme({
+    palette: {
+      mode,
+    },
+  });
+
   return (
-    <>
-      <Navbar />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Navbar toggleDarkMode={toggleDarkMode} mode={mode} />
       <Routes>
         <Route
           path="/"
@@ -40,7 +54,7 @@ function App() {
         {/* Below route is the catch-all route. It **MUST** be the last route because react-router checks the routes from top-to-bottom */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-    </>
+    </ThemeProvider>
   );
 }
 

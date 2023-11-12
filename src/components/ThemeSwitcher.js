@@ -5,18 +5,16 @@ import { useTheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
-
-function ToggleColorMode() {
+function ThemeSwitcher({ toggleDarkMode }) {
   const theme = useTheme();
-  const colorMode = React.useContext(ColorModeContext);
 
   return (
     <Box>
-      {theme.palette.mode} mode
       <IconButton
         sx={{ ml: 1 }}
-        onClick={colorMode.toggleColorMode}
+        onClick={() => {
+          toggleDarkMode(theme.palette.mode === 'light' ? 'dark' : 'light');
+        }}
         color="inherit"
       >
         {theme.palette.mode === 'dark' ? (
@@ -25,22 +23,6 @@ function ToggleColorMode() {
           <Brightness4Icon />
         )}
       </IconButton>
-    </Box>
-  );
-}
-
-function ThemeSwitcher({ toggleDarkMode }) {
-  const theme = useTheme();
-
-  return (
-    <Box>
-      <button
-        onClick={() => {
-          toggleDarkMode(theme.palette.mode === 'light' ? 'dark' : 'light');
-        }}
-      >
-        Toggle Dark Mode
-      </button>
     </Box>
   );
 }

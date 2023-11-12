@@ -6,7 +6,7 @@ const WriteReview = ({ albumId, refreshReviews }) => {
     user: null,
     album: null,
     title: '',
-    rating: 0,
+    rating: '',
     comment: '',
   });
   const [submitting, setSubmitting] = useState(false);

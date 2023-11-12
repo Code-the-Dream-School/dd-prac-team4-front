@@ -53,7 +53,7 @@ const AlbumPreview = ({
   return (
     <>
       <CardContent
-        style={{ marginTop: '1rem', width: '100%', display: 'flex' }}
+        style={{ marginTop: '1rem', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center'}}
       >
         <iframe
           title="Spotify Web Player"

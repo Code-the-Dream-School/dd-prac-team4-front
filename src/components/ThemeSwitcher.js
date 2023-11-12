@@ -12,18 +12,7 @@ function ToggleColorMode() {
   const colorMode = React.useContext(ColorModeContext);
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        borderRadius: 1,
-        p: 3,
-      }}
-    >
+    <Box>
       {theme.palette.mode} mode
       <IconButton
         sx={{ ml: 1 }}
@@ -45,11 +34,10 @@ function ThemeSwitcher({ toggleDarkMode }) {
 
   return (
     <Box>
-      <ToggleColorMode />
       <button
-        onClick={() =>
-          toggleDarkMode(theme.palette.mode === 'light' ? 'dark' : 'light')
-        }
+        onClick={() => {
+          toggleDarkMode(theme.palette.mode === 'light' ? 'dark' : 'light');
+        }}
       >
         Toggle Dark Mode
       </button>

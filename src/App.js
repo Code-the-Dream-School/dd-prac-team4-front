@@ -12,7 +12,6 @@ import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
 import AlbumChat from './components/album/AlbumChat';
-import ForgotPassword from './components/ForgotPassword';
 
 function App() {
   const { status } = useAuth();
@@ -33,7 +32,6 @@ function App() {
         <Route path="/wishlist" element={<WishListView />} />
         <Route path="/checkout/completed" element={<CheckoutComplete />} />
         <Route path="/profile" element={<UserProfile />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/updateUserInfo" element={<PersonalProfileEditForm />} />
         <Route
           path="/chat"

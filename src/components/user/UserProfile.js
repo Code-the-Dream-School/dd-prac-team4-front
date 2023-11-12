@@ -1,6 +1,4 @@
-
-import React, { useEffect, useState } from 'react';
-
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -9,7 +7,6 @@ import {
   TableCell,
   Button,
 } from '@mui/material';
-
 import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@akosasante/react-auth-context';

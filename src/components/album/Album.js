@@ -11,7 +11,6 @@ import AlbumPreview from './AlbumPreview';
 import AlbumReviews from '../review/ReviewsList';
 import DialogActions from '@mui/material/DialogActions';
 
-
 const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
   // Your styles for album item
 }));
@@ -33,6 +32,9 @@ const AlbumTitle = styled('h3')({
 function Album({ album, wishListId }) {
   const [openDialog, setOpenDialog] = useState(false);
   const [reviewsUpdated, setReviewsUpdated] = useState(false);
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState('sm');
+
   const handleOpenDialog = () => {
     setOpenDialog(true);
   };
@@ -42,6 +44,15 @@ function Album({ album, wishListId }) {
     // Reset the reviewsUpdated state when the dialog is closed
     setReviewsUpdated(false);
   };
+
+  const handleMaxWidthChange = (event) => {
+    setMaxWidth(event.target.value);
+  };
+
+  const handleFullWidthChange = (event) => {
+    setFullWidth(event.target.checked);
+  };
+
   // Function to refresh reviews
   const refreshReviews = () => {
     // Set reviewsUpdated to true to trigger a re-render of AlbumReviews
@@ -69,14 +80,25 @@ function Album({ album, wishListId }) {
         <AddToWishlistButton album={album} wishListId={wishListId} />
       </ButtonGroup>
       {/* Dialog */}
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
+      >
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">
             X
           </Button>
         </DialogActions>
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText  style={{
+          
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
             <div>
               <div>
                 Release Date: {new Date(album.releaseDate).toLocaleDateString()}

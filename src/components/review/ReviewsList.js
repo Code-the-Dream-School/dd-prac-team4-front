@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../apis/axiosClient';
+import WriteReview from './WriteReview';
 
 const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
@@ -27,9 +28,9 @@ const AlbumReviews = ({ albumId }) => {
   return (
     <div>
       <h2>Album Reviews</h2>
-      {loading ? (
-        <p>Loading reviews...</p>
-      ) : (
+      {loading && <p>Loading reviews...</p>}
+
+      {reviews?.length ? (
         <ul>
           {reviews.map((review) => (
             <li key={review._id}>
@@ -39,7 +40,10 @@ const AlbumReviews = ({ albumId }) => {
             </li>
           ))}
         </ul>
+      ) : (
+        'No reviews yet'
       )}
+      <WriteReview/>
     </div>
   );
 };

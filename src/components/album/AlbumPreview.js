@@ -7,6 +7,7 @@ const AlbumPreview = ({
   spotifyUrl,
   numOfReviews,
   style = {},
+  contentLayout = 'column',
   wide = false,
   width = wide ? '100%' : 300,
   height = wide ? 80 : 380,
@@ -53,7 +54,14 @@ const AlbumPreview = ({
   return (
     <>
       <CardContent
-        style={{ marginTop: '1rem', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center'}}
+        style={{
+          marginTop: '1rem',
+          width: '100%',
+          display: 'flex',
+          flexDirection: contentLayout,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
       >
         <iframe
           title="Spotify Web Player"
@@ -61,18 +69,25 @@ const AlbumPreview = ({
           width={width}
           height={height}
           frameBorder={frameBorder}
-          style={{ borderRadius: 8, ...style, border: 'none' }}
+          style={{ borderRadius: 8, ...style, border: 'none', display: 'flex',
+          flexDirection: contentLayout,
+          justifyContent: 'center',
+          alignItems: 'center', }}
           allow={allow}
           {...props}
         />
 
-        {children && numOfReviews === 0 ? (
+        <div style={{ width: '100%', display: 'flex', flexDirection: contentLayout,
+          justifyContent: 'center',
+          alignItems: 'center' }}>{children}</div>
+
+        {/* {children && numOfReviews === 0 ? (
           <p>No reviews available for this album</p>
         ) : (
           <div style={{ width: '100%', display: 'flex' }}>{children}</div>
-        )}
+        )} */}
+        
       </CardContent>
-      <WriteReview />
     </>
   );
 };

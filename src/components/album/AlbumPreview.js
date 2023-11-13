@@ -5,7 +5,6 @@ import WriteReview from '../review/WriteReview';
 const AlbumPreview = ({
   albumId,
   spotifyUrl,
-  numOfReviews,
   style = {},
   contentLayout = 'column',
   wide = false,
@@ -17,7 +16,6 @@ const AlbumPreview = ({
   ...props
 }) => {
   const [spotifyEmbedUrl, setSpotifyEmbedUrl] = useState('');
-  const [mongoAlbumId, setMongoAlbumId] = useState(''); // State to store MongoDB album ID
 
   useEffect(() => {
     // regular expression pattern to extract the album ID from the Spotify **API** Url that's saved on the album object
@@ -35,20 +33,6 @@ const AlbumPreview = ({
     //  Spotify album URL for embedding
     const spotifyAlbumUrl = `https://open.spotify.com/embed/album/${spotifyAlbumId}`;
     setSpotifyEmbedUrl(spotifyAlbumUrl);
-
-    // Fetch MongoDB album ID from  API
-    // AKOS: how would I get the id of the album in this album preview component to pass it later  to ReviewsList.js as a prop on line 68?
-    // mongo album id is not being set and instead of it it passes spotify id
-    axiosInstance
-      .get(`/albums/${albumId}`)
-      .then((response) => {
-        console.log(response.data.album._id);
-
-        setMongoAlbumId(response.data.album._id);
-      })
-      .catch((error) => {
-        console.error('Error fetching MongoDB album ID:', error);
-      });
   }, [spotifyUrl]);
   //console.log("Children:", children.type);
   return (
@@ -60,7 +44,6 @@ const AlbumPreview = ({
           display: 'flex',
           flexDirection: contentLayout,
           justifyContent: 'center',
-          alignItems: 'center',
         }}
       >
         <iframe
@@ -69,24 +52,34 @@ const AlbumPreview = ({
           width={width}
           height={height}
           frameBorder={frameBorder}
-          style={{ borderRadius: 8, ...style, border: 'none', display: 'flex',
-          flexDirection: contentLayout,
-          justifyContent: 'center',
-          alignItems: 'center', }}
+          style={{
+            borderRadius: 8,
+            ...style,
+            border: 'none',
+            display: 'flex',
+            flexDirection: contentLayout,
+            justifyContent: 'center',
+          }}
           allow={allow}
           {...props}
         />
 
-        <div style={{ width: '100%', display: 'flex', flexDirection: contentLayout,
-          justifyContent: 'center',
-          alignItems: 'center' }}>{children}</div>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: contentLayout,
+            justifyContent: 'center',
+          }}
+        >
+          {children}
+        </div>
 
         {/* {children && numOfReviews === 0 ? (
           <p>No reviews available for this album</p>
         ) : (
           <div style={{ width: '100%', display: 'flex' }}>{children}</div>
         )} */}
-        
       </CardContent>
     </>
   );

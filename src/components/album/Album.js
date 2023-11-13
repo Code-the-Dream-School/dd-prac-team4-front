@@ -31,9 +31,9 @@ const AlbumTitle = styled('h3')({
 
 function Album({ album, wishListId }) {
   const [openDialog, setOpenDialog] = useState(false);
-  const [reviewsUpdated, setReviewsUpdated] = useState(false);
-  const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState('sm');
+  const reviewsRef = React.useRef(); // Created a ref to hold the function
+  const fullWidth = true;
+  const maxWidth = 'sm';
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
@@ -41,30 +41,7 @@ function Album({ album, wishListId }) {
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
-    // Reset the reviewsUpdated state when the dialog is closed
-    setReviewsUpdated(false);
   };
-
-  const handleMaxWidthChange = (event) => {
-    setMaxWidth(event.target.value);
-  };
-
-  const handleFullWidthChange = (event) => {
-    setFullWidth(event.target.checked);
-  };
-
-  // Function to refresh reviews
-  const refreshReviews = () => {
-    // Set reviewsUpdated to true to trigger a re-render of AlbumReviews
-    setReviewsUpdated(true);
-  };
-
-  useEffect(() => {
-    // If reviews are updated, reset the state after rendering AlbumReviews
-    if (reviewsUpdated) {
-      setReviewsUpdated(false);
-    }
-  }, [reviewsUpdated]);
 
   return (
     <AlbumItemWrapper>
@@ -92,13 +69,13 @@ function Album({ album, wishListId }) {
           </Button>
         </DialogActions>
         <DialogContent>
-          <DialogContentText  style={{
-          
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+          <DialogContentText
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+          >
             <div>
               <div>
                 Release Date: {new Date(album.releaseDate).toLocaleDateString()}
@@ -107,12 +84,12 @@ function Album({ album, wishListId }) {
             </div>
           </DialogContentText>
         </DialogContent>
-        <AlbumPreview
-          albumId={album._id}
-          spotifyUrl={album.spotifyUrl}
-          numOfReviews={album.numOfReviews}
-        >
-          <AlbumReviews albumId={album._id} />
+        <AlbumPreview>
+          <AlbumReviews
+            albumId={album._id}
+            spotifyUrl={album.spotifyUrl}
+            numOfReviews={album.numOfReviews}
+          />
         </AlbumPreview>
       </Dialog>
     </AlbumItemWrapper>

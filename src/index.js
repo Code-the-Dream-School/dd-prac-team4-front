@@ -17,7 +17,7 @@ const baseAPIPath = process.env.REACT_APP_API_BASE_PATH;
 
 const authSettings = {
   getCurrentUserPath: `${baseAPIPath}/users/showMe`,
-  loginPath: `${baseAPIPath}/v1/auth/login`,
+  loginPath: '/signIn',
   logoutRedirectPath: '/',
   defaultAxiosOptions: {
     withCredentials: true,

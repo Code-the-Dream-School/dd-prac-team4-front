@@ -23,14 +23,29 @@ function App() {
     setMode(value);
   };
 
-  const theme = createTheme({
+  const lightTheme = createTheme({
     palette: {
-      mode,
+      mode: 'light',
+      primary: { main: '#2096F3' },
+      // etc any other customizations that we want to make for light mode
     },
   });
 
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+      primary: { main: '#0E6CDE' },
+      background: { default: '#121212', paper: '#1e1e1e' },
+    },
+    typography: {
+      fontFamily: 'Roboto, Arial, sans-serif',
+    },
+  });
+
+  const currentTheme = mode === 'dark' ? darkTheme : lightTheme;
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={currentTheme}>
       <CssBaseline />
       <Navbar toggleDarkMode={toggleDarkMode} mode={mode} />
       <Routes>

@@ -30,7 +30,7 @@ const Navbar = ({ toggleDarkMode, mode }) => {
     <AppBar
       position="static"
       style={{
-        background: mode === 'dark' ? '#333' : '#2196f3',
+        background: mode === 'dark' ? '#0E6CDE' : '#0E6CDE',
         marginBottom: '2rem',
       }}
     >

@@ -26,7 +26,8 @@ function App() {
   const lightTheme = createTheme({
     palette: {
       mode: 'light',
-      primary: { main: '#2096F3' },
+      primary: { main: '#0E6CDE' },
+      background: { default: '#ECECEC', paper: '#ECECEC' },
       // etc any other customizations that we want to make for light mode
     },
   });

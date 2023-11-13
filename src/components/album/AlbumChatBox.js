@@ -81,12 +81,7 @@ const AlbumChatBox = ({ spotifyUrl }) => {
     const fetchRecentMessages = async () => {
       if (albumId && !socket) {
         const { data } = await axiosInstance.get(`/chat/${albumId}`);
-        console.log('Data from server:', data);
-        const messagesWithKeys = data.messages.map((message) => ({
-          ...message,
-          user: { name: message.user.name, id: message.user._id },
-        }));
-        setMessages(messagesWithKeys);
+        setMessages(data.messages);
       }
     };
     fetchRecentMessages();

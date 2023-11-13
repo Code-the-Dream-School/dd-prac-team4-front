@@ -30,6 +30,9 @@ function App() {
       background: { default: '#ECECEC', paper: '#ECECEC' },
       // etc any other customizations that we want to make for light mode
     },
+    typography: {
+      fontFamily: 'Roboto, Arial, sans-serif',
+    },
   });
 
   const darkTheme = createTheme({

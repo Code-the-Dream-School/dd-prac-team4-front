@@ -8,6 +8,9 @@
   },
   "dependencies": {
     "@akosasante/react-auth-context": "github:akosasante/react-auth-context",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.14.3",
     "@mui/material": "^5.14.3",
     "@mui/styled-engine-sc": "^5.12.0",
@@ -17,13 +20,13 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0",
     "@testing-library/user-event": "^14.4",
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-payment-inputs": "^1.1.9",
     "react-redux": "^8.1.2",
-    "react-router-dom": "^6.15.0",
+    "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "socket.io-client": "^4.7.2",
@@ -67,7 +70,7 @@
     "eslint-config-prettier": "^8.9.0",
     "husky": "^8.0.3",
     "miragejs": "^0.1.47",
-    "prettier": "3.0.0"
+    "prettier": "^3.0.0"
   },
   "lint-staged": {
     "*.{js,jsx}": [

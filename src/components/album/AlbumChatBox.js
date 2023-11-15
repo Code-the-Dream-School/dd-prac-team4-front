@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
 import { useAuth } from '@akosasante/react-auth-context';
 import { Typography, TextField, Button } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
+import axiosInstance from '../../apis/axiosClient';
 
 const AlbumChatBox = ({ spotifyUrl }) => {
   const [message, setMessage] = useState('');
@@ -60,8 +60,7 @@ const AlbumChatBox = ({ spotifyUrl }) => {
           const messageWithKey = {
             ...data,
             isOwnMessage,
-            messageKey: uuidv4(),
-          }; // will add key to the message
+          };
           setMessages((prevMessages) => [...prevMessages, messageWithKey]);
 
           scrollToBottom();
@@ -77,6 +76,16 @@ const AlbumChatBox = ({ spotifyUrl }) => {
       }
     };
   }, [albumId, socket, loggedInUserId]);
+
+  useEffect(() => {
+    const fetchRecentMessages = async () => {
+      if (albumId && !socket) {
+        const { data } = await axiosInstance.get(`/chat/${albumId}`);
+        setMessages(data.messages);
+      }
+    };
+    fetchRecentMessages();
+  }, [albumId, socket]);
 
   useEffect(() => {
     scrollToBottom();
@@ -105,7 +114,7 @@ const AlbumChatBox = ({ spotifyUrl }) => {
         ref={messagesContainerRef}
       >
         {messages.map((message) => (
-          <div key={message.messageKey}>
+          <div key={message._id}>
             <div
               style={{
                 display: 'flex',

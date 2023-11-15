@@ -39,7 +39,12 @@ export default function PersonalProfile() {
             }}
           />
         </div>
-        <Table responsive striped hover className="text-center mt-5">
+        <Table
+          responsive="true"
+          striped="true"
+          hover="true"
+          className="text-center mt-5"
+        >
           <tbody>
             <TableRow>
               <TableCell>USERNAME</TableCell>

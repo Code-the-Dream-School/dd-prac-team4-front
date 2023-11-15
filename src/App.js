@@ -15,7 +15,6 @@ import AlbumChat from './components/album/AlbumChat';
 import ForgotPassword from './components/ForgotPassword';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
-
 function App() {
   const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;

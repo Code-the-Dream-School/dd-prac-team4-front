@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { resetPassword } from '../apis/authApi'; // Make sure to import your API call function
 
 const ResetPassword = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get('token');
@@ -23,7 +23,7 @@ const ResetPassword = () => {
       await resetPassword({ token, password });
 
       // Redirect to sign in page on success
-      history.push('/signin');
+      navigate.push('/signin');
     } catch (error) {
       setError('Failed to reset password. Please try again.');
       console.error(error);

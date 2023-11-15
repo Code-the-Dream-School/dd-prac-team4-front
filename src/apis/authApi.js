@@ -1,7 +1,7 @@
 import axios from './axiosClient';
 
 export const resetPassword = async ({ token, password }) => {
-  const response = await axios.post('/api/v1/auth/resetPassword', {
+  const response = await axios.post('/auth/resetPassword', {
     token,
     password,
   });

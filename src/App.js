@@ -12,6 +12,7 @@ import UserProfile from './components/user/UserProfile';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
 import AlbumChat from './components/album/AlbumChat';
+import ForgotPassword from './components/ForgotPassword';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
 function App() {
@@ -61,6 +62,12 @@ function App() {
         <Route path="/register" element={<UserRegistration />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/wishlist" element={<WishListView />} />
+        <Route path="/checkout/completed" element={<CheckoutComplete />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/updateUserInfo" element={<PersonalProfileEditForm />} />
         <Route
           path="/checkout"
           element={
@@ -93,6 +100,7 @@ function App() {
             </RequireAuth>
           }
         />
+
         <Route
           path="/chat"
           element={

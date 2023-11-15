@@ -1,10 +1,10 @@
 // ForgotPassword.js
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { resetPassword } from '../apis/authApi'; // Make sure to import your API call function
 
 const ResetPassword = () => {
-  const history = useHistory();
+  const history = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get('token');

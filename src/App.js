@@ -68,7 +68,7 @@ function App() {
         <Route path="/checkout/completed" element={<CheckoutComplete />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/resetPassword" element={ResetPassword} />
+        <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/updateUserInfo" element={<PersonalProfileEditForm />} />
         <Route
           path="/checkout"

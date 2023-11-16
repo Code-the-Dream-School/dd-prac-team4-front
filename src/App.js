@@ -94,10 +94,10 @@ function App() {
           }
         />
         <Route
-          path="/chat"
+          path="/chat/:albumId"
           element={
             <RequireAuth>
-              <AlbumChat spotifyUrl="https://api.spotify.com/v1/albums/6r1lh7fHMB499vGKtIyJLy" />
+              <AlbumChat />
             </RequireAuth>
           }
         />

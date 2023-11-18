@@ -12,9 +12,10 @@ import UserProfile from './components/user/UserProfile';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
 import AlbumChat from './components/album/AlbumChat';
+import RecommendationPage from './components/RecommendationPage';
 
 function App() {
-  const { status } = useAuth();
+  const { status, user } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
 
   return (
@@ -57,6 +58,14 @@ function App() {
           element={
             <RequireAuth>
               <UserProfile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/profile/recommendations"
+          element={
+            <RequireAuth>
+              <RecommendationPage userId={user ? user.userId : null} />
             </RequireAuth>
           }
         />

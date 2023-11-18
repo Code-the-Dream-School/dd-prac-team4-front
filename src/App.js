@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import UserRegistration from './components/user/UserRegistration';
 import SignIn from './components/userAuth/SignIn';
 import Home from './components/Home';
@@ -13,14 +13,49 @@ import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
 import AlbumChat from './components/album/AlbumChat';
 import RecommendationPage from './components/RecommendationPage';
+import ForgotPassword from './components/ForgotPassword';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+
 
 function App() {
   const { status, user } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
 
+  const [mode, setMode] = useState('light');
+
+  const toggleDarkMode = (value) => {
+    setMode(value);
+  };
+
+  const lightTheme = createTheme({
+    palette: {
+      mode: 'light',
+      primary: { main: '#0E6CDE' },
+      background: { default: '#ECECEC', paper: '#ECECEC' },
+      // etc any other customizations that we want to make for light mode
+    },
+    typography: {
+      fontFamily: 'Roboto, Arial, sans-serif',
+    },
+  });
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+      primary: { main: '#0E6CDE' },
+      background: { default: '#121212', paper: '#1e1e1e' },
+    },
+    typography: {
+      fontFamily: 'Roboto, Arial, sans-serif',
+    },
+  });
+
+  const currentTheme = mode === 'dark' ? darkTheme : lightTheme;
+
   return (
-    <>
-      <Navbar />
+    <ThemeProvider theme={currentTheme}>
+      <CssBaseline />
+      <Navbar toggleDarkMode={toggleDarkMode} mode={mode} />
       <Routes>
         <Route
           path="/"
@@ -29,6 +64,12 @@ function App() {
         <Route path="/register" element={<UserRegistration />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/wishlist" element={<WishListView />} />
+        <Route path="/checkout/completed" element={<CheckoutComplete />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/updateUserInfo" element={<PersonalProfileEditForm />} />
         <Route
           path="/checkout"
           element={
@@ -61,6 +102,7 @@ function App() {
             </RequireAuth>
           }
         />
+
         <Route
           path="/profile/recommendations"
           element={
@@ -80,7 +122,7 @@ function App() {
         {/* Below route is the catch-all route. It **MUST** be the last route because react-router checks the routes from top-to-bottom */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-    </>
+    </ThemeProvider>
   );
 }
 

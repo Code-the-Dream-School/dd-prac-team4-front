@@ -16,7 +16,6 @@ import RecommendationPage from './components/RecommendationPage';
 import ForgotPassword from './components/ForgotPassword';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
-
 function App() {
   const { status, user } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
@@ -69,7 +68,7 @@ function App() {
         <Route path="/checkout/completed" element={<CheckoutComplete />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/updateUserInfo" element={<PersonalProfileEditForm />} />
+
         <Route
           path="/checkout"
           element={

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { CardContent } from '@mui/material';
-import axiosInstance from '../../apis/axiosClient';
-import WriteReview from '../review/WriteReview';
+
 const AlbumPreview = ({
-  albumId,
   spotifyUrl,
   style = {},
-  contentLayout = 'column',
+  contentLayout,
   wide = false,
   width = wide ? '100%' : 300,
   height = wide ? 80 : 380,
@@ -34,7 +32,7 @@ const AlbumPreview = ({
     const spotifyAlbumUrl = `https://open.spotify.com/embed/album/${spotifyAlbumId}`;
     setSpotifyEmbedUrl(spotifyAlbumUrl);
   }, [spotifyUrl]);
-  //console.log("Children:", children.type);
+
   return (
     <>
       <CardContent
@@ -75,11 +73,6 @@ const AlbumPreview = ({
           {children}
         </div>
 
-        {/* {children && numOfReviews === 0 ? (
-          <p>No reviews available for this album</p>
-        ) : (
-          <div style={{ width: '100%', display: 'flex' }}>{children}</div>
-        )} */}
       </CardContent>
     </>
   );

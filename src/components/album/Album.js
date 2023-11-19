@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -31,9 +31,6 @@ const AlbumTitle = styled('h3')({
 
 function Album({ album, wishListId }) {
   const [openDialog, setOpenDialog] = useState(false);
-  const reviewsRef = React.useRef(); // Created a ref to hold the function
-  const fullWidth = true;
-  const maxWidth = 'sm';
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
@@ -60,8 +57,8 @@ function Album({ album, wishListId }) {
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
-        fullWidth={fullWidth}
-        maxWidth={maxWidth}
+        fullWidth={true} 
+        maxWidth='sm'
       >
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">
@@ -84,11 +81,9 @@ function Album({ album, wishListId }) {
             </div>
           </DialogContentText>
         </DialogContent>
-        <AlbumPreview>
+        <AlbumPreview spotifyUrl={album.spotifyUrl}>
           <AlbumReviews
             albumId={album._id}
-            spotifyUrl={album.spotifyUrl}
-            numOfReviews={album.numOfReviews}
           />
         </AlbumPreview>
       </Dialog>

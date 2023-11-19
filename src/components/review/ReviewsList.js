@@ -26,7 +26,7 @@ const { user } = useAuth(); //use user.user.<whatever field we want> to access i
       const { allProductReviews } = response.data;
       setReviews(allProductReviews);
       // Check if the user has already reviewed the album
-      const hasReviewed = allProductReviews.some(review => review.userId === user.user._id);
+      const hasReviewed = allProductReviews.some(review => review.user === user.user._id);
       setUserHasReviewed(hasReviewed);
       setLoading(false);
     } catch (error) {
@@ -63,6 +63,8 @@ const { user } = useAuth(); //use user.user.<whatever field we want> to access i
       ) : (
         'No reviews yet'
       )}
+
+      {user && userHasReviewed && <p> You already submitted the review for this album</p> }
         {/* Conditionally render the WriteReview component */}
         {user && !userHasReviewed && <WriteReview albumId={albumId} refreshReviews={refreshReviews} />}
 

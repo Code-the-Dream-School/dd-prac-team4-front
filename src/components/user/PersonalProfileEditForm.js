@@ -9,9 +9,29 @@ import {
   TextField,
   Button,
 } from '@mui/material';
-import { Avatar, Alert } from '@mui/material';
+import { Alert } from '@mui/material';
 import axiosInstance from '../../apis/axiosClient';
 import { useNavigate } from 'react-router-dom';
+
+const ProfileImage = ({ user }) => {
+  if (user && user.profileImage && user.profileImage.url) {
+    return (
+      <img
+        src={user.profileImage.url}
+        alt="user profile image"
+        className="img-fluid rounded-circle"
+        style={{
+          width: '100px',
+          height: '100px',
+          maxWidth: '100px',
+          maxHeight: '100px',
+        }}
+      />
+    );
+  }
+  return null;
+};
+
 export default function PersonalProfileEditForm() {
   const [formData, setFormData] = useState({
     name: '',
@@ -114,22 +134,11 @@ export default function PersonalProfileEditForm() {
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
       <CardContent>
         <h3 className="text-uppercase">My Profile</h3>
-
         {serverErrors && (
           <Alert severity="error">{serverErrors.serverMsg}</Alert>
         )}
         <div className="text-center">
-          <Avatar
-            src={require('../../images/customer.png')}
-            alt="user profile"
-            className="img-fluid rounded-circle"
-            sx={{
-              width: '100px',
-              height: '100px',
-              maxWidth: '100px',
-              maxHeight: '100px',
-            }}
-          />
+          <ProfileImage user={userData} />
         </div>
         {successMessage && <Alert severity="success">{successMessage}</Alert>}
         {successMessagePassword && (

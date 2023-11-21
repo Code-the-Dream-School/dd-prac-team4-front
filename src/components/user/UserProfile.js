@@ -7,9 +7,27 @@ import {
   TableCell,
   Button,
 } from '@mui/material';
-import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@akosasante/react-auth-context';
+
+const ProfileImage = ({ user }) => {
+  if (user && user.profileImage && user.profileImage.url) {
+    return (
+      <img
+        src={user.profileImage.url}
+        alt={user.profileImage.altText || 'user profile image'}
+        className="img-fluid rounded-circle"
+        style={{
+          width: '100px',
+          height: '100px',
+          maxWidth: '100px',
+          maxHeight: '100px',
+        }}
+      />
+    );
+  }
+  return null;
+};
 
 export default function PersonalProfile() {
   const { user } = useAuth();
@@ -20,22 +38,7 @@ export default function PersonalProfile() {
       <CardContent>
         <h3 className="text-uppercase">My Profile</h3>
         <div className="text-center">
-          <Avatar
-            src={
-              require('../../images/customer.png')
-
-              // ?.profileImage?.url ||
-              // 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp'
-            }
-            alt="user profile"
-            className="img-fluid rounded-circle"
-            sx={{
-              width: '100px',
-              height: '100px',
-              maxWidth: '100px',
-              maxHeight: '100px',
-            }}
-          />
+          <ProfileImage user={userData} />
         </div>
         <Table
           responsive="true"

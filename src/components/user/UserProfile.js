@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import {
   Card,
@@ -80,6 +80,11 @@ export default function PersonalProfile() {
           </Button>
         </CardActions>
       )} */}
+      <Link to="/recommendations">
+        <Button color="primary" style={{ margin: '10px' }}>
+          View Recommendations
+        </Button>
+      </Link>
     </Card>
   );
 }

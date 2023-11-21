@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axiosInstance from '../api/axiosClient';
+import axiosInstance from '../apis/axiosClient';
 
 const RecommendationPage = ({ userId }) => {
   const [recommendations, setRecommendations] = useState([]);

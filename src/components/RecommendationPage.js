@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../apis/axiosClient';
+import { Typography, CircularProgress, List, ListItem } from '@mui/material';
 
 const RecommendationPage = ({ userId }) => {
   const [recommendations, setRecommendations] = useState([]);
@@ -26,17 +27,27 @@ const RecommendationPage = ({ userId }) => {
 
   return (
     <div>
-      <h1>Recommendations</h1>
+      <Typography
+        fontWeight="bold"
+        color="text.secondary"
+        variant="h5"
+        spacing={0.5}
+        sx={{ mb: 2, p: 3 }}
+      >
+        Recommendations
+      </Typography>
       {error ? (
-        <p>{error}</p>
+        <Typography color="error">{error}</Typography>
       ) : loading ? (
-        <p>Loading...</p>
+        <CircularProgress />
       ) : (
-        <ul>
+        <List>
           {recommendations.map((album) => (
-            <li key={album.albumName}>{album.albumName}</li>
+            <ListItem key={album.albumName} sx={{ mb: 1 }}>
+              {album.albumName}
+            </ListItem>
           ))}
-        </ul>
+        </List>
       )}
     </div>
   );

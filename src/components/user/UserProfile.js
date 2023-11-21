@@ -4,6 +4,7 @@ import { Card, CardContent, Table, TableRow, TableCell } from '@mui/material';
 // import { getUserProfile } from './api';
 import { Avatar } from '@mui/material';
 import axiosInstance from '../../apis/axiosClient';
+import ImageUpload from './ImageUpload';
 
 export default function PersonalProfile() {
   const [userData, setUserData] = useState(null);
@@ -28,12 +29,7 @@ export default function PersonalProfile() {
         <h3 className="text-uppercase">My Profile</h3>
         <div className="text-center">
           <Avatar
-            src={
-              require('../../images/customer.png')
-
-              // ?.profileImage?.url ||
-              // 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp'
-            }
+              src={userData?.profileImage}
             alt="user profile"
             className="img-fluid rounded-circle"
             sx={{
@@ -64,6 +60,7 @@ export default function PersonalProfile() {
             </TableRow> */}
           </tbody>
         </Table>
+        <ImageUpload/>
       </CardContent>
       {/* {userData?.id === user?.id && (
 

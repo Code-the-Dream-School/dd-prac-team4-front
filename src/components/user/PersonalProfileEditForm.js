@@ -18,7 +18,7 @@ const ProfileImage = ({ user }) => {
     return (
       <img
         src={user.profileImage.url}
-        alt="user profile image"
+        alt="user profile"
         className="img-fluid rounded-circle"
         style={{
           width: '100px',

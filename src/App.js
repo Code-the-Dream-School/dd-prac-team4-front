@@ -12,6 +12,7 @@ import UserProfile from './components/user/UserProfile';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
 import AlbumChat from './components/album/AlbumChat';
+import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
 
 function App() {
   const { status } = useAuth();
@@ -57,6 +58,14 @@ function App() {
           element={
             <RequireAuth>
               <UserProfile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/updateUserInfo"
+          element={
+            <RequireAuth>
+              <PersonalProfileEditForm />
             </RequireAuth>
           }
         />

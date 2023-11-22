@@ -4,7 +4,7 @@ import { CardContent } from '@mui/material';
 const AlbumPreview = ({
   spotifyUrl,
   style = {},
-  contentLayout,
+  contentLayout = "column",
   wide = false,
   width = wide ? '100%' : 300,
   height = wide ? 80 : 380,

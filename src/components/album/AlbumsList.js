@@ -66,8 +66,8 @@ const AlbumsList = () => {
   useEffect(() => {
     //   fetchAlbums(searchType, searchTerm); // Use current search term
     // }, [fetchAlbums, searchType, searchTerm); // Refetch albums when the page changes
-    fetchAlbums(searchType, lastSearchTerm); // Use current search term
-  }, [fetchAlbums, searchType, lastSearchTerm]); // Refetch albums when the submitted search changes
+    fetchAlbums(searchType, lastSearchTerm, currentPage); // Use current search term
+  }, [fetchAlbums, searchType, lastSearchTerm, currentPage]); // Refetch albums when the submitted search changes
 
   //fetch wishlist album from API
   useEffect(() => {
@@ -103,8 +103,9 @@ const AlbumsList = () => {
   const handleClear = () => {
     setSearchType('albumName');
     setSearchTerm('');
+    setLastSearchTerm('');
     // setLimit(1);
-    setMessage('');
+    //setMessage('');
     // fetchAlbums('albumName', '', 1);
   };
 
@@ -132,6 +133,12 @@ const AlbumsList = () => {
     </React.Fragment>
   );
   //end of snackbar
+
+  const handleSearchTypeChange = (event) => {
+    setSearchType(event.target.value);
+    setCurrentPage(1); // Reset page to 1 when search type changes
+  };
+
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
     fetchAlbums(searchType, lastSearchTerm, page);
@@ -154,7 +161,7 @@ const AlbumsList = () => {
             <InputLabel>Search By</InputLabel>
             <Select
               value={searchType}
-              onChange={(e) => setSearchType(e.target.value)}
+              onChange={handleSearchTypeChange} //{(e) => setSearchType(e.target.value)}
               label="Search By"
             >
               <MenuItem value="albumName">Album</MenuItem>
@@ -198,7 +205,7 @@ const AlbumsList = () => {
               >
                 <Stack spacing={2}>
                   <Pagination
-                    count={6} // Replace with the total number of pages (on this moment we have 69 albums / 12 albums per page)
+                    count={albums.totalPages}
                     page={currentPage}
                     color="primary"
                     onChange={handlePageChange}

@@ -32,13 +32,16 @@ const AlbumsList = () => {
   const [errorMessage, setErrorMessage] = useState(''); // for error message
   const [wishListId, setWishListId] = useState();
   const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const [lastSearchTerm, setLastSearchTerm] = useState('');
+  // const [lastSearchTerm, setLastSearchTerm] = useState('');
 
   //make an API call with search values to backend and return the result
   const fetchAlbums = useCallback(
-    async (searchType, searchTerm, page = 1) => {
+    async (searchType, searchTerm) => {
       try {
-        const offset = (page - 1) * limit;
+        const offset = (searchTerm === '' ? currentPage - 1 : 0) * limit;
+        // console.log(currentPage - 1 + ' * ' + limit + ' = ' + offset);
+        // console.log('searchType:' + searchType + ' ; searchTerm:' + searchTerm);
+
         const response = await axios.get(
           `${process.env.REACT_APP_API_BASE_PATH}/albums/filter`,
           {
@@ -60,14 +63,12 @@ const AlbumsList = () => {
         setOpen(true);
       }
     },
-    [/*currentPage,*/ limit]
+    [currentPage, limit]
   );
-
+  //display 12 albums when first user visit this page
   useEffect(() => {
-    //   fetchAlbums(searchType, searchTerm); // Use current search term
-    // }, [fetchAlbums, searchType, searchTerm); // Refetch albums when the page changes
-    fetchAlbums(searchType, lastSearchTerm, currentPage); // Use current search term
-  }, [fetchAlbums, searchType, lastSearchTerm, currentPage]); // Refetch albums when the submitted search changes
+    fetchAlbums('albumName', '');
+  }, [fetchAlbums, currentPage]); // Refetch albums when the page changes
 
   //fetch wishlist album from API
   useEffect(() => {
@@ -95,18 +96,15 @@ const AlbumsList = () => {
 
   //call the function to make API request for search input value
   const handleSearch = () => {
-    setLastSearchTerm(searchTerm);
-    setCurrentPage(1);
+    fetchAlbums(searchType, searchTerm);
   };
 
   //clear search input and make an empty API call
   const handleClear = () => {
-    setSearchType('albumName');
+    //setSearchType('albumName');
     setSearchTerm('');
-    setLastSearchTerm('');
-    // setLimit(1);
-    //setMessage('');
-    // fetchAlbums('albumName', '', 1);
+    setMessage('');
+    fetchAlbums('albumName', '');
   };
 
   // snackbar start
@@ -134,14 +132,8 @@ const AlbumsList = () => {
   );
   //end of snackbar
 
-  const handleSearchTypeChange = (event) => {
-    setSearchType(event.target.value);
-    setCurrentPage(1); // Reset page to 1 when search type changes
-  };
-
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
-    fetchAlbums(searchType, lastSearchTerm, page);
   };
 
   return (
@@ -161,7 +153,7 @@ const AlbumsList = () => {
             <InputLabel>Search By</InputLabel>
             <Select
               value={searchType}
-              onChange={handleSearchTypeChange} //{(e) => setSearchType(e.target.value)}
+              onChange={(e) => setSearchType(e.target.value)}
               label="Search By"
             >
               <MenuItem value="albumName">Album</MenuItem>
@@ -205,7 +197,7 @@ const AlbumsList = () => {
               >
                 <Stack spacing={2}>
                   <Pagination
-                    count={albums.totalPages}
+                    count={6} //{albums.totalPages}
                     page={currentPage}
                     color="primary"
                     onChange={handlePageChange}

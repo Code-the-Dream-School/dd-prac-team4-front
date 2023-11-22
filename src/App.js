@@ -66,8 +66,6 @@ function App() {
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-
-
         <Route
           path="/wishlist"
           element={

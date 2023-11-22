@@ -4,6 +4,7 @@ import { useAuth } from '@akosasante/react-auth-context';
 
 const ImageUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState('');
   const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
 
   const handleFileChange = (event) => {
@@ -24,17 +25,27 @@ const ImageUpload = () => {
 
     try {
       // Send a POST request to the server with the file
-      const response = await axiosInstance.post('/users/uploadUserImage', formData);
+      const response = await axiosInstance.post(
+        '/users/uploadUserImage',
+        formData
+      );
 
       if (response.ok) {
         // Handle successful upload
-        alert('Profile picture updated successfully!');
+        setUploadStatus('Success');
+        // Refresh the page
+        // AKOS: this one below  doesn't work
+         // a delay before reloading the page 
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000); 
+
       } else {
         // Handle errors
-        console.log('Error occured');
-        
+        setUploadStatus('Error');
       }
     } catch (error) {
+      //AKOS: could you please take a look why does it throw an error if the img is being stored and when manually refresh the page it is shown correctly
       console.error('Error uploading file:', error);
     }
   };
@@ -43,11 +54,14 @@ const ImageUpload = () => {
     <div>
       <input type="file" onChange={handleFileChange} />
       <button onClick={handleUpload}>Upload</button>
+        {uploadStatus === 'Success' && (
+          <p>Profile picture updated successfully!</p>
+        )}
+        {uploadStatus === 'Error' && <p>Error occurred during upload.</p>}
     </div>
   );
 };
 
 export default ImageUpload;
 
-
-//later- check why alert is not being shown and check if it works ok 
+//later- check why alert is not being shown and check if it works ok

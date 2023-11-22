@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../apis/axiosClient';
 import { Typography, CircularProgress, List, ListItem } from '@mui/material';
+import { useAuth } from '@akosasante/react-auth-context';
+const RecommendationPage = () => {
+  const { user } = useAuth();
+  const userId = user ? user.userId : null;
 
-const RecommendationPage = ({ userId }) => {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

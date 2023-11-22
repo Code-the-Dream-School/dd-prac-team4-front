@@ -23,7 +23,7 @@ const ResetPassword = () => {
       await resetPassword({ token, password });
 
       // Redirect to sign in page on success
-      navigate.push('/signin');
+      navigate('/signin');
     } catch (error) {
       setError('Failed to reset password. Please try again.');
       console.error(error);

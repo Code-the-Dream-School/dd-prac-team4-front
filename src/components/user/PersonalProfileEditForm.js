@@ -18,6 +18,7 @@ export default function PersonalProfileEditForm() {
     email: '',
     oldPassword: '',
     newPassword: '',
+    profilePicture: null,
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
@@ -44,11 +45,21 @@ export default function PersonalProfileEditForm() {
       });
     } else {
       try {
+        // Create a FormData object to append the profile picture
+        const formDataForApi = new FormData();
+        formDataForApi.append('name', formData.name);
+        formDataForApi.append('email', formData.email);
+        formDataForApi.append('profilePicture', formData.profilePicture);
+
         // Call the backend API to update the user's name and email
-        const response = await axiosInstance.patch('/users/updateCurrentUser', {
-          name: formData.name,
-          email: formData.email,
-        });
+        const response = await axiosInstance.patch(
+          '/users/updateCurrentUser',
+          {
+            name: formData.name,
+            email: formData.email,
+          },
+          formDataForApi
+        );
         // Handle success (e.g., show a success message)
         console.log('User profile updated:', response.data);
         setErrors({}); // Clear any previous errors
@@ -59,6 +70,7 @@ export default function PersonalProfileEditForm() {
           email: '',
           oldPassword: '',
           newPassword: '',
+          profilePicture: null,
         });
         // Navigate back to the user profile page
         navigate('/profile'); // Use the navigate function
@@ -109,7 +121,10 @@ export default function PersonalProfileEditForm() {
       }
     }
   };
-
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({ ...prevData, profilePicture: file }));
+  };
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
       <CardContent>
@@ -131,6 +146,19 @@ export default function PersonalProfileEditForm() {
             }}
           />
         </div>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleProfilePictureChange}
+        />
+        {formData.profilePicture && (
+          <img
+            src={URL.createObjectURL(formData.profilePicture)}
+            alt="Profile Preview"
+            style={{ maxWidth: '100%', marginTop: '10px' }}
+          />
+        )}
+
         {successMessage && <Alert severity="success">{successMessage}</Alert>}
         {successMessagePassword && (
           <Alert severity="info">{successMessagePassword}</Alert>

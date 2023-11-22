@@ -1,9 +1,9 @@
 import axios from './axiosClient';
 
-export const resetPassword = async ({ token, password }) => {
+export const resetPassword = async ({ passwordToken, newPassword }) => {
   const response = await axios.post('/auth/resetPassword', {
-    token,
-    password,
+    passwordToken,
+    newPassword,
   });
   return response.data;
 };

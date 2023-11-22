@@ -4,15 +4,13 @@ import WriteReview from './WriteReview';
 import { Alert } from '@mui/material';
 import { useAuth } from '@akosasante/react-auth-context';
 
-
-
 const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userHasReviewed, setUserHasReviewed] = useState(false);
 
-const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly  
+  const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
 
   useEffect(() => {
     fetchAlbumReviews();
@@ -26,7 +24,9 @@ const { user } = useAuth(); //use user.user.<whatever field we want> to access i
       const { allProductReviews } = response.data;
       setReviews(allProductReviews);
       // Check if the user has already reviewed the album
-      const hasReviewed = allProductReviews.some(review => review.user === user?.user?._id);
+      const hasReviewed = allProductReviews.some(
+        (review) => review.user === user?.user?._id
+      );
       setUserHasReviewed(hasReviewed);
       setLoading(false);
     } catch (error) {
@@ -38,7 +38,7 @@ const { user } = useAuth(); //use user.user.<whatever field we want> to access i
 
   // Function to refresh reviews
   const refreshReviews = () => {
-    setLoading(true) // show the loading text while we go to fetch/refresh the reviews
+    setLoading(true); // show the loading text while we go to fetch/refresh the reviews
     // Simply call the fetchAlbumReviews function to refresh
     fetchAlbumReviews();
   };
@@ -64,10 +64,13 @@ const { user } = useAuth(); //use user.user.<whatever field we want> to access i
         'No reviews yet'
       )}
 
-      {user && userHasReviewed && <p> You already submitted the review for this album</p> }
-        {/* Conditionally render the WriteReview component */}
-        {user && !userHasReviewed && <WriteReview albumId={albumId} refreshReviews={refreshReviews} />}
-
+      {user && userHasReviewed && (
+        <p> You already submitted the review for this album</p>
+      )}
+      {/* Conditionally render the WriteReview component */}
+      {user && !userHasReviewed && (
+        <WriteReview albumId={albumId} refreshReviews={refreshReviews} />
+      )}
     </div>
   );
 };

@@ -57,8 +57,8 @@ function Album({ album, wishListId }) {
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
-        fullWidth={true} 
-        maxWidth='sm'
+        fullWidth={true}
+        maxWidth="sm"
       >
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">
@@ -82,9 +82,7 @@ function Album({ album, wishListId }) {
           </DialogContentText>
         </DialogContent>
         <AlbumPreview spotifyUrl={album.spotifyUrl}>
-          <AlbumReviews
-            albumId={album._id}
-          />
+          <AlbumReviews albumId={album._id} />
         </AlbumPreview>
       </Dialog>
     </AlbumItemWrapper>

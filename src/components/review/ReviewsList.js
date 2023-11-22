@@ -26,7 +26,7 @@ const { user } = useAuth(); //use user.user.<whatever field we want> to access i
       const { allProductReviews } = response.data;
       setReviews(allProductReviews);
       // Check if the user has already reviewed the album
-      const hasReviewed = allProductReviews.some(review => review.user === user.user._id);
+      const hasReviewed = allProductReviews.some(review => review.user === user?.user?._id);
       setUserHasReviewed(hasReviewed);
       setLoading(false);
     } catch (error) {
@@ -56,7 +56,7 @@ const { user } = useAuth(); //use user.user.<whatever field we want> to access i
             <li key={review._id}>
               <h3>{review.title}</h3>
               <p>Rating: {review.rating}</p>
-              <p>{review.comment}</p>
+              <p style={{ overflowWrap: 'break-word' }}>{review.comment}</p>
             </li>
           ))}
         </ul>

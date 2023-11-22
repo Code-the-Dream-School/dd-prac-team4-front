@@ -15,6 +15,7 @@ import AlbumChat from './components/album/AlbumChat';
 import RecommendationPage from './components/RecommendationPage';
 import ForgotPassword from './components/ForgotPassword';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
 
 function App() {
   const { status, user } = useAuth();
@@ -60,14 +61,53 @@ function App() {
           path="/"
           element={isLoggedIn ? <Home /> : <Navigate to="/signIn" />}
         />
+        <Route path="/home" element={<Home />} />
         <Route path="/register" element={<UserRegistration />} />
         <Route path="/signIn" element={<SignIn />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/wishlist" element={<WishListView />} />
-        <Route path="/checkout/completed" element={<CheckoutComplete />} />
-        <Route path="/profile" element={<UserProfile />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+
+
+
+        <Route
+          path="/wishlist"
+          element={
+            <RequireAuth>
+              <WishListView />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <RequireAuth>
+              <UserProfile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <RequireAuth>
+              <CheckoutPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/checkout/completed"
+          element={
+            <RequireAuth>
+              <CheckoutComplete />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/updateUserInfo"
+          element={
+            <RequireAuth>
+              <PersonalProfileEditForm />
+            </RequireAuth>
+          }
+        />
 
         <Route
           path="/checkout"

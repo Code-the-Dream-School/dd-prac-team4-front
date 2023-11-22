@@ -1,6 +1,8 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import Album from './Album';
+import PropTypes from 'prop-types';
+import { albumShape } from '../../propTypes/albumTypes';
 
 function AlbumGrid({ albums, wishListId }) {
   return (
@@ -13,5 +15,10 @@ function AlbumGrid({ albums, wishListId }) {
     </Grid>
   );
 }
+
+AlbumGrid.propTypes = {
+  albums: PropTypes.arrayOf(albumShape).isRequired,
+  wishListId: PropTypes.string,
+};
 
 export default AlbumGrid;

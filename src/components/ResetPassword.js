@@ -7,7 +7,7 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const token = searchParams.get('token');
+  const passwordToken = searchParams.get('token');
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -20,7 +20,7 @@ const ResetPassword = () => {
         return;
       }
 
-      await resetPassword({ token, password });
+      await resetPassword({ passwordToken, newPassword: password });
 
       // Redirect to sign in page on success
       navigate('/signin');

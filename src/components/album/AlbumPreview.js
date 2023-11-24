@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CardContent } from '@mui/material';
 
 const AlbumPreview = ({
-  spotifyUrl,
+  albumId,
   style = {},
   wide = false,
   width = wide ? '100%' : 300,
@@ -18,18 +18,19 @@ const AlbumPreview = ({
     // regular expression pattern to extract the album ID from the Spotify **API** Url that's saved on the album object
     const regexPattern = /\/albums\/([a-zA-Z0-9]+)/;
     //  extract the album ID
-    const match = spotifyUrl.match(regexPattern);
+    const match = albumId.match(regexPattern);
+    console.log('albumId:', albumId);
+    console.log('match:', match);
     if (!match) {
       // if URL doesn't match the expected format
       console.error('Invalid API URL');
       return;
     }
-    //extract the album id
-    const albumId = match[1];
-    //  Spotify album URL for embedding
-    const spotifyAlbumUrl = `https://open.spotify.com/embed/album/${albumId}`;
+    // extract the album id
+    const albumIdFromUrl = match[1];
+    const spotifyAlbumUrl = `https://open.spotify.com/embed/album/${albumIdFromUrl}`;
     setSpotifyEmbedUrl(spotifyAlbumUrl);
-  }, [spotifyUrl]);
+  }, [albumId]);
 
   return (
     <CardContent style={{ marginTop: '1rem', width: '100%', display: 'flex' }}>
@@ -51,3 +52,57 @@ const AlbumPreview = ({
 };
 
 export default AlbumPreview;
+
+// import React, { useEffect, useState } from 'react';
+// import { CardContent } from '@mui/material';
+
+// const AlbumPreview = ({
+//   spotifyUrl,
+//   style = {},
+//   wide = false,
+//   width = wide ? '100%' : 300,
+//   height = wide ? 80 : 380,
+//   frameBorder = 0,
+//   allow = 'encrypted-media',
+//   children,
+//   ...props
+// }) => {
+//   const [spotifyEmbedUrl, setSpotifyEmbedUrl] = useState('');
+
+//   useEffect(() => {
+//     // regular expression pattern to extract the album ID from the Spotify **API** Url that's saved on the album object
+//     const regexPattern = /\/albums\/([a-zA-Z0-9]+)/;
+//     //  extract the album ID
+//     const match = spotifyUrl.match(regexPattern);
+//     if (!match) {
+//       // if URL doesn't match the expected format
+//       console.error('Invalid API URL');
+//       return;
+//     }
+//     //extract the album id
+//     const albumId = match[1];
+//     //  Spotify album URL for embedding
+//     const spotifyAlbumUrl = `https://open.spotify.com/embed/album/${albumId}`;
+//     setSpotifyEmbedUrl(spotifyAlbumUrl);
+//   }, [spotifyUrl]);
+
+//   return (
+//     <CardContent style={{ marginTop: '1rem', width: '100%', display: 'flex' }}>
+//       <iframe
+//         title="Spotify Web Player"
+//         src={spotifyEmbedUrl}
+//         width={width}
+//         height={height}
+//         frameBorder={frameBorder}
+//         style={{ borderRadius: 8, ...style, border: 'none' }}
+//         allow={allow}
+//         {...props}
+//       />
+//       {children && (
+//         <div style={{ width: '100%', display: 'flex' }}>{children}</div>
+//       )}
+//     </CardContent>
+//   );
+// };
+
+// export default AlbumPreview;

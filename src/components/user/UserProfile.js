@@ -11,6 +11,7 @@ import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@akosasante/react-auth-context';
 import axiosInstance from '../../apis/axiosClient';
+import { uniqBy } from 'lodash';
 
 export default function PersonalProfile() {
   const { user } = useAuth();
@@ -20,8 +21,11 @@ export default function PersonalProfile() {
   useEffect(() => {
     const fetchPurchasedAlbums = async () => {
       const response = await axiosInstance.get('/users/showMe/withAlbums');
-      console.log(response.data.user.purchasedAlbums);
-      setPurchasedAlbums(response.data.user.purchasedAlbums);
+      const uniquePurchasedAlbums = uniqBy(
+        response.data.user.purchasedAlbums,
+        (albumItem) => albumItem.album?.albumId || albumItem.album?._id
+      );
+      setPurchasedAlbums(uniquePurchasedAlbums);
     };
     fetchPurchasedAlbums();
   }, [setPurchasedAlbums]);
@@ -75,20 +79,22 @@ export default function PersonalProfile() {
         </Table>
         <div className="mt-5">
           <h4>Purchased Albums</h4>
-          {purchasedAlbums.length > 0 ? (
-            purchasedAlbums.map((albumItem) => (
-              <div key={albumItem._id}>
-                <p>{albumItem.album.albumName}</p>
-                <Link to={`/chat/${albumItem.album._id}`}>
-                  <Button variant="outlined" color="primary">
-                    Chat with Fans
-                  </Button>
-                </Link>
-              </div>
-            ))
-          ) : (
-            <p>No album information available</p>
-          )}
+          {purchasedAlbums.map((albumItem) => (
+            <div key={albumItem._id}>
+              {albumItem.album && albumItem.album.albumName ? (
+                <>
+                  <p>{albumItem.album.albumName}</p>
+                  <Link to={`/chat/${albumItem.album._id}`}>
+                    <Button variant="outlined" color="primary">
+                      Chat with Fans
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <p>No album information available</p>
+              )}
+            </div>
+          ))}
           {purchasedAlbums.length === 0 && <p>No purchased albums found.</p>}
         </div>
       </CardContent>

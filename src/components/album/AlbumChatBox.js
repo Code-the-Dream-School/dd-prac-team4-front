@@ -4,11 +4,11 @@ import { useAuth } from '@akosasante/react-auth-context';
 import { Typography, TextField, Button } from '@mui/material';
 import axiosInstance from '../../apis/axiosClient';
 
-const AlbumChatBox = ({ spotifyUrl }) => {
+const AlbumChatBox = ({ adminId }) => {
   const [message, setMessage] = useState('');
   const [socket, setSocket] = useState(null);
   const regexPattern = /\/albums\/([a-zA-Z0-9]+)/;
-  const match = spotifyUrl.match(regexPattern);
+  const match = adminId && adminId.match(regexPattern);
   const albumId = match ? match[1] : null;
 
   const { user: loggedInUser } = useAuth();

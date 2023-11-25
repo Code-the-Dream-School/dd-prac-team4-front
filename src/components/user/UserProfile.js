@@ -12,23 +12,36 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '@akosasante/react-auth-context';
 import axiosInstance from '../../apis/axiosClient';
 import { uniqBy } from 'lodash';
+import StyledSpinner from '../layout/Loader/Loader';
 
 export default function PersonalProfile() {
   const { user } = useAuth();
   const userData = user.user; //the user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
   const [purchasedAlbums, setPurchasedAlbums] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPurchasedAlbums = async () => {
-      const response = await axiosInstance.get('/users/showMe/withAlbums');
-      const uniquePurchasedAlbums = uniqBy(
-        response.data.user.purchasedAlbums,
-        (albumItem) => albumItem.album?.albumId || albumItem.album?._id
-      );
-      setPurchasedAlbums(uniquePurchasedAlbums);
+      try {
+        const response = await axiosInstance.get('/users/showMe/withAlbums');
+        const uniquePurchasedAlbums = uniqBy(
+          response.data.user.purchasedAlbums,
+          (albumItem) => albumItem.album?.albumId || albumItem.album?._id
+        );
+        setPurchasedAlbums(uniquePurchasedAlbums);
+      } catch (error) {
+        console.error('Error fetching purchased albums:', error);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchPurchasedAlbums();
   }, [setPurchasedAlbums]);
+
+  if (loading) {
+    return <StyledSpinner className="small-spinner" />;
+  }
 
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
@@ -81,6 +94,7 @@ export default function PersonalProfile() {
           <h4>Purchased Albums</h4>
           {purchasedAlbums.map((albumItem) => (
             <div key={albumItem._id}>
+              {console.log('albumItem', albumItem)}
               {albumItem.album && albumItem.album.albumName ? (
                 <>
                   <p>{albumItem.album.albumName}</p>

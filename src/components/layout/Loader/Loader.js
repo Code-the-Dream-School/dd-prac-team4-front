@@ -10,10 +10,8 @@ const SpinnerWrapper = styled.div`
   &.small-spinner {
     transform: scale(0.5);
   }
-  }
 `;
-//This is functional styled 'Loader' component that displays a spinner with optional size variations
-//based on the given class name.
+
 const StyledSpinner = ({ className }) => (
   <SpinnerWrapper className={className}>
     <img src={spinnerSvg} alt="spinner" />

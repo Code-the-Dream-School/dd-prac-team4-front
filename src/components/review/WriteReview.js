@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../apis/axiosClient';
 import { useAuth } from '@akosasante/react-auth-context';
-const WriteReview = ({ albumId, refreshReviews }) => {
+import DeleteReview from './DeleteReview';
+
+const WriteReview = ({
+  albumId,
+  refreshReviews,
+  userHasReviewed,
+  reviewId,
+}) => {
   const [formData, setFormData] = useState({
     user: null,
     album: null,
@@ -91,6 +98,9 @@ const WriteReview = ({ albumId, refreshReviews }) => {
           </button>
         </div>
         <div>{error && <p style={{ color: 'red' }}>{error}</p>}</div>
+        {user && userHasReviewed && (
+          <DeleteReview reviewId={reviewId} refreshReviews={refreshReviews} />
+        )}
       </form>
     </div>
   );

@@ -67,9 +67,15 @@ const AlbumReviews = ({ albumId }) => {
       {user && userHasReviewed && (
         <p> You already submitted the review for this album</p>
       )}
+
       {/* Conditionally render the WriteReview component */}
       {user && !userHasReviewed && (
-        <WriteReview albumId={albumId} refreshReviews={refreshReviews} />
+        <WriteReview
+          albumId={albumId}
+          refreshReviews={refreshReviews}
+          userHasReviewed={userHasReviewed}
+          reviewId={reviews[0]?._id}
+        />
       )}
     </div>
   );

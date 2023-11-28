@@ -40,7 +40,7 @@ const RecommendationPage = () => {
         Recommendations
       </Typography>
       {error ? (
-        <Typography color="error">{error}</Typography>
+        <Typography color="error.main">{error}</Typography>
       ) : loading ? (
         <Typography>Fetching recommendations...</Typography>
       ) : recommendations.length === 0 ? (

@@ -4,7 +4,7 @@ import { Typography, CircularProgress, List, ListItem } from '@mui/material';
 import { useAuth } from '@akosasante/react-auth-context';
 const RecommendationPage = () => {
   const { user } = useAuth();
-  const userId = user ? user.userId : null;
+  const userId = (user && user.user) ? user.user._id : null;
 
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);

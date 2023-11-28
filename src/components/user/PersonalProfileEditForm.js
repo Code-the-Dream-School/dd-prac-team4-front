@@ -145,7 +145,13 @@ export default function PersonalProfileEditForm() {
           <img
             src={URL.createObjectURL(formData.profilePicture)}
             alt="Profile Preview"
-            style={{ maxWidth: '100%', marginTop: '10px' }}
+            style={{
+              maxWidth: '300px',
+              maxHeight: '300px',
+              marginTop: '10px',
+              marginLeft: '30px',
+              marginRight: 'auto',
+            }}
           />
         )}
 

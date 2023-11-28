@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../apis/axiosClient';
-import { Typography, CircularProgress, List, ListItem } from '@mui/material';
+import { Typography, ListItem, List } from '@mui/material';
 import { useAuth } from '@akosasante/react-auth-context';
 const RecommendationPage = () => {
   const { user } = useAuth();
@@ -42,7 +42,12 @@ const RecommendationPage = () => {
       {error ? (
         <Typography color="error">{error}</Typography>
       ) : loading ? (
-        <CircularProgress />
+        <Typography>Fetching recommendations...</Typography>
+      ) : recommendations.length === 0 ? (
+        <Typography>
+          Sorry, we don't have any recommendations for you yet. As you add more
+          albums to your library, we'll be able to generate some for you.
+        </Typography>
       ) : (
         <List>
           {recommendations.map((album) => (

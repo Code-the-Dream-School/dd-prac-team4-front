@@ -125,14 +125,19 @@ export default function PersonalProfileEditForm() {
         )}
         <div className="text-center">
           <Avatar
-            src={require('../../images/customer.png')}
+            src={
+              formData.profilePicture
+                ? URL.createObjectURL(formData.profilePicture)
+                : require('../../images/customer.png')
+            }
             alt="user profile"
             className="img-fluid rounded-circle"
             sx={{
-              width: '100px',
-              height: '100px',
-              maxWidth: '100px',
-              maxHeight: '100px',
+              width: '200px',
+              height: '200px',
+              maxWidth: '200px',
+              maxHeight: '200px',
+              marginBottom: '20px',
             }}
           />
         </div>
@@ -141,19 +146,6 @@ export default function PersonalProfileEditForm() {
           accept="image/*"
           onChange={handleProfilePictureChange}
         />
-        {formData.profilePicture && (
-          <img
-            src={URL.createObjectURL(formData.profilePicture)}
-            alt="Profile Preview"
-            style={{
-              maxWidth: '300px',
-              maxHeight: '300px',
-              marginTop: '10px',
-              marginLeft: '30px',
-              marginRight: 'auto',
-            }}
-          />
-        )}
 
         {successMessage && <Alert severity="success">{successMessage}</Alert>}
         {successMessagePassword && (

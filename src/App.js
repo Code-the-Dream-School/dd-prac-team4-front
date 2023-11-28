@@ -17,7 +17,7 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
 
 function App() {
-  const { status, user } = useAuth();
+  const { status } = useAuth();
   const isLoggedIn = status === AuthStatus.LoggedIn;
 
   const [mode, setMode] = useState('light');

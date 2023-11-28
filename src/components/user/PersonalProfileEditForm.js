@@ -45,21 +45,11 @@ export default function PersonalProfileEditForm() {
       });
     } else {
       try {
-        // Create a FormData object to append the profile picture
-        const formDataForApi = new FormData();
-        formDataForApi.append('name', formData.name);
-        formDataForApi.append('email', formData.email);
-        formDataForApi.append('profilePicture', formData.profilePicture);
-
         // Call the backend API to update the user's name and email
-        const response = await axiosInstance.patch(
-          '/users/updateCurrentUser',
-          {
-            name: formData.name,
-            email: formData.email,
-          },
-          formDataForApi
-        );
+        const response = await axiosInstance.patch('/users/updateCurrentUser', {
+          name: formData.name,
+          email: formData.email,
+        });
         // Handle success (e.g., show a success message)
         console.log('User profile updated:', response.data);
         setErrors({}); // Clear any previous errors
@@ -77,7 +67,6 @@ export default function PersonalProfileEditForm() {
       } catch (error) {
         setErrors({});
         setServerErrors({ serverMsg: error?.response?.data?.msg }); // Set server errors
-
         setSuccessMessage(''); // Clear any previous success message
       }
     }
@@ -121,6 +110,7 @@ export default function PersonalProfileEditForm() {
       }
     }
   };
+
   const handleProfilePictureChange = (e) => {
     const file = e.target.files[0];
     setFormData((prevData) => ({ ...prevData, profilePicture: file }));

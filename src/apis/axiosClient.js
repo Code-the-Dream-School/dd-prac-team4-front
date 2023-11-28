@@ -16,4 +16,20 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export const transformAuthResponse = [
+  ...axios.defaults.transformResponse,
+  function (parsedResponse) {
+    try {
+      if (parsedResponse.hasOwnProperty('user')) {
+        return parsedResponse.user;
+      }
+      return parsedResponse;
+    } catch (err) {
+      console.error('Error while parsing show user response: ', err);
+      return parsedResponse;
+    }
+  },
+];
+
 export default axiosInstance;

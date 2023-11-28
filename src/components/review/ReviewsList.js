@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axiosInstance from '../../apis/axiosClient';
 import WriteReview from './WriteReview';
 import { Alert } from '@mui/material';
@@ -10,13 +10,9 @@ const AlbumReviews = ({ albumId }) => {
   const [error, setError] = useState(null);
   const [userHasReviewed, setUserHasReviewed] = useState(false);
 
-  const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
+  const { user } = useAuth();
 
-  useEffect(() => {
-    fetchAlbumReviews();
-  }, [albumId]);
-
-  const fetchAlbumReviews = async () => {
+  const fetchAlbumReviews = useCallback(async () => {
     try {
       const response = await axiosInstance.get(`/reviews/album/${albumId}`);
       console.log(response.data.allProductReviews);
@@ -25,7 +21,7 @@ const AlbumReviews = ({ albumId }) => {
       setReviews(allProductReviews);
       // Check if the user has already reviewed the album
       const hasReviewed = allProductReviews.some(
-        (review) => review.user === user?.user?._id
+        (review) => review.user === user?._id
       );
       setUserHasReviewed(hasReviewed);
       setLoading(false);
@@ -34,7 +30,12 @@ const AlbumReviews = ({ albumId }) => {
       setError('Error fetching album reviews. Please try again later.');
       setLoading(false);
     }
-  };
+  }, [albumId, user?._id]);
+
+  // Fetch reviews when the component mounts
+  useEffect(() => {
+    fetchAlbumReviews();
+  }, [fetchAlbumReviews]);
 
   // Function to refresh reviews
   const refreshReviews = () => {

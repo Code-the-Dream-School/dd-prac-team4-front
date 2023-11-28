@@ -11,7 +11,7 @@ const WriteReview = ({ albumId, refreshReviews }) => {
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
-  const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
+  const { user } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +27,7 @@ const WriteReview = ({ albumId, refreshReviews }) => {
 
     try {
       const response = await axiosInstance.post(`/reviews/album/${albumId}`, {
-        user: user.user._id,
+        user: user._id,
         album: albumId,
         title: formData.title,
         rating: formData.rating,

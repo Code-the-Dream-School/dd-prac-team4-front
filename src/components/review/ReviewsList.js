@@ -3,6 +3,7 @@ import axiosInstance from '../../apis/axiosClient';
 import WriteReview from './WriteReview';
 import { Alert } from '@mui/material';
 import { useAuth } from '@akosasante/react-auth-context';
+import DeleteReview from './DeleteReview';
 
 const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
@@ -77,6 +78,9 @@ const AlbumReviews = ({ albumId }) => {
           reviewId={reviews[0]?._id}
         />
       )}
+       {user && userHasReviewed && (
+          <DeleteReview reviewId={reviews[0]?._id} refreshReviews={refreshReviews} />
+        )}
     </div>
   );
 };

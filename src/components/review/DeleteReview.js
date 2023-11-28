@@ -13,9 +13,7 @@ const DeleteReview = ({ reviewId, refreshReviews }) => {
 
     try {
       // Make a DELETE request to the server to delete the review
-      await axiosInstance.delete(`/reviews/${reviewId}`, {
-        data: { reviewId: reviewId },
-      });
+      await axiosInstance.delete(`/reviews/${reviewId}`);
 
       // Trigger the refreshReviews callback to reload the reviews
       if (refreshReviews) {
@@ -31,7 +29,6 @@ const DeleteReview = ({ reviewId, refreshReviews }) => {
 
   return (
     <div>
-      <h2>Delete Review</h2>
       <button onClick={handleDelete} disabled={deleting}>
         {deleting ? 'Deleting...' : 'Delete Review'}
       </button>

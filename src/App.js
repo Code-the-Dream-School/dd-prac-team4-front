@@ -12,7 +12,6 @@ import UserProfile from './components/user/UserProfile';
 import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
 import AlbumChat from './components/album/AlbumChat';
-import RecommendationPage from './components/RecommendationPage';
 import ForgotPassword from './components/ForgotPassword';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
@@ -140,14 +139,6 @@ function App() {
           }
         />
 
-        <Route
-          path="/profile/recommendations"
-          element={
-            <RequireAuth>
-              <RecommendationPage userId={user ? user.userId : null} />
-            </RequireAuth>
-          }
-        />
         <Route
           path="/chat"
           element={

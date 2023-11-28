@@ -13,6 +13,7 @@ import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
 import AlbumChat from './components/album/AlbumChat';
 import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
 
@@ -64,6 +65,11 @@ function App() {
         <Route path="/register" element={<UserRegistration />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+
+
+
+    <Route path="/resetPassword" element={<ResetPassword />} />
+
 
         <Route
           path="/wishlist"
@@ -138,7 +144,6 @@ function App() {
             </RequireAuth>
           }
         />
-
         <Route
           path="/chat"
           element={

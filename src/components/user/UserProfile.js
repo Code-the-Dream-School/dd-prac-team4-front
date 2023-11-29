@@ -19,6 +19,9 @@ export default function PersonalProfile() {
   console.log(userData);
   const currentAlbum = userData?.currentlyListening?.album || 'N/A';
   console.log(currentAlbum);
+
+
+
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
       <CardContent>
@@ -41,28 +44,23 @@ export default function PersonalProfile() {
             }}
           />
         </div>
-        <Table
-          responsive="true"
-          striped="true"
-          hover="true"
-          className="text-center mt-5"
-        >
+        <Table className="text-center mt-5">
           <tbody>
             <TableRow>
               <TableCell>USERNAME</TableCell>
-              <TableCell>{userData?.username || 'N/A'}</TableCell>
+              <TableCell>{user?.username || 'N/A'}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>NAME</TableCell>
-              <TableCell>{userData?.name || 'N/A'}</TableCell>
+              <TableCell>{user?.name || 'N/A'}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>EMAIL</TableCell>
-              <TableCell>{userData?.email || 'N/A'}</TableCell>
+              <TableCell>{user?.email || 'N/A'}</TableCell>
             </TableRow>
             {/* <TableRow>
               <TableCell>Password</TableCell>
-              <TableCell>{userData?.password}</TableCell>
+              <TableCell>{user?.password}</TableCell>
             </TableRow> */}
             <TableRow>
               <TableCell>CURRENTLY LISTENING TO</TableCell>
@@ -78,7 +76,7 @@ export default function PersonalProfile() {
           Update Profile
         </Button>
       </Link>
-      {/* {userData?.id === user?.id && (
+      {/* {user?.id === user?.id && (
 
         <CardActions className='justify-content-center'>
           <Button onClick={handleUpdateProfileClick} color='warning' startIcon={<EditIcon />}>

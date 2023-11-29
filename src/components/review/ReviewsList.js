@@ -4,6 +4,7 @@ import WriteReview from './WriteReview';
 import { Alert } from '@mui/material';
 import { useAuth } from '@akosasante/react-auth-context';
 import DeleteReview from './DeleteReview';
+import UpdateReview from './EditReview';
 
 const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
@@ -78,6 +79,10 @@ const AlbumReviews = ({ albumId }) => {
           reviewId={reviews[0]?._id}
         />
       )}
+      {user && userHasReviewed && (
+          <UpdateReview reviewId={
+            reviews.find((review) => review.user === user?.user?._id)?._id} refreshReviews={refreshReviews} />
+        )}
        {user && userHasReviewed && (
           <DeleteReview reviewId={
             reviews.find((review) => review.user === user?.user?._id)?._id} refreshReviews={refreshReviews} />

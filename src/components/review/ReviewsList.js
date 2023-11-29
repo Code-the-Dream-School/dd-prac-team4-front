@@ -79,7 +79,8 @@ const AlbumReviews = ({ albumId }) => {
         />
       )}
        {user && userHasReviewed && (
-          <DeleteReview reviewId={reviews[0]?._id} refreshReviews={refreshReviews} />
+          <DeleteReview reviewId={
+            reviews.find((review) => review.user === user?.user?._id)?._id} refreshReviews={refreshReviews} />
         )}
     </div>
   );

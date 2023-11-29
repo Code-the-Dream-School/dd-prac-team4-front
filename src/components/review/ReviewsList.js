@@ -80,13 +80,21 @@ const AlbumReviews = ({ albumId }) => {
         />
       )}
       {user && userHasReviewed && (
-          <UpdateReview reviewId={
-            reviews.find((review) => review.user === user?.user?._id)?._id} refreshReviews={refreshReviews} />
-        )}
-       {user && userHasReviewed && (
-          <DeleteReview reviewId={
-            reviews.find((review) => review.user === user?.user?._id)?._id} refreshReviews={refreshReviews} />
-        )}
+        <UpdateReview
+          reviewId={
+            reviews.find((review) => review.user === user?.user?._id)?._id
+          }
+          refreshReviews={refreshReviews}
+        />
+      )}
+      {user && userHasReviewed && (
+        <DeleteReview
+          reviewId={
+            reviews.find((review) => review.user === user?.user?._id)?._id
+          }
+          refreshReviews={refreshReviews}
+        />
+      )}
     </div>
   );
 };

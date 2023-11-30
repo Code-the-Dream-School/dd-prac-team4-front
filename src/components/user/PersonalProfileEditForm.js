@@ -163,7 +163,7 @@ export default function PersonalProfileEditForm() {
                 <TableCell>
                   <TextField
                     name="name"
-                    value={formData.name}
+                    value={formData.name || userData.username}
                     onChange={handleInputChange}
                     error={errors.name ? true : false}
                     helperText={errors.name}
@@ -176,7 +176,7 @@ export default function PersonalProfileEditForm() {
                   <TextField
                     name="email"
                     type="email"
-                    value={formData.email}
+                    value={formData.email || userData.email}
                     onChange={handleInputChange}
                     error={errors.email ? true : false}
                     helperText={errors.email}

@@ -16,6 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import './Navbar.css';
 import Logo from '../images/Logo.png';
 import ThemeSwitcher from './ThemeSwitcher';
+import PropTypes from 'prop-types';
 
 const Navbar = ({ toggleDarkMode, mode }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -138,5 +139,15 @@ const Navbar = ({ toggleDarkMode, mode }) => {
     </AppBar>
   );
 };
-
+Navbar.propTypes = {
+  toggleDarkMode: PropTypes.func.isRequired,
+  mode: PropTypes.string.isRequired,
+  handleClearCart: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool,
+  statusOptions: PropTypes.oneOf(['active', 'inactive']),
+  userDetails: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+  }),
+};
 export default Navbar;

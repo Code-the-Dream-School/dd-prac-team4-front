@@ -20,8 +20,6 @@ export default function PersonalProfile() {
   const currentAlbum = userData?.currentlyListening?.album || 'N/A';
   console.log(currentAlbum);
 
-
-
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
       <CardContent>

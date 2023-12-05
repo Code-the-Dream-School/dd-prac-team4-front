@@ -7,6 +7,8 @@ import OrderSidebar from '../OrderSidebar';
 import axiosInstance from '../../apis/axiosClient';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import PropTypes from 'prop-types';
+import { albumShape } from '../../propTypes/albumTypes';
 
 import {
   Container,
@@ -231,5 +233,10 @@ const AlbumsList = () => {
     </Container>
   );
 };
+
+AlbumsList.propTypes = {
+  albums: PropTypes.arrayOf(albumShape),
+};
+
 
 export default AlbumsList;

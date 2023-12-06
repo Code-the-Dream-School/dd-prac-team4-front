@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@akosasante/react-auth-context';
 import {
   Card,
@@ -29,6 +29,16 @@ export default function PersonalProfileEditForm() {
 
   const { user } = useAuth();
   const userData = user.user; //he user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
+
+  useEffect(() => {
+    setFormData({
+      name: userData?.username || '',
+      email: userData?.email || '',
+      oldPassword: '',
+      newPassword: '',
+      profilePicture: null,
+    });
+  }, [userData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

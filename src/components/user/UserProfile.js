@@ -74,6 +74,11 @@ export default function PersonalProfile() {
           </Button>
         </CardActions>
       )} */}
+      <Link to="/profile/recommendations">
+        <Button color="primary" style={{ margin: '10px' }}>
+          View Recommendations
+        </Button>
+      </Link>
     </Card>
   );
 }

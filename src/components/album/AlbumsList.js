@@ -236,7 +236,18 @@ const AlbumsList = () => {
 
 AlbumsList.propTypes = {
   albums: PropTypes.arrayOf(albumShape),
+  limit: PropTypes.number,
+  setLimit: PropTypes.func,
+  searchType: PropTypes.string,
+  setSearchType: PropTypes.func,
+  searchTerm: PropTypes.string,
+  setSearchTerm: PropTypes.func,
+  message: PropTypes.string,
+  setMessage: PropTypes.func,
+  errorMessage: PropTypes.string,
+  setErrorMessage: PropTypes.func,
+  wishListId: PropTypes.any,
+  setWishListId: PropTypes.func,
 };
-
 
 export default AlbumsList;

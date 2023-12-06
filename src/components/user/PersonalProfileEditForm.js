@@ -55,6 +55,23 @@ export default function PersonalProfileEditForm() {
       });
     } else {
       try {
+        // If there's a profile picture, upload it first
+        if (formData.profilePicture) {
+          const formDataImage = new FormData();
+          formDataImage.append('image', formData.profilePicture);
+
+          // Make the API call to upload the image
+          const imageResponse = await axiosInstance.post(
+            '/:userId/uploadProfile',
+            formDataImage
+          );
+
+          // Assuming the backend returns the image URL, update the formData
+          setFormData((prevData) => ({
+            ...prevData,
+            profilePicture: imageResponse.data.imageUrl,
+          }));
+        }
         // Call the backend API to update the user's name and email
         const response = await axiosInstance.patch('/users/updateCurrentUser', {
           name: formData.name,

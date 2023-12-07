@@ -75,9 +75,9 @@ const UserRegistration = () => {
 
   // Used by the useRegister hook to get the user object from the register API response
   // Hook will store the user in localStorage and in internal state
-  const getUserFromResponse = (responseData) => {
-    return responseData.user;
-  };
+  // Since in index.js we are transforming the response to return response.user, here we should
+  // make sure that the hook grabs just the response data as-is to extract the user from the response.
+  const getUserFromResponse = (responseData) => responseData;
   // initial options needed for useRegister hook
   const registerHookOptions = {
     apiUrl: `${envPath}/auth/register`,

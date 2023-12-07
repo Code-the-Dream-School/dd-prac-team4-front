@@ -10,9 +10,11 @@ const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userHasReviewed, setUserHasReviewed] = useState(false);
 
   const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
+  const userHasReviewed = (reviews || []).some(
+    (review) => review.user === user?._id
+  );
 
   const fetchAlbumReviews = useCallback(async () => {
     try {
@@ -21,18 +23,14 @@ const AlbumReviews = ({ albumId }) => {
 
       const { allProductReviews } = response.data;
       setReviews(allProductReviews);
-
-      const hasReviewed = allProductReviews.some(
-        (review) => review.user === user?.user?._id
-      );
-      setUserHasReviewed(hasReviewed);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching album reviews:', error);
       setError('Error fetching album reviews. Please try again later.');
       setLoading(false);
     }
-  }, [albumId, user?.user?._id]);
+  }, [albumId, user?._id]);
+
 
   useEffect(() => {
     fetchAlbumReviews();
@@ -70,6 +68,7 @@ const AlbumReviews = ({ albumId }) => {
                     refreshReviews={refreshReviews}
                   />
                 </>
+
               )}
             </li>
           ))}
@@ -84,12 +83,7 @@ const AlbumReviews = ({ albumId }) => {
 
       {/* Conditionally render the WriteReview component */}
       {user && !userHasReviewed && (
-        <WriteReview
-          albumId={albumId}
-          refreshReviews={refreshReviews}
-          userHasReviewed={userHasReviewed}
-          reviewId={reviews[0]?._id}
-        />
+        <WriteReview albumId={albumId} refreshReviews={refreshReviews} />
       )}
       {/* {user && userHasReviewed && (
         <UpdateReview
@@ -107,6 +101,7 @@ const AlbumReviews = ({ albumId }) => {
           refreshReviews={refreshReviews}
         />
       )} */}
+
     </div>
   );
 };

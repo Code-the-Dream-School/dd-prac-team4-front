@@ -59,6 +59,18 @@ const AlbumReviews = ({ albumId }) => {
               <h3>{review.title}</h3>
               <p>Rating: {review.rating}</p>
               <p style={{ overflowWrap: 'break-word' }}>{review.comment}</p>
+              {user && userHasReviewed && review.user === user?.user?._id && (
+                <>
+                  <UpdateReview
+                    reviewId={review._id}
+                    refreshReviews={refreshReviews}
+                  />
+                  <DeleteReview
+                    reviewId={review._id}
+                    refreshReviews={refreshReviews}
+                  />
+                </>
+              )}
             </li>
           ))}
         </ul>
@@ -79,7 +91,7 @@ const AlbumReviews = ({ albumId }) => {
           reviewId={reviews[0]?._id}
         />
       )}
-      {user && userHasReviewed && (
+      {/* {user && userHasReviewed && (
         <UpdateReview
           reviewId={
             reviews.find((review) => review.user === user?.user?._id)?._id
@@ -94,7 +106,7 @@ const AlbumReviews = ({ albumId }) => {
           }
           refreshReviews={refreshReviews}
         />
-      )}
+      )} */}
     </div>
   );
 };

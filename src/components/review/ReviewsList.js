@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axiosInstance from '../../apis/axiosClient';
 import WriteReview from './WriteReview';
 import { Alert } from '@mui/material';
@@ -9,33 +9,29 @@ const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userHasReviewed, setUserHasReviewed] = useState(false);
-
   const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
+  const userHasReviewed = (reviews || []).some(
+    (review) => review.user === user?._id
+  );
 
-  useEffect(() => {
-    fetchAlbumReviews();
-  }, [albumId]);
-
-  const fetchAlbumReviews = async () => {
+  const fetchAlbumReviews = useCallback(async () => {
     try {
       const response = await axiosInstance.get(`/reviews/album/${albumId}`);
       console.log(response.data.allProductReviews);
 
       const { allProductReviews } = response.data;
       setReviews(allProductReviews);
-      // Check if the user has already reviewed the album
-      const hasReviewed = allProductReviews.some(
-        (review) => review.user === user?.user?._id
-      );
-      setUserHasReviewed(hasReviewed);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching album reviews:', error);
       setError('Error fetching album reviews. Please try again later.');
       setLoading(false);
     }
-  };
+  }, [albumId, user?._id]);
+
+  useEffect(() => {
+    fetchAlbumReviews();
+  }, [fetchAlbumReviews]);
 
   // Function to refresh reviews
   const refreshReviews = () => {
@@ -58,6 +54,12 @@ const AlbumReviews = ({ albumId }) => {
               <h3>{review.title}</h3>
               <p>Rating: {review.rating}</p>
               <p style={{ overflowWrap: 'break-word' }}>{review.comment}</p>
+              {user && userHasReviewed && (
+                <DeleteReview
+                  reviewId={review._id}
+                  refreshReviews={refreshReviews} // Akos: now I don't see the delete button at all- is it here where i shoul place a btn to make it appear below the comment to be deleted?
+                />
+              )}
             </li>
           ))}
         </ul>
@@ -71,17 +73,13 @@ const AlbumReviews = ({ albumId }) => {
 
       {/* Conditionally render the WriteReview component */}
       {user && !userHasReviewed && (
-        <WriteReview
-          albumId={albumId}
-          refreshReviews={refreshReviews}
-          userHasReviewed={userHasReviewed}
-          reviewId={reviews[0]?._id}
-        />
+        <WriteReview albumId={albumId} refreshReviews={refreshReviews} />
       )}
-       {user && userHasReviewed && (
+
+      {/* {user && userHasReviewed && (
           <DeleteReview reviewId={
             reviews.find((review) => review.user === user?._id)?._id} refreshReviews={refreshReviews} />
-        )}
+        )} */}
     </div>
   );
 };

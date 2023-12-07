@@ -89,7 +89,7 @@ const UpdateReview = ({ reviewId, refreshReviews }) => {
         />
       </div>
       <button onClick={handleUpdate} disabled={updating}>
-        {updating ? 'Updating...' : 'Update Review'}
+        {updating ? 'Updating...' : 'Update '}
       </button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>

@@ -6,6 +6,8 @@ import Snackbar from '@mui/material/Snackbar';
 import AlbumGrid from './AlbumGrid';
 import OrderSidebar from '../OrderSidebar';
 import axiosInstance from '../../apis/axiosClient';
+import PropTypes from 'prop-types';
+import { albumShape } from '../../propTypes/albumTypes';
 
 import {
   Container,
@@ -190,6 +192,22 @@ const AlbumsList = () => {
       </Grid>
     </Container>
   );
+};
+
+AlbumsList.propTypes = {
+  albums: PropTypes.arrayOf(albumShape),
+  limit: PropTypes.number,
+  setLimit: PropTypes.func,
+  searchType: PropTypes.string,
+  setSearchType: PropTypes.func,
+  searchTerm: PropTypes.string,
+  setSearchTerm: PropTypes.func,
+  message: PropTypes.string,
+  setMessage: PropTypes.func,
+  errorMessage: PropTypes.string,
+  setErrorMessage: PropTypes.func,
+  wishListId: PropTypes.any,
+  setWishListId: PropTypes.func,
 };
 
 export default AlbumsList;

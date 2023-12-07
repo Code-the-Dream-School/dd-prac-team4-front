@@ -14,18 +14,14 @@ const AlbumReviews = ({ albumId }) => {
 
   const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
 
-  useEffect(() => {
-    fetchAlbumReviews();
-  }, [albumId]);
-
-  const fetchAlbumReviews = async () => {
+  const fetchAlbumReviews = useCallback(async () => {
     try {
       const response = await axiosInstance.get(`/reviews/album/${albumId}`);
       console.log(response.data.allProductReviews);
 
       const { allProductReviews } = response.data;
       setReviews(allProductReviews);
-      // Check if the user has already reviewed the album
+
       const hasReviewed = allProductReviews.some(
         (review) => review.user === user?.user?._id
       );
@@ -36,7 +32,11 @@ const AlbumReviews = ({ albumId }) => {
       setError('Error fetching album reviews. Please try again later.');
       setLoading(false);
     }
-  };
+  }, [albumId, user?.user?._id]);
+
+  useEffect(() => {
+    fetchAlbumReviews();
+  }, [fetchAlbumReviews]);
 
   // Function to refresh reviews
   const refreshReviews = () => {

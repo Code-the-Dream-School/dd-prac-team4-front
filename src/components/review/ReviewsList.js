@@ -9,6 +9,7 @@ const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
   const userHasReviewed = (reviews || []).some(
     (review) => review.user === user?._id
@@ -28,6 +29,7 @@ const AlbumReviews = ({ albumId }) => {
       setLoading(false);
     }
   }, [albumId, user?._id]);
+
 
   useEffect(() => {
     fetchAlbumReviews();

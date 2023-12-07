@@ -11,9 +11,9 @@ const AlbumReviews = ({ albumId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userHasReviewed, setUserHasReviewed] = useState(false);
-
+  //AKOS: not sure wht delete/edit btns are only being  shown when we use useState here o line 13
   const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
-
+  // const userHasReviewed = (reviews || []).some((review) => review.user === user?._id);
   const fetchAlbumReviews = useCallback(async () => {
     try {
       const response = await axiosInstance.get(`/reviews/album/${albumId}`);
@@ -84,29 +84,8 @@ const AlbumReviews = ({ albumId }) => {
 
       {/* Conditionally render the WriteReview component */}
       {user && !userHasReviewed && (
-        <WriteReview
-          albumId={albumId}
-          refreshReviews={refreshReviews}
-          userHasReviewed={userHasReviewed}
-          reviewId={reviews[0]?._id}
-        />
+        <WriteReview albumId={albumId} refreshReviews={refreshReviews} />
       )}
-      {/* {user && userHasReviewed && (
-        <UpdateReview
-          reviewId={
-            reviews.find((review) => review.user === user?.user?._id)?._id
-          }
-          refreshReviews={refreshReviews}
-        />
-      )}
-      {user && userHasReviewed && (
-        <DeleteReview
-          reviewId={
-            reviews.find((review) => review.user === user?.user?._id)?._id
-          }
-          refreshReviews={refreshReviews}
-        />
-      )} */}
     </div>
   );
 };

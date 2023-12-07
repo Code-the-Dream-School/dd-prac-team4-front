@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../apis/axiosClient';
-//import { useAuth } from '@akosasante/react-auth-context';
 
 const DeleteReview = ({ reviewId, refreshReviews }) => {
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState(null);
-  // const { user } = useAuth();
 
   const handleDelete = async () => {
     setDeleting(true);

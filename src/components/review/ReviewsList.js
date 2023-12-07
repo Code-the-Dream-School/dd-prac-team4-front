@@ -10,10 +10,10 @@ const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userHasReviewed, setUserHasReviewed] = useState(false);
+  //const [userHasReviewed, setUserHasReviewed] = useState(false);
   //AKOS: not sure wht delete/edit btns are only being  shown when we use useState here o line 13
   const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
-  // const userHasReviewed = (reviews || []).some((review) => review.user === user?._id);
+   const userHasReviewed = (reviews || []).some((review) => review.user === user?._id);
   const fetchAlbumReviews = useCallback(async () => {
     try {
       const response = await axiosInstance.get(`/reviews/album/${albumId}`);
@@ -21,13 +21,17 @@ const AlbumReviews = ({ albumId }) => {
 
       const { allProductReviews } = response.data;
       setReviews(allProductReviews);
+   //   const hasReviewed = allProductReviews.some(
+   //    (review) => review.user === user?.user?._id
+    //  );
+    //  setUserHasReviewed(hasReviewed);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching album reviews:', error);
       setError('Error fetching album reviews. Please try again later.');
       setLoading(false);
     }
-  }, [albumId, user?._id]);
+  }, [albumId, user?.user?._id]);
 
 
   useEffect(() => {
@@ -55,7 +59,7 @@ const AlbumReviews = ({ albumId }) => {
               <h3>{review.title}</h3>
               <p>Rating: {review.rating}</p>
               <p style={{ overflowWrap: 'break-word' }}>{review.comment}</p>
-              {user && userHasReviewed && review.user === user?.user?._id && (
+              {user &&  review.user === user?._id && (
                 <>
                   <UpdateReview
                     reviewId={review._id}
@@ -76,7 +80,7 @@ const AlbumReviews = ({ albumId }) => {
       )}
 
       {user && userHasReviewed && (
-        <p> You already submitted the review for this album</p>
+        <p> You already submitted the review for this album, you can edit or delete it.</p>
       )}
 
       {/* Conditionally render the WriteReview component */}

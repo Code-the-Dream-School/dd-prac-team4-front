@@ -10,9 +10,7 @@ const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  //const [userHasReviewed, setUserHasReviewed] = useState(false);
-  //AKOS: not sure wht delete/edit btns are only being  shown when we use useState here o line 13
-  const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
+  const { user } = useAuth(); 
    const userHasReviewed = (reviews || []).some((review) => review.user === user?._id);
   const fetchAlbumReviews = useCallback(async () => {
     try {
@@ -21,10 +19,6 @@ const AlbumReviews = ({ albumId }) => {
 
       const { allProductReviews } = response.data;
       setReviews(allProductReviews);
-   //   const hasReviewed = allProductReviews.some(
-   //    (review) => review.user === user?.user?._id
-    //  );
-    //  setUserHasReviewed(hasReviewed);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching album reviews:', error);

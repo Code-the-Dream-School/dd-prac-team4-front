@@ -58,7 +58,7 @@ const CheckoutMessageCard = ({
                     totalItemsPurchased === 1 ? 'album' : 'albums'
                   } has been completed.`}
                   <br />
-                  {`A confirmation email was sent to ${user.user.email}`}
+                  {`A confirmation email was sent to ${user.email}`}
                 </Typography>
               ) : (
                 <Typography variant="h8">

@@ -21,18 +21,14 @@ const AlbumReviews = ({ albumId }) => {
 
       const { allProductReviews } = response.data;
       setReviews(allProductReviews);
-
-      const hasReviewed = allProductReviews.some(
-        (review) => review.user === user?.user?._id
-      );
-      setUserHasReviewed(hasReviewed);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching album reviews:', error);
       setError('Error fetching album reviews. Please try again later.');
       setLoading(false);
     }
-  }, [albumId, user?.user?._id]);
+  }, [albumId, user?._id]);
+
 
   useEffect(() => {
     fetchAlbumReviews();
@@ -70,6 +66,7 @@ const AlbumReviews = ({ albumId }) => {
                     refreshReviews={refreshReviews}
                   />
                 </>
+
               )}
             </li>
           ))}

@@ -62,15 +62,12 @@ export default function SignIn() {
   const handleLoginError = (error) => {
     console.error(error);
   };
-  const getUserFromResponse = (responseData) => {
-    return responseData.user;
-  };
 
   // initial options needed for useLogin hook
   const loginHookOptions = {
     apiUrl: `${envPath}/auth/login`,
     errorHandler: handleLoginError,
-    getUserFromResponse,
+    getUserFromResponse: (responseData) => responseData,
     getJwtTokenFromResponse: false,
   };
 

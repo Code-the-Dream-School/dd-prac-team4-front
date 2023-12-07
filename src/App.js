@@ -14,6 +14,7 @@ import PageNotFound from './components/PageNotFound';
 import AlbumChat from './components/album/AlbumChat';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import RecommendationPage from './components/RecommendationPage';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
 
@@ -138,6 +139,14 @@ function App() {
           element={
             <RequireAuth>
               <UserProfile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/profile/recommendations"
+          element={
+            <RequireAuth>
+              <RecommendationPage />
             </RequireAuth>
           }
         />

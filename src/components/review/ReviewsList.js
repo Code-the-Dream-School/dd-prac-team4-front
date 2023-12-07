@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axiosInstance from '../../apis/axiosClient';
 import WriteReview from './WriteReview';
 import { Alert } from '@mui/material';

@@ -10,6 +10,7 @@ const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [updateClicked, setUpdateClicked] = useState(false); 
   const { user } = useAuth(); 
    const userHasReviewed = (reviews || []).some((review) => review.user === user?._id);
   const fetchAlbumReviews = useCallback(async () => {
@@ -38,6 +39,10 @@ const AlbumReviews = ({ albumId }) => {
     // Simply call the fetchAlbumReviews function to refresh
     fetchAlbumReviews();
   };
+// Function to handle "Update" button click
+const handleUpdateClick = () => {
+  setUpdateClicked(true);
+};
 
   return (
     <div>
@@ -53,12 +58,19 @@ const AlbumReviews = ({ albumId }) => {
               <h3>{review.title}</h3>
               <p>Rating: {review.rating}</p>
               <p style={{ overflowWrap: 'break-word' }}>{review.comment}</p>
-              {user &&  review.user === user?._id && (
+              {user &&  userHasReviewed && review.user === user?._id && (
                 <>
-                  <UpdateReview
-                    reviewId={review._id}
-                    refreshReviews={refreshReviews}
-                  />
+                  {!updateClicked && (
+                    <button onClick={handleUpdateClick}>
+                      Update Review
+                    </button>
+                  )}
+                  {updateClicked && (
+                    <UpdateReview
+                      reviewId={review._id}
+                      refreshReviews={refreshReviews}
+                    />
+                  )}
                   <DeleteReview
                     reviewId={review._id}
                     refreshReviews={refreshReviews}

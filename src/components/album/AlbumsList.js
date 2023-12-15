@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
@@ -25,59 +24,46 @@ import {
 const AlbumsList = () => {
   const [albums, setAlbums] = useState([]); // for albums
   const [totalPages, setTotalPages] = useState(1); // Track total pages for this search
-  const limit = 12;
-  // const [limit, setLimit] = useState(12); // for pagination
   const [searchType, setSearchType] = useState('albumName'); //default value for select input
   const [searchTerm, setSearchTerm] = useState(''); // for search input filed value
   const [message, setMessage] = useState(''); // for not found message
   const [errorMessage, setErrorMessage] = useState(''); // for error message
   const [wishListId, setWishListId] = useState();
   const [currentPage, setCurrentPage] = useState(1); // Track current page
-  // const [lastSearchTerm, setLastSearchTerm] = useState('');
-
+  const [lastSearchTerm, setLastSearchTerm] = useState(''); // Track the input value of the search last time the user clicked "Search" or "Clear" button
+  const limit = 12;
   //make an API call with search values to backend and return the result
-  const fetchAlbums = useCallback(
-    async (searchType, searchTerm) => {
-      try {
-        //const offset = (currentPage - 1) * limit;
-        const offset = (searchTerm === '' ? currentPage - 1 : 0) * limit;
-
-        //for testing
-        // console.log(currentPage - 1 + ' * ' + limit + ' = ' + offset);
-        // console.log('searchType:' + searchType + ' ; searchTerm:' + searchTerm);
-
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_PATH}/albums/filter`,
-          {
-            params: {
-              limit: limit,
-              [searchType]: searchTerm,
-              offset,
-            },
-          }
-        );
-        const searchResult = response.data.albums;
-        setAlbums(searchResult);
-        setTotalPages(response.data.totalPages);
-        if (searchResult.length === 0) {
-          setMessage('No result found');
-        }
-      } catch (error) {
-        console.error('Error fetching albums:', error);
-        setErrorMessage(error.message);
-        setOpen(true);
+  const fetchAlbums = useCallback(async () => {
+    try {
+      // Calculate the offset, based on the current page (alternatively, we could use the `nextPage`/`prevPage` values returned by the API; but this is more flexible since the user can also clear the search or switch search type altogether)
+      const offset = (currentPage - 1) * limit;
+      const response = await axiosInstance.get('/albums/filter', {
+        params: {
+          limit,
+          // we use the `lastSearchTerm` value which is only set by us explicitly in code, rather than `searchTerm` which would also get changed whenever the user types into the input box
+          [searchType]: lastSearchTerm,
+          offset,
+        },
+      });
+      const searchResult = response.data.albums;
+      setAlbums(searchResult);
+      setTotalPages(response.data.totalPages);
+      if (searchResult.length === 0) {
+        setMessage('No result found');
       }
-    },
-    [currentPage, limit]
-  );
-  //display 12 albums when first user visit this page
-  // useEffect(() => {
-  //   fetchAlbums('albumName', '');
-  // }, [fetchAlbums, currentPage]); // Refetch albums when the page changes
+    } catch (error) {
+      console.error('Error fetching albums:', error);
+      setErrorMessage(error.message);
+      setOpen(true);
+    }
+  }, [currentPage, lastSearchTerm, searchType]);
 
+  // This will run on component mount and whenever the `fetchAlbums` function changes
+  // Based on the dependency array we gave the `useCallback` above which wraps `fetchAlbums`,
+  // this means that this `useEffect` will run any time the `currentPage` or `lastSearchTerm` or `searchType` values change
   useEffect(() => {
-    fetchAlbums(searchType, searchTerm);
-  }, [fetchAlbums, currentPage, searchTerm, searchType]);
+    fetchAlbums();
+  }, [fetchAlbums]);
 
   //fetch wishlist album from API
   useEffect(() => {
@@ -105,23 +91,18 @@ const AlbumsList = () => {
 
   //call the function to make API request for search input value
   const handleSearch = () => {
-    //   fetchAlbums(searchType, searchTerm);
-
-    if (currentPage === 1) {
-      // resetting the current page to 1 won't trigger useEffect so here we have to call the fetch callback manually
-      fetchAlbums(searchType, searchTerm);
-    } else {
+    if (currentPage !== 1) {
       setCurrentPage(1);
     }
+    setLastSearchTerm(searchTerm);
   };
 
   //clear search input and make an empty API call
   const handleClear = () => {
-    //setSearchType('albumName');
     setSearchTerm('');
     setMessage('');
     setCurrentPage(1);
-    // fetchAlbums('albumName', '');
+    setLastSearchTerm('');
   };
 
   // snackbar start
@@ -149,8 +130,16 @@ const AlbumsList = () => {
   );
   //end of snackbar
 
+  // Changing the current page will update the UI and will also trigger the useEffect above to call the `fetchAlbums` callback
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
+  };
+
+  const handleSearchTypeChange = (event) => {
+    setSearchType(event.target.value);
+    setSearchTerm('');
+    setCurrentPage(1);
+    setLastSearchTerm('');
   };
 
   return (
@@ -170,7 +159,7 @@ const AlbumsList = () => {
             <InputLabel>Search By</InputLabel>
             <Select
               value={searchType}
-              onChange={(e) => setSearchType(e.target.value)}
+              onChange={handleSearchTypeChange}
               label="Search By"
             >
               <MenuItem value="albumName">Album</MenuItem>
@@ -214,7 +203,7 @@ const AlbumsList = () => {
               >
                 <Stack spacing={2}>
                   <Pagination
-                    count={totalPages} //6
+                    count={totalPages}
                     page={currentPage}
                     color="primary"
                     onChange={handlePageChange}

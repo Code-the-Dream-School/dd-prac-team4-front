@@ -32,13 +32,13 @@ export default function PersonalProfileEditForm() {
 
   useEffect(() => {
     setFormData({
-      name: userData?.username || '',
-      email: userData?.email || '',
+      name: user?.username || '',
+      email: user?.email || '',
       oldPassword: '',
       newPassword: '',
       profilePicture: null,
     });
-  }, []);
+  }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

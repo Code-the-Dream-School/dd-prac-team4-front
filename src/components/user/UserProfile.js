@@ -16,6 +16,8 @@ import { useAuth } from '@akosasante/react-auth-context';
 export default function PersonalProfile() {
   const { user } = useAuth();
 
+  const profileImageUrl = userData?.profileImage?.url;
+
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
       <CardContent>
@@ -23,7 +25,7 @@ export default function PersonalProfile() {
         <div className="text-center">
           <Avatar
             src={
-              require('../../images/customer.png')
+              profileImageUrl || require('../../images/customer.png')
 
               // ?.profileImage?.url ||
               // 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp'

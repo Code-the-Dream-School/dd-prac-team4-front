@@ -58,7 +58,7 @@ export default function PersonalProfileEditForm() {
         // If there's a profile picture, upload it first
         if (formData.profilePicture) {
           const formDataImage = new FormData();
-          formDataImage.append('image', formData.profilePicture);
+          formDataImage.append('profile', formData.profilePicture);
 
           // Make the API call to upload the image
           const imageResponse = await axiosInstance.post(

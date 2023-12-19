@@ -65,12 +65,6 @@ export default function PersonalProfileEditForm() {
             `/users/${user?._id}/uploadProfile`,
             formDataImage
           );
-
-          // Assuming the backend returns the image URL, update the formData
-          setFormData((prevData) => ({
-            ...prevData,
-            profilePicture: imageResponse.data.imageUrl,
-          }));
         }
         // Call the backend API to update the user's name and email
         const response = await axiosInstance.patch('/users/updateCurrentUser', {

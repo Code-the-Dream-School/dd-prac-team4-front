@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
-import Tooltip from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 const AddToCartButton = ({ album }) => {
   const dispatch = useDispatch();
@@ -31,21 +31,19 @@ const AddToCartButton = ({ album }) => {
   };
 
   return (
-    <IconButton
-      color="primary"
-      aria-label={itemsInCart[album.id] ? 'Remove from cart' : 'Add to Cart'}
-      onClick={handleAddToCart}
-    >
-      {itemsInCart[album.id] ? (
-        <Tooltip title="Remove from cart">
+    <Tooltip title={itemsInCart[album.id] ? 'Remove from cart' : 'Add to cart'}>
+      <IconButton
+        color="primary"
+        aria-label={itemsInCart[album.id] ? 'Remove from cart' : 'Add to Cart'}
+        onClick={handleAddToCart}
+      >
+        {itemsInCart[album.id] ? (
           <RemoveShoppingCartIcon color="primary" />
-        </Tooltip>
-      ) : (
-        <Tooltip title="Add to cart">
+        ) : (
           <AddShoppingCartIcon color="primary" />
-        </Tooltip>
-      )}
-    </IconButton>
+        )}
+      </IconButton>
+    </Tooltip>
   );
 };
 

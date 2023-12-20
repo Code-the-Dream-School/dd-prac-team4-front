@@ -33,17 +33,5 @@ const Logout = () => {
     </Button>
   );
 };
-Logout.propTypes = {
-  apiUrl: PropTypes.string,
-  errorHandler: PropTypes.func,
-  submit: PropTypes.func,
-  navigate: PropTypes.func,
-  signOut: PropTypes.func,
-  status: PropTypes.string,
-  statusText: PropTypes.string,
-  user: PropTypes.object,
-  logout: PropTypes.func,
-  handleLogout: PropTypes.func,
-};
 
 export default Logout;

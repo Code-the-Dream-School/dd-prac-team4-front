@@ -167,15 +167,3 @@ export default function SignIn() {
     </Container>
   );
 }
-
-SignIn.propTypes = {
-  apiUrl: PropTypes.string,
-  errorHandler: PropTypes.func,
-  submit: PropTypes.func,
-  navigate: PropTypes.func,
-  signOut: PropTypes.func,
-  status: PropTypes.string,
-  handleChange: PropTypes.func,
-  handleLoginError: PropTypes.func,
-  handleSubmit: PropTypes.func,
-};

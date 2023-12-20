@@ -141,13 +141,6 @@ const Navbar = ({ toggleDarkMode, mode }) => {
 };
 Navbar.propTypes = {
   toggleDarkMode: PropTypes.func.isRequired,
-  mode: PropTypes.string.isRequired,
-  handleClearCart: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool,
-  statusOptions: PropTypes.oneOf(['active', 'inactive']),
-  userDetails: PropTypes.shape({
-    username: PropTypes.string,
-    email: PropTypes.string,
-  }),
+  mode: PropTypes.oneOf(['light', 'dark']).isRequired,
 };
 export default Navbar;

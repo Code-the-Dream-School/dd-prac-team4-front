@@ -21,6 +21,7 @@ export default function SignIn() {
     email: '',
     password: '',
   });
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   //update the input states when their value is changed
   const handleChange = (e) => {
@@ -139,7 +140,7 @@ export default function SignIn() {
             disabled={loading}
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            {loadingSubmit ? 'Signing In...' : 'Sign In'}
           </Button>
           <Grid container>
             <Grid item xs>

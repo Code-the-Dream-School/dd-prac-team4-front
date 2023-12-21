@@ -4,17 +4,17 @@ import WriteReview from './WriteReview';
 import { Alert } from '@mui/material';
 import { useAuth } from '@akosasante/react-auth-context';
 import DeleteReview from './DeleteReview';
+import UpdateReview from './EditReview';
 
 const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
+  const [updateClicked, setUpdateClicked] = useState(false);
+  const { user } = useAuth();
   const userHasReviewed = (reviews || []).some(
     (review) => review.user === user?._id
   );
-
   const fetchAlbumReviews = useCallback(async () => {
     try {
       const response = await axiosInstance.get(`/reviews/album/${albumId}`);
@@ -28,8 +28,7 @@ const AlbumReviews = ({ albumId }) => {
       setError('Error fetching album reviews. Please try again later.');
       setLoading(false);
     }
-  }, [albumId, user?._id]);
-
+  }, [albumId]);
 
   useEffect(() => {
     fetchAlbumReviews();
@@ -40,6 +39,10 @@ const AlbumReviews = ({ albumId }) => {
     setLoading(true); // show the loading text while we go to fetch/refresh the reviews
     // Simply call the fetchAlbumReviews function to refresh
     fetchAlbumReviews();
+  };
+  // Function to handle "Update" button click
+  const handleUpdateClick = () => {
+    setUpdateClicked(true);
   };
 
   return (
@@ -56,11 +59,22 @@ const AlbumReviews = ({ albumId }) => {
               <h3>{review.title}</h3>
               <p>Rating: {review.rating}</p>
               <p style={{ overflowWrap: 'break-word' }}>{review.comment}</p>
-              {user && userHasReviewed && (
-                <DeleteReview
-                  reviewId={review._id}
-                  refreshReviews={refreshReviews} // Akos: now I don't see the delete button at all- is it here where i shoul place a btn to make it appear below the comment to be deleted?
-                />
+              {user && userHasReviewed && review.user === user?._id && (
+                <>
+                  {!updateClicked && (
+                    <button onClick={handleUpdateClick}>Edit</button>
+                  )}
+                  {updateClicked && (
+                    <UpdateReview
+                      reviewId={review._id}
+                      refreshReviews={refreshReviews}
+                    />
+                  )}
+                  <DeleteReview
+                    reviewId={review._id}
+                    refreshReviews={refreshReviews}
+                  />
+                </>
               )}
             </li>
           ))}
@@ -70,18 +84,17 @@ const AlbumReviews = ({ albumId }) => {
       )}
 
       {user && userHasReviewed && (
-        <p> You already submitted the review for this album</p>
+        <p>
+          {' '}
+          You already submitted the review for this album, you can edit or
+          delete it.
+        </p>
       )}
 
       {/* Conditionally render the WriteReview component */}
       {user && !userHasReviewed && (
         <WriteReview albumId={albumId} refreshReviews={refreshReviews} />
       )}
-
-      {/* {user && userHasReviewed && (
-          <DeleteReview reviewId={
-            reviews.find((review) => review.user === user?._id)?._id} refreshReviews={refreshReviews} />
-        )} */}
     </div>
   );
 };

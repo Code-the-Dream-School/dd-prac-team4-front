@@ -1,17 +1,22 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axiosInstance from '../../apis/axiosClient';
 import WriteReview from './WriteReview';
 import { Alert } from '@mui/material';
 import { useAuth } from '@akosasante/react-auth-context';
+import DeleteReview from './DeleteReview';
+import UpdateReview from './EditReview';
+import { Button } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userHasReviewed, setUserHasReviewed] = useState(false);
-
+  const [updateClicked, setUpdateClicked] = useState(false);
   const { user } = useAuth();
-
+  const userHasReviewed = (reviews || []).some(
+    (review) => review.user === user?._id
+  );
   const fetchAlbumReviews = useCallback(async () => {
     try {
       const response = await axiosInstance.get(`/reviews/album/${albumId}`);
@@ -19,20 +24,14 @@ const AlbumReviews = ({ albumId }) => {
 
       const { allProductReviews } = response.data;
       setReviews(allProductReviews);
-      // Check if the user has already reviewed the album
-      const hasReviewed = allProductReviews.some(
-        (review) => review.user === user?._id
-      );
-      setUserHasReviewed(hasReviewed);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching album reviews:', error);
       setError('Error fetching album reviews. Please try again later.');
       setLoading(false);
     }
-  }, [albumId, user?._id]);
+  }, [albumId]);
 
-  // Fetch reviews when the component mounts
   useEffect(() => {
     fetchAlbumReviews();
   }, [fetchAlbumReviews]);
@@ -42,6 +41,10 @@ const AlbumReviews = ({ albumId }) => {
     setLoading(true); // show the loading text while we go to fetch/refresh the reviews
     // Simply call the fetchAlbumReviews function to refresh
     fetchAlbumReviews();
+  };
+  // Function to handle "Update" button click
+  const handleUpdateClick = () => {
+    setUpdateClicked(true);
   };
 
   return (
@@ -58,6 +61,30 @@ const AlbumReviews = ({ albumId }) => {
               <h3>{review.title}</h3>
               <p>Rating: {review.rating}</p>
               <p style={{ overflowWrap: 'break-word' }}>{review.comment}</p>
+              {user && userHasReviewed && review.user === user?._id && (
+                <>
+                <div>
+                  {!updateClicked && (
+                    <Button onClick={handleUpdateClick} color="success" variant="contained" endIcon={<SendIcon />}>Edit</Button>
+                  )}
+                  {updateClicked && (
+                    <UpdateReview
+                      reviewId={review._id}
+                      refreshReviews={refreshReviews}
+                    />
+                  )}
+                  </div>
+                  <div>
+
+  <DeleteReview
+                    reviewId={review._id}
+                    refreshReviews={refreshReviews}
+                  />
+
+                  </div>
+                
+                </>
+              )}
             </li>
           ))}
         </ul>
@@ -66,8 +93,13 @@ const AlbumReviews = ({ albumId }) => {
       )}
 
       {user && userHasReviewed && (
-        <p> You already submitted the review for this album</p>
+        <p>
+          {' '}
+          You already submitted the review for this album, you can edit or
+          delete it.
+        </p>
       )}
+
       {/* Conditionally render the WriteReview component */}
       {user && !userHasReviewed && (
         <WriteReview albumId={albumId} refreshReviews={refreshReviews} />

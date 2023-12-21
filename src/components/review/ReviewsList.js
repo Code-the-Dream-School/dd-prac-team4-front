@@ -5,6 +5,8 @@ import { Alert } from '@mui/material';
 import { useAuth } from '@akosasante/react-auth-context';
 import DeleteReview from './DeleteReview';
 import UpdateReview from './EditReview';
+import { Button } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 const AlbumReviews = ({ albumId }) => {
   const [reviews, setReviews] = useState([]);
@@ -61,8 +63,9 @@ const AlbumReviews = ({ albumId }) => {
               <p style={{ overflowWrap: 'break-word' }}>{review.comment}</p>
               {user && userHasReviewed && review.user === user?._id && (
                 <>
+                <div>
                   {!updateClicked && (
-                    <button onClick={handleUpdateClick}>Edit</button>
+                    <Button onClick={handleUpdateClick} color="success" variant="contained" endIcon={<SendIcon />}>Edit</Button>
                   )}
                   {updateClicked && (
                     <UpdateReview
@@ -70,10 +73,16 @@ const AlbumReviews = ({ albumId }) => {
                       refreshReviews={refreshReviews}
                     />
                   )}
-                  <DeleteReview
+                  </div>
+                  <div>
+
+  <DeleteReview
                     reviewId={review._id}
                     refreshReviews={refreshReviews}
                   />
+
+                  </div>
+                
                 </>
               )}
             </li>

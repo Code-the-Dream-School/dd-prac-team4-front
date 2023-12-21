@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../apis/axiosClient';
-
+import { Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 const DeleteReview = ({ reviewId, refreshReviews }) => {
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState(null);
@@ -27,9 +28,9 @@ const DeleteReview = ({ reviewId, refreshReviews }) => {
 
   return (
     <div>
-      <button onClick={handleDelete} disabled={deleting}>
+      <Button  variant="outlined" color="secondary" size="small" startIcon={<DeleteIcon />} onClick={handleDelete} disabled={deleting}>
         {deleting ? 'Deleting...' : 'Delete '}
-      </button>
+      </Button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );

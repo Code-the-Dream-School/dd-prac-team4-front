@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../apis/axiosClient';
+import SendIcon from '@mui/icons-material/Send';
+import { Button } from '@mui/material';
 
 const UpdateReview = ({ reviewId, refreshReviews }) => {
   const [updating, setUpdating] = useState(false);
@@ -31,6 +33,7 @@ const UpdateReview = ({ reviewId, refreshReviews }) => {
   }, [reviewId]);
 
   const handleChange = (e) => {
+    
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -88,9 +91,11 @@ const UpdateReview = ({ reviewId, refreshReviews }) => {
           onChange={handleChange}
         />
       </div>
-      <button onClick={handleUpdate} disabled={updating}>
-        {updating ? 'Updating...' : 'Update '}
-      </button>
+      <Button onClick={handleUpdate} disabled={updating} color="success"
+      variant="contained" endIcon={<SendIcon />}
+      >
+        {updating ? 'Saving changes...' : 'Save changes'}
+      </Button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );

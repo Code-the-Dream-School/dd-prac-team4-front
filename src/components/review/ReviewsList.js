@@ -28,7 +28,7 @@ const AlbumReviews = ({ albumId }) => {
       setError('Error fetching album reviews. Please try again later.');
       setLoading(false);
     }
-  }, [albumId, user?.user?._id]);
+  }, [albumId]);
 
   useEffect(() => {
     fetchAlbumReviews();

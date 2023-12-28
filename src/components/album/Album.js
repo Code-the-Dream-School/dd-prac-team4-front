@@ -86,7 +86,7 @@ function Album({ album, wishListId }) {
         </DialogContent>
         <AlbumPreview spotifyUrl={album.spotifyUrl}>
           <AlbumReviews albumId={album._id} />
-          <ListeningAlbum albumId={album._id} />
+          <ListeningAlbum />
         </AlbumPreview>
       </Dialog>
     </AlbumItemWrapper>

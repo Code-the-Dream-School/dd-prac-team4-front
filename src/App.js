@@ -160,7 +160,7 @@ function App() {
           }
         />
         <Route
-          path="/listening"
+          path="/listening/:albumId"
           element={
             <RequireAuth>
               <ListeningAlbum />

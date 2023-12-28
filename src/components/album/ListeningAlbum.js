@@ -1,11 +1,15 @@
 // Import necessary modules from React
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import io from 'socket.io-client';
 import { useAuth } from '@akosasante/react-auth-context';
 
 // Define the ListeningAlbum component
-const ListeningAlbum = ({ albumId }) => {
+const ListeningAlbum = () => {
+  const [socket, setSocket] = useState(null);
   const { user } = useAuth();
+  // useParams returns an object with key-value pairs of URL parameters
+  const { albumId } = useParams();
 
   useEffect(() => {
     // Create a socket connection to your backend
@@ -39,17 +43,14 @@ const ListeningAlbum = ({ albumId }) => {
       ?.addEventListener('click', handlePauseClick);
     window.addEventListener('beforeunload', handleBeforeUnload);
 
-    // Cleanup event listeners when the component unmounts
+    // disconnect from the socket  when the component unmounts
     return () => {
-      document
-        .getElementById('playButton')
-        ?.removeEventListener('click', handlePlayClick);
-      document
-        .getElementById('pauseButton')
-        ?.removeEventListener('click', handlePauseClick);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      if (socket) {
+        console.log('Disconnected from WebSocket server');
+        socket.disconnect();
+      }
     };
-  }, [albumId, user?._id]);
+  }, [albumId, socket, user?._id]);
 
   // Render the component
   return (

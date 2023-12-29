@@ -1,6 +1,7 @@
 import { useLogout } from '@akosasante/react-auth-context';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
 
 const Logout = () => {
   // for navigate to other component

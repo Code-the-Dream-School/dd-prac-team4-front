@@ -13,41 +13,46 @@ const ListeningAlbum = () => {
 
   // Function to handle play button click
   const handlePlayClick = () => {
-    console.log('playing');
-    const userId = user?._id;
-    socket.emit('listening-to-album-play', { albumId, userId });
+    if (socket) {
+      console.log('playing');
+      const userId = user?._id;
+      socket.emit('listening-to-album-play', { albumId, userId });
+    }
   };
 
   // Function to handle pause button click
   const handlePauseClick = () => {
-    console.log('paused');
-    const userId = user?._id;
-    socket.emit('listening-to-album-pause', { albumId, userId });
+    if (socket) {
+      console.log('paused');
+      const userId = user?._id;
+      socket.emit('listening-to-album-pause', { albumId, userId });
+    }
   };
 
   // Function to handle page unload
   const handleBeforeUnload = () => {
-    console.log('user left page');
-    socket.emit('user-left-page');
+    if (socket) {
+      console.log('user left page');
+      socket.emit('user-left-page');
+      socket.disconnect();
+    }
   };
 
   useEffect(() => {
-    // Create a socket connection to your backend
-    const newSocket = io(process.env.REACT_APP_SOCKET_BASE_PATH); // Replace with your actual backend URL and port
-    newSocket.on('connect', () => {
-      console.log('Connected to WebSocket server');
-    });
-    setSocket(newSocket);
+    if (!socket) {
+      // Create a socket connection to your backend
+      const newSocket = io(process.env.REACT_APP_SOCKET_BASE_PATH); // Replace with your actual backend URL and port
+      newSocket.on('connect', () => {
+        console.log('Connected to WebSocket server');
+      });
+      setSocket(newSocket);
+    }
 
-    // disconnect from the socket  when the component unmounts
+    // disconnect from the socket (clean up step  when the component unmounts)
     return () => {
-      if (socket) {
-        console.log('Disconnected from WebSocket server');
-        socket.disconnect();
-      }
       handleBeforeUnload();
     };
-  }, [albumId, socket, user?._id, handleBeforeUnload]);
+  }, [albumId, socket, user?._id]);
 
   // Render the component
   return (

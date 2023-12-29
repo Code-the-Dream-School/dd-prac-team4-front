@@ -12,6 +12,7 @@ import AlbumReviews from '../review/ReviewsList';
 import DialogActions from '@mui/material/DialogActions';
 import PropTypes from 'prop-types';
 import { albumShape } from '../../propTypes/albumTypes';
+import ListeningAlbum from './ListeningAlbum';
 
 const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
   // Your styles for album item
@@ -85,6 +86,7 @@ function Album({ album, wishListId }) {
         </DialogContent>
         <AlbumPreview spotifyUrl={album.spotifyUrl}>
           <AlbumReviews albumId={album._id} />
+          <ListeningAlbum />
         </AlbumPreview>
       </Dialog>
     </AlbumItemWrapper>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@akosasante/react-auth-context';
 import {
   Card,
@@ -18,6 +18,7 @@ export default function PersonalProfileEditForm() {
     email: '',
     oldPassword: '',
     newPassword: '',
+    profilePicture: null,
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
@@ -27,6 +28,16 @@ export default function PersonalProfileEditForm() {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const { user } = useAuth();
+
+  useEffect(() => {
+    setFormData({
+      name: user?.username || '',
+      email: user?.email || '',
+      oldPassword: '',
+      newPassword: '',
+      profilePicture: null,
+    });
+  }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,6 +54,17 @@ export default function PersonalProfileEditForm() {
       });
     } else {
       try {
+        // If there's a profile picture, upload it first
+        if (formData.profilePicture) {
+          const formDataImage = new FormData();
+          formDataImage.append('profile', formData.profilePicture);
+
+          // Make the API call to upload the image
+          const imageResponse = await axiosInstance.post(
+            `/users/${user?._id}/uploadProfile`,
+            formDataImage
+          );
+        }
         // Call the backend API to update the user's name and email
         const response = await axiosInstance.patch('/users/updateCurrentUser', {
           name: formData.name,
@@ -58,13 +80,13 @@ export default function PersonalProfileEditForm() {
           email: '',
           oldPassword: '',
           newPassword: '',
+          profilePicture: null,
         });
         // Navigate back to the user profile page
         navigate('/profile'); // Use the navigate function
       } catch (error) {
         setErrors({});
         setServerErrors({ serverMsg: error?.response?.data?.msg }); // Set server errors
-
         setSuccessMessage(''); // Clear any previous success message
       }
     }
@@ -109,6 +131,10 @@ export default function PersonalProfileEditForm() {
     }
   };
 
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({ ...prevData, profilePicture: file }));
+  };
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
       <CardContent>
@@ -119,17 +145,28 @@ export default function PersonalProfileEditForm() {
         )}
         <div className="text-center">
           <Avatar
-            src={require('../../images/customer.png')}
+            src={
+              formData.profilePicture
+                ? URL.createObjectURL(formData.profilePicture)
+                : require('../../images/customer.png')
+            }
             alt="user profile"
             className="img-fluid rounded-circle"
             sx={{
-              width: '100px',
-              height: '100px',
-              maxWidth: '100px',
-              maxHeight: '100px',
+              width: '200px',
+              height: '200px',
+              maxWidth: '200px',
+              maxHeight: '200px',
+              marginBottom: '20px',
             }}
           />
         </div>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleProfilePictureChange}
+        />
+
         {successMessage && <Alert severity="success">{successMessage}</Alert>}
         {successMessagePassword && (
           <Alert severity="info">{successMessagePassword}</Alert>
@@ -146,7 +183,7 @@ export default function PersonalProfileEditForm() {
                 <TableCell>
                   <TextField
                     name="name"
-                    value={formData.name}
+                    value={formData.name || userData.username}
                     onChange={handleInputChange}
                     error={errors.name ? true : false}
                     helperText={errors.name}
@@ -159,7 +196,7 @@ export default function PersonalProfileEditForm() {
                   <TextField
                     name="email"
                     type="email"
-                    value={formData.email}
+                    value={formData.email || userData.email}
                     onChange={handleInputChange}
                     error={errors.email ? true : false}
                     helperText={errors.email}

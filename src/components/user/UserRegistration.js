@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { usePaymentInputs } from 'react-payment-inputs'; //for handling payment inputs
 import { useRegister } from '@akosasante/react-auth-context';
 import { useNavigate } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
@@ -10,11 +9,6 @@ import {
   Button,
   Container,
   Typography,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
-  Box,
 } from '@mui/material';
 
 const UserRegistration = () => {
@@ -101,31 +95,10 @@ const UserRegistration = () => {
     navigate('/home');
   };
 
-  //card info input fields
-  const { _meta, getCardNumberProps, getExpiryDateProps, getCVCProps } =
-    usePaymentInputs();
-
-  //payment type selection
-  // const [selectedOption, setSelectedOption] = useState('paypal'); // Initialize with the default payment option
-  const paymentOptions = [
-    {
-      value: 'paypal',
-      label: 'PayPal',
-    },
-    {
-      value: 'card',
-      label: 'Credit/Debit Card',
-    },
-    {
-      value: 'googlepay',
-      label: 'Google Pay',
-    },
-  ];
-
   return (
     <Container maxWidth="sm" sx={{ mt: 5, mb: 20 }}>
       <Typography variant="h4" align="center" gutterBottom>
-        User Registration
+        Hello {formData.name} 
       </Typography>
       {/* display snackbar if any error happened during user registration */}
       {signupError && (
@@ -179,47 +152,6 @@ const UserRegistration = () => {
           variant="outlined"
           required
         />
-        <TextField
-          label="Card Number"
-          name="hashedNumber"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          inputProps={getCardNumberProps({})}
-        />
-        <TextField
-          label="Expiration Date"
-          name="expiry"
-          variant="outlined"
-          margin="normal"
-          inputProps={getExpiryDateProps({})}
-        />
-        <TextField
-          label="CVV"
-          variant="outlined"
-          margin="normal"
-          inputProps={getCVCProps({})}
-        />
-        <FormControl>
-          <RadioGroup
-            aria-label="demo-row-radio-buttons-group-label"
-            name="preferredPaymentOption"
-            onChange={handleChange}
-          >
-            {paymentOptions.map((option) => (
-              <FormControlLabel
-                key={option.value}
-                value={option.value}
-                control={<Radio />}
-                label={
-                  <Box display="flex" alignItems="center">
-                    <Typography variant="body1">{option.label}</Typography>
-                  </Box>
-                }
-              />
-            ))}
-          </RadioGroup>
-        </FormControl>
         <Button
           type="submit"
           variant="contained"

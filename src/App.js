@@ -17,6 +17,7 @@ import ResetPassword from './components/ResetPassword';
 import RecommendationPage from './components/RecommendationPage';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
+import CartItems from './components/Cart';
 
 function App() {
   const { status } = useAuth();
@@ -66,8 +67,8 @@ function App() {
         <Route path="/register" element={<UserRegistration />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-
         <Route path="/resetPassword" element={<ResetPassword />} />
+        <Route path="/cart" element={<CartItems />} />
 
         <Route
           path="/wishlist"

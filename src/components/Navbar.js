@@ -59,7 +59,9 @@ const Navbar = ({ toggleDarkMode, mode }) => {
           <Button color="inherit" component={Link} to="/home">
             Home
           </Button>
-
+          <Button color="inherit" component={Link} to="/cart">
+            Cart
+          </Button>
           {/*only if user is logged in can see the logout button  */}
           {isLoggedIn && (
             <>
@@ -132,6 +134,7 @@ const Navbar = ({ toggleDarkMode, mode }) => {
                 <Logout />
               </MenuItem>,
             ]}
+            
           </Menu>
         </Box>
       </Toolbar>

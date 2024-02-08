@@ -30,19 +30,27 @@ const Navbar = ({ toggleDarkMode, mode }) => {
     <AppBar
       position="static"
       style={{
-        background: mode === 'dark' ? '#0E6CDE' : '#0E6CDE',
+        background: mode === 'dark' ? '#373737' : '#111',
         marginBottom: '2rem',
       }}
     >
       <Toolbar>
-      <Link component={Link} to="/home">
-        <img
-          src={Logo}
-          alt="Logo"
-          style={{ height: '2.5rem', marginRight: '0.625rem' }} component={Link} to="/home"
-        />
+        <Link component={Link} to="/home">
+          <img
+            src={Logo}
+            alt="Logo"
+            style={{ height: '2.5rem', marginRight: '0.625rem' }}
+            component={Link}
+            to="/home"
+          />
         </Link>
-        <Typography variant="h6"  sx={{ flexGrow: 1 }}  style={{ color: 'white', textDecoration: 'none' }}  component={Link} to="/home">
+        <Typography
+          variant="h6"
+          sx={{ flexGrow: 1 }}
+          style={{ color: '#ffffff', textDecoration: 'none' }}
+          component={Link}
+          to="/home"
+        >
           BeatBazaar
         </Typography>
 
@@ -136,7 +144,6 @@ const Navbar = ({ toggleDarkMode, mode }) => {
                 <Logout />
               </MenuItem>,
             ]}
-            
           </Menu>
         </Box>
       </Toolbar>

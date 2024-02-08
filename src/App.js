@@ -32,8 +32,8 @@ function App() {
   const lightTheme = createTheme({
     palette: {
       mode: 'light',
-      primary: { main: '#0E6CDE' },
-      background: { default: '#ECECEC', paper: '#ECECEC' },
+      primary: { main: '#000000' },
+      background: { default: '#C0C0C2', paper: '#ECECEC' },
       // etc any other customizations that we want to make for light mode
     },
     typography: {
@@ -44,8 +44,8 @@ function App() {
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
-      primary: { main: '#0E6CDE' },
-      background: { default: '#121212', paper: '#1e1e1e' },
+      primary: { main: '#fff' },
+      background: { default: '#111', paper: '#1e1e1e' },
     },
     typography: {
       fontFamily: 'Roboto, Arial, sans-serif',

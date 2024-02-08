@@ -75,7 +75,7 @@ const CartItems = () => {
       <Container fixed
        sx={{
         width: 500,
-        color: 'success.main',
+        color: 'success.dark',
         border: '1px dashed grey',
       }}
       >

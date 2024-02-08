@@ -74,7 +74,7 @@ const OrderSidebar = () => {
     <Box
       sx={{
         width: 300,
-        border: '1px solid grey',
+        border: '1px dashed #393E46',
         padding: 2,
       }}
     >

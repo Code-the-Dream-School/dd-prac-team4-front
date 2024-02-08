@@ -37,7 +37,7 @@ function App() {
       // etc any other customizations that we want to make for light mode
     },
     typography: {
-      fontFamily: 'Roboto, Arial, sans-serif',
+      fontFamily: 'Poppins, sans-serif',
     },
   });
 
@@ -48,7 +48,7 @@ function App() {
       background: { default: '#111', paper: '#1e1e1e' },
     },
     typography: {
-      fontFamily: 'Roboto, Arial, sans-serif',
+      fontFamily: 'Poppins, sans-serif',
     },
   });
 

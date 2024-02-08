@@ -68,7 +68,7 @@ const Navbar = ({ toggleDarkMode, mode }) => {
             </>
           )}
           <Button color="inherit" component={Link} to="/home">
-            Home
+            Shop
           </Button>
           <Button color="inherit" component={Link} to="/cart">
             Cart

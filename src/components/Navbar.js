@@ -14,7 +14,8 @@ import Logout from './userAuth/Logout';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import MenuIcon from '@mui/icons-material/Menu';
 import './Navbar.css';
-import Logo from '../images/Logo.png';
+//import Logo from '../images/Logo.png';
+import Logo from '../images/icons8-apple-music-48.png';
 import ThemeSwitcher from './ThemeSwitcher';
 
 const Navbar = ({ toggleDarkMode, mode }) => {

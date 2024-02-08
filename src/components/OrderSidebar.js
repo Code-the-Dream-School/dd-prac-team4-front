@@ -75,7 +75,10 @@ const OrderSidebar = () => {
       sx={{
         width: 300,
         border: '1px dashed #393E46',
+        borderRadius:'10px',
         padding: 2,
+        backgroundColor : '#12372A',
+        color: '#fff',
       }}
     >
       <List>

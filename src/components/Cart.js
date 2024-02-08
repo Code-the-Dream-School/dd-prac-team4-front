@@ -72,12 +72,13 @@ const CartItems = () => {
 
   return (
     <div>
-      <Container fixed
-       sx={{
-        width: 500,
-        color: 'success.dark',
-        border: '1px dashed grey',
-      }}
+      <Container
+        fixed
+        sx={{
+          width: 500,
+          color: 'success.dark',
+          border: '1px dashed grey',
+        }}
       >
         <Typography variant="h6">Cart Items</Typography>
         <List>

@@ -154,7 +154,7 @@ const AlbumsList = () => {
       />
       {/* start of searchbar grid */}
       <Grid container spacing={2} justifyContent="center" sx={{ my: 2 }}>
-        <Grid item xs={12} sm={2} >
+        <Grid item xs={12} sm={2}>
           <FormControl variant="outlined" fullWidth>
             <InputLabel>Search By</InputLabel>
             <Select
@@ -189,7 +189,7 @@ const AlbumsList = () => {
       </Grid>
       {/* end of searchbar grid */}
       <Grid container spacing={2}>
-        <Grid item xs={12} md={10}  >
+        <Grid item xs={12} md={10}>
           {albums.length > 0 ? (
             <>
               <AlbumGrid albums={albums} wishListId={wishListId} />
@@ -224,7 +224,7 @@ const AlbumsList = () => {
             </Box>
           )}
         </Grid>
-        <Grid item xs={12} md={2}  >
+        <Grid item xs={12} md={2}>
           <OrderSidebar />
         </Grid>
       </Grid>

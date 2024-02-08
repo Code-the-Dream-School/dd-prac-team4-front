@@ -15,7 +15,7 @@ import { albumShape } from '../../propTypes/albumTypes';
 
 const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
   // Your styles for album item
-  textAlign: 'center'
+  textAlign: 'center',
 }));
 
 const AlbumImage = styled('img')({
@@ -46,7 +46,11 @@ function Album({ album, wishListId, style }) {
   return (
     <AlbumItemWrapper>
       <Button onClick={handleOpenDialog} className="album-image-button">
-        <AlbumImage src={album.image} alt={album.albumName} style={{borderRadius: 8,}} />
+        <AlbumImage
+          src={album.image}
+          alt={album.albumName}
+          style={{ borderRadius: 8 }}
+        />
       </Button>
       <Tooltip title={album.albumName} arrow>
         <AlbumTitle>{album.albumName}</AlbumTitle>

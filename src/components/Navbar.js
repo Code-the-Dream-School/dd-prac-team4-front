@@ -143,9 +143,8 @@ const Navbar = ({ toggleDarkMode, mode }) => {
                 <Button color="inherit" component={Link} to="/profile">
                   Profile
                 </Button>
-                <Button  component={Link} to="/wishlist">
+                <Button component={Link} to="/wishlist">
                   <FavoriteIcon />
-                  
                 </Button>
               </MenuItem>,
               <MenuItem key="logout" onClick={handleCloseUserMenu}>

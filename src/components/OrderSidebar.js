@@ -75,35 +75,61 @@ const OrderSidebar = () => {
       sx={{
         width: 300,
         border: '1px dashed #393E46',
-        borderRadius:'10px',
+        borderRadius: '10px',
         padding: 2,
-        backgroundColor : '#12372A',
+        backgroundColor: '#12372A',
         color: '#fff',
       }}
     >
       <List>
         <Typography variant="h6">Order Summery</Typography>
         {Object.values(itemsInCart.items).map((item) => {
-          return ( 
-            <React.Fragment key={item.album.id} >
-             <ListItem>
-  <ListItemText
-    primary={<span style={{ color: 'white' }}>{item.album.albumName}</span>}
-    secondary={<span style={{ color: 'white' }}>Artist: {item.album.artistName}, Price: ${item.album.price}</span>}
-  />
-</ListItem>
+          return (
+            <React.Fragment key={item.album.id}>
+              <ListItem>
+                <ListItemText
+                  primary={
+                    <span style={{ color: 'white' }}>
+                      {item.album.albumName}
+                    </span>
+                  }
+                  secondary={
+                    <span style={{ color: 'white' }}>
+                      Artist: {item.album.artistName}, Price: $
+                      {item.album.price}
+                    </span>
+                  }
+                />
+              </ListItem>
 
               <div>
                 <ListItemText primary={`Quantity: ${item.quantity}`} />
-                <Button onClick={() => handleMoveToWishlist(item.album)} style={{color:'#fff'}}>
+                <Button
+                  onClick={() => handleMoveToWishlist(item.album)}
+                  style={{ color: '#fff' }}
+                >
                   Wishlist
                 </Button>
-                <Button onClick={() => handleAdd(item.album)} style={{color:'#fff'}}>+</Button>
-                <Button onClick={() => handleReduce(item.album)} style={{color:'#fff'}}>-</Button>
-                <Button onClick={() => handleRemove(item.album)} style={{color:'#fff'}}>Remove</Button>
+                <Button
+                  onClick={() => handleAdd(item.album)}
+                  style={{ color: '#fff' }}
+                >
+                  +
+                </Button>
+                <Button
+                  onClick={() => handleReduce(item.album)}
+                  style={{ color: '#fff' }}
+                >
+                  -
+                </Button>
+                <Button
+                  onClick={() => handleRemove(item.album)}
+                  style={{ color: '#fff' }}
+                >
+                  Remove
+                </Button>
               </div>
             </React.Fragment>
-
           );
         })}
         <ListItem>
@@ -144,7 +170,6 @@ const OrderSidebar = () => {
         </ListItem>
       </List>
     </Box>
-   
   );
 };
 

@@ -9,6 +9,8 @@ import {
   Menu,
   MenuItem,
 } from '@mui/material';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
 import Logout from './userAuth/Logout';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
@@ -71,7 +73,11 @@ const Navbar = ({ toggleDarkMode, mode }) => {
             Shop
           </Button>
           <Button color="inherit" component={Link} to="/cart">
-            Cart
+            <AddShoppingCartIcon
+              style={{
+                background: mode === 'dark' ? '#373737' : '#111',
+              }}
+            />
           </Button>
           {/*only if user is logged in can see the logout button  */}
           {isLoggedIn && (
@@ -137,8 +143,9 @@ const Navbar = ({ toggleDarkMode, mode }) => {
                 <Button color="inherit" component={Link} to="/profile">
                   Profile
                 </Button>
-                <Button color="inherit" component={Link} to="/wishlist">
-                  Wishlist
+                <Button  component={Link} to="/wishlist">
+                  <FavoriteIcon />
+                  
                 </Button>
               </MenuItem>,
               <MenuItem key="logout" onClick={handleCloseUserMenu}>
@@ -153,3 +160,5 @@ const Navbar = ({ toggleDarkMode, mode }) => {
 };
 
 export default Navbar;
+
+//NEED HELP -wishlist icon in navbar is not shown -

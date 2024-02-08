@@ -143,7 +143,7 @@ const AlbumsList = () => {
   };
 
   return (
-    <Container>
+    <Container fullWidth>
       {/* display snackbar if any error happened during API fetch */}
       <Snackbar
         open={open}
@@ -189,7 +189,7 @@ const AlbumsList = () => {
       </Grid>
       {/* end of searchbar grid */}
       <Grid container spacing={2}>
-        <Grid item xs={12} md={10} lg={10} >
+        <Grid item xs={12} md={10}  >
           {albums.length > 0 ? (
             <>
               <AlbumGrid albums={albums} wishListId={wishListId} />
@@ -224,7 +224,7 @@ const AlbumsList = () => {
             </Box>
           )}
         </Grid>
-        <Grid item xs={12} md={2} lg={2} >
+        <Grid item xs={12} md={2}  >
           <OrderSidebar />
         </Grid>
       </Grid>

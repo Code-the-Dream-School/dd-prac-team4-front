@@ -35,12 +35,14 @@ const Navbar = ({ toggleDarkMode, mode }) => {
       }}
     >
       <Toolbar>
+      <Link component={Link} to="/home">
         <img
           src={Logo}
           alt="Logo"
-          style={{ height: '2.5rem', marginRight: '0.625rem' }}
+          style={{ height: '2.5rem', marginRight: '0.625rem' }} component={Link} to="/home"
         />
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        </Link>
+        <Typography variant="h6"  sx={{ flexGrow: 1 }}  style={{ color: 'white', textDecoration: 'none' }}  component={Link} to="/home">
           BeatBazaar
         </Typography>
 

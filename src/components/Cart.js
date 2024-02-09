@@ -6,8 +6,8 @@ import {
   ListItemText,
   Button,
   Typography,
-  Box,
   Container,
+  Avatar,
 } from '@mui/material';
 import { reduceItem, addItem, clearCart } from '../redux/shoppingCart';
 import axiosInstance from './../apis/axiosClient';
@@ -85,6 +85,11 @@ const CartItems = () => {
           {Object.values(itemsInCart.items).map((item) => (
             <React.Fragment key={item.album.id}>
               <ListItem>
+                <Avatar
+                  alt="Album Image"
+                  src={item.album.image}
+                  style={{ marginRight: '50px' }}
+                />
                 <ListItemText
                   primary={item.album.albumName}
                   secondary={`Artist: ${item.album.artistName}, Price: $${item.album.price}`}

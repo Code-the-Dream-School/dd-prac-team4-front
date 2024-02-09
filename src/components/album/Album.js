@@ -32,7 +32,7 @@ const AlbumTitle = styled('h3')({
   whiteSpace: 'nowrap',
 });
 
-function Album({ album, wishListId, style }) {
+function Album({ album, wishListId }) {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleOpenDialog = () => {

@@ -9,12 +9,15 @@ import {
   Menu,
   MenuItem,
 } from '@mui/material';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
 import Logout from './userAuth/Logout';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import MenuIcon from '@mui/icons-material/Menu';
 import './Navbar.css';
-import Logo from '../images/Logo.png';
+//import Logo from '../images/Logo.png';
+import Logo from '../images/icons8-apple-music-48.png';
 import ThemeSwitcher from './ThemeSwitcher';
 
 const Navbar = ({ toggleDarkMode, mode }) => {
@@ -30,17 +33,27 @@ const Navbar = ({ toggleDarkMode, mode }) => {
     <AppBar
       position="static"
       style={{
-        background: mode === 'dark' ? '#0E6CDE' : '#0E6CDE',
+        background: mode === 'dark' ? '#373737' : '#111',
         marginBottom: '2rem',
       }}
     >
       <Toolbar>
-        <img
-          src={Logo}
-          alt="Logo"
-          style={{ height: '2.5rem', marginRight: '0.625rem' }}
-        />
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Link component={Link} to="/home">
+          <img
+            src={Logo}
+            alt="Logo"
+            style={{ height: '2.5rem', marginRight: '0.625rem' }}
+            component={Link}
+            to="/home"
+          />
+        </Link>
+        <Typography
+          variant="h6"
+          sx={{ flexGrow: 1 }}
+          style={{ color: '#ffffff', textDecoration: 'none' }}
+          component={Link}
+          to="/home"
+        >
           BeatBazaar
         </Typography>
 
@@ -57,9 +70,15 @@ const Navbar = ({ toggleDarkMode, mode }) => {
             </>
           )}
           <Button color="inherit" component={Link} to="/home">
-            Home
+            Shop
           </Button>
-
+          <Button color="inherit" component={Link} to="/cart">
+            <AddShoppingCartIcon
+              style={{
+                background: mode === 'dark' ? '#373737' : '#111',
+              }}
+            />
+          </Button>
           {/*only if user is logged in can see the logout button  */}
           {isLoggedIn && (
             <>
@@ -124,8 +143,8 @@ const Navbar = ({ toggleDarkMode, mode }) => {
                 <Button color="inherit" component={Link} to="/profile">
                   Profile
                 </Button>
-                <Button color="inherit" component={Link} to="/wishlist">
-                  Wishlist
+                <Button component={Link} to="/wishlist">
+                  <FavoriteIcon />
                 </Button>
               </MenuItem>,
               <MenuItem key="logout" onClick={handleCloseUserMenu}>
@@ -140,3 +159,5 @@ const Navbar = ({ toggleDarkMode, mode }) => {
 };
 
 export default Navbar;
+
+//NEED HELP -wishlist icon in navbar is not shown -

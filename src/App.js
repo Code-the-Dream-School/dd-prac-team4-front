@@ -17,6 +17,7 @@ import ResetPassword from './components/ResetPassword';
 import RecommendationPage from './components/RecommendationPage';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
+import CartItems from './components/Cart';
 
 function App() {
   const { status } = useAuth();
@@ -31,23 +32,23 @@ function App() {
   const lightTheme = createTheme({
     palette: {
       mode: 'light',
-      primary: { main: '#0E6CDE' },
-      background: { default: '#ECECEC', paper: '#ECECEC' },
+      primary: { main: '#000000' },
+      background: { default: '#C0C0C2', paper: '#ECECEC' },
       // etc any other customizations that we want to make for light mode
     },
     typography: {
-      fontFamily: 'Roboto, Arial, sans-serif',
+      fontFamily: 'Poppins, sans-serif',
     },
   });
 
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
-      primary: { main: '#0E6CDE' },
-      background: { default: '#121212', paper: '#1e1e1e' },
+      primary: { main: '#fff' },
+      background: { default: '#111', paper: '#1e1e1e' },
     },
     typography: {
-      fontFamily: 'Roboto, Arial, sans-serif',
+      fontFamily: 'Poppins, sans-serif',
     },
   });
 
@@ -66,8 +67,8 @@ function App() {
         <Route path="/register" element={<UserRegistration />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-
         <Route path="/resetPassword" element={<ResetPassword />} />
+        <Route path="/cart" element={<CartItems />} />
 
         <Route
           path="/wishlist"

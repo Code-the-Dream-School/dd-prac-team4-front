@@ -63,26 +63,30 @@ const AlbumReviews = ({ albumId }) => {
               <p style={{ overflowWrap: 'break-word' }}>{review.comment}</p>
               {user && userHasReviewed && review.user === user?._id && (
                 <>
-                <div>
-                  {!updateClicked && (
-                    <Button onClick={handleUpdateClick} color="success" variant="contained" endIcon={<SendIcon />}>Edit</Button>
-                  )}
-                  {updateClicked && (
-                    <UpdateReview
+                  <div>
+                    {!updateClicked && (
+                      <Button
+                        onClick={handleUpdateClick}
+                        color="success"
+                        variant="contained"
+                        endIcon={<SendIcon />}
+                      >
+                        Edit
+                      </Button>
+                    )}
+                    {updateClicked && (
+                      <UpdateReview
+                        reviewId={review._id}
+                        refreshReviews={refreshReviews}
+                      />
+                    )}
+                  </div>
+                  <div>
+                    <DeleteReview
                       reviewId={review._id}
                       refreshReviews={refreshReviews}
                     />
-                  )}
                   </div>
-                  <div>
-
-  <DeleteReview
-                    reviewId={review._id}
-                    refreshReviews={refreshReviews}
-                  />
-
-                  </div>
-                
                 </>
               )}
             </li>

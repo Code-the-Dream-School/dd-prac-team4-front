@@ -80,7 +80,7 @@ const AddToWishlistButton = ({ album, wishListId }) => {
     <>
       <Tooltip title={isAdded ? 'Remove from wishlist' : 'Add to wishlist'}>
         <IconButton
-          color="secondary"
+          color="error"
           aria-label={isAdded ? 'Remove from Wishlist' : 'Add to Wishlist'}
           onClick={isAdded ? handleRemoveFromWishlist : handleaddToWishlist}
         >

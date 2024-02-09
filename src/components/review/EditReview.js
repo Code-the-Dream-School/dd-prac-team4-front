@@ -33,7 +33,6 @@ const UpdateReview = ({ reviewId, refreshReviews }) => {
   }, [reviewId]);
 
   const handleChange = (e) => {
-    
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -91,8 +90,12 @@ const UpdateReview = ({ reviewId, refreshReviews }) => {
           onChange={handleChange}
         />
       </div>
-      <Button onClick={handleUpdate} disabled={updating} color="success"
-      variant="contained" endIcon={<SendIcon />}
+      <Button
+        onClick={handleUpdate}
+        disabled={updating}
+        color="success"
+        variant="contained"
+        endIcon={<SendIcon />}
       >
         {updating ? 'Saving changes...' : 'Save changes'}
       </Button>

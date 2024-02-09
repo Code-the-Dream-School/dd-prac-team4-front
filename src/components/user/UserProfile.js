@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useEffect, useState, useCallback } from 'react';
+import axiosInstance from '../../apis/axiosClient';
 import {
   Card,
   CardContent,
@@ -9,12 +9,47 @@ import {
   Button,
 } from '@mui/material';
 
-import { Avatar } from '@mui/material';
+import { Avatar, Alert } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@akosasante/react-auth-context';
 
 export default function PersonalProfile() {
+  const [purchasedAlbums, setPurchasedAlbums] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { user } = useAuth();
+
+  const fetchPurchasedAlbums = useCallback(async () => {
+    try {
+      const response = await axiosInstance.get(`/users/showMe/withAlbums`);
+      console.log('this is what we get', response.data.user.purchasedAlbums);
+      setPurchasedAlbums(response.data.user.purchasedAlbums);
+      setLoading(false);
+    } catch {
+      console.error('Error fetching purchased albums:', error);
+      setError('Error fetching albums for this user. Please try again later.');
+      setLoading(false);
+    }
+  }, [user.userId]);
+
+  useEffect(() => {
+    fetchPurchasedAlbums();
+  }, [fetchPurchasedAlbums]);
+
+  // useEffect(() => {
+  //   // Fetch user with purchased albums when the component mounts
+  //   const fetchPurchasedAlbums = async () => {
+  //     try {
+  //       const response = await fetch('/api/showMe/withAlbums');
+  //       const data = await response.json();
+  //       setPurchasedAlbums(data.user.purchasedAlbums);
+  //     } catch (error) {
+  //       console.error('Error fetching purchased albums:', error);
+  //     }
+  //   };
+
+  //   fetchPurchasedAlbums();
+  // }, []);
 
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
@@ -79,6 +114,54 @@ export default function PersonalProfile() {
           View Recommendations
         </Button>
       </Link>
+
+      <h3 className="text-uppercase">Purchased Albums</h3>
+      {error && <Alert severity="error">{error}</Alert>}
+
+      {loading && <p>Loading purchased albums...</p>}
+      <Table className="text-center mt-5">
+        <tbody>
+          <TableRow>
+            <TableCell>
+              {' '}
+              <b>
+                {' '}
+                <em></em>
+              </b>
+            </TableCell>
+            <TableCell>
+              <b>
+                {' '}
+                <em>Artist Name</em>
+              </b>
+            </TableCell>
+            <TableCell>
+              <b>
+                {' '}
+                <em>Album Name</em>
+              </b>
+            </TableCell>
+            {/* Add more cells for other field names */}
+          </TableRow>
+          {purchasedAlbums.map((purchasedAlbum) => (
+            <TableRow key={purchasedAlbum._id} style={{ padding: '0' }}>
+              <div>
+                <TableCell>
+                  <img
+                    src={purchasedAlbum.album.image}
+                    alt="albumImage"
+                    height="100px"
+                    width="100px"
+                  />
+                </TableCell>
+              </div>
+              <TableCell>{purchasedAlbum.album.artistName}</TableCell>
+              <TableCell>"{purchasedAlbum.album.albumName || 'N/A'}"</TableCell>
+              {/* Add more cells for other album details */}
+            </TableRow>
+          ))}
+        </tbody>
+      </Table>
     </Card>
   );
 }

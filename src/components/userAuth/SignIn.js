@@ -82,11 +82,21 @@ export default function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const originalResponse = await signIn();
-    console.dir(originalResponse);
-    //navigate to home page only if credential is correct
-    if (originalResponse?.status === 201) {
-      navigate('/home');
+
+    // Set loadingSubmit to true when starting form submission
+    setLoadingSubmit(true);
+
+    try {
+      const originalResponse = await signIn();
+      console.dir(originalResponse);
+
+      // Navigate to the home page only if the credentials are correct
+      if (originalResponse?.status === 201) {
+        navigate('/home');
+      }
+    } finally {
+      // Reset loadingSubmit to false when form submission is completed (success or failure)
+      setLoadingSubmit(false);
     }
   };
 

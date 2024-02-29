@@ -15,6 +15,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useLogin } from '@akosasante/react-auth-context';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
@@ -72,11 +73,7 @@ export default function SignIn() {
     getJwtTokenFromResponse: false,
   };
 
-  const {
-    submit: signIn,
-    errors,
-    loading,
-  } = useLogin(formData, loginHookOptions);
+  const { submit: signIn, errors } = useLogin(formData, loginHookOptions);
 
   //end of user authentication
 
@@ -147,11 +144,12 @@ export default function SignIn() {
             type="submit"
             fullWidth
             variant="contained"
-            disabled={loading}
+            disabled={loadingSubmit} // Disable the button during loadingSubmit
             sx={{ mt: 3, mb: 2 }}
           >
-            {loadingSubmit ? 'Signing In...' : 'Sign In'}
+            {loadingSubmit ? <CircularProgress size={24} /> : 'Sign In'}
           </Button>
+
           <Grid container>
             <Grid item xs>
               <Link href="/forgot-password" variant="body2">

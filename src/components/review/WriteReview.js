@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../apis/axiosClient';
 import { useAuth } from '@akosasante/react-auth-context';
-
 const WriteReview = ({ albumId, refreshReviews }) => {
   const [formData, setFormData] = useState({
     user: null,
@@ -12,7 +11,7 @@ const WriteReview = ({ albumId, refreshReviews }) => {
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
-  const { user } = useAuth();
+  const { user } = useAuth(); //use user.user.<whatever field we want> to access it properly
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +27,7 @@ const WriteReview = ({ albumId, refreshReviews }) => {
 
     try {
       const response = await axiosInstance.post(`/reviews/album/${albumId}`, {
-        user: user._id,
+        user: user.user._id, 
         album: albumId,
         title: formData.title,
         rating: formData.rating,
@@ -98,3 +97,4 @@ const WriteReview = ({ albumId, refreshReviews }) => {
 };
 
 export default WriteReview;
+

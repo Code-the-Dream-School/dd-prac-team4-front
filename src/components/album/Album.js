@@ -10,8 +10,6 @@ import AddToWishlistButton from '../layout/AddToWishlistButton/AddToWishlistButt
 import AlbumPreview from './AlbumPreview';
 import AlbumReviews from '../review/ReviewsList';
 import DialogActions from '@mui/material/DialogActions';
-import PropTypes from 'prop-types';
-import { albumShape } from '../../propTypes/albumTypes';
 
 const AlbumItemWrapper = styled('div')(({ theme: _theme }) => ({
   // Your styles for album item
@@ -59,8 +57,8 @@ function Album({ album, wishListId }) {
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
-        fullWidth={true}
-        maxWidth="sm"
+        fullWidth={true} 
+        maxWidth='sm'
       >
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">
@@ -84,16 +82,13 @@ function Album({ album, wishListId }) {
           </DialogContentText>
         </DialogContent>
         <AlbumPreview spotifyUrl={album.spotifyUrl}>
-          <AlbumReviews albumId={album._id} />
+          <AlbumReviews
+            albumId={album._id}
+          />
         </AlbumPreview>
       </Dialog>
     </AlbumItemWrapper>
   );
 }
-
-Album.propTypes = {
-  album: albumShape.isRequired,
-  wishListId: PropTypes.string,
-};
 
 export default Album;

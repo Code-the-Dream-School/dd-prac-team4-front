@@ -47,7 +47,6 @@ export default function PersonalProfileEditForm() {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const { user } = useAuth();
-  const userData = user.user; //he user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -149,7 +148,7 @@ export default function PersonalProfileEditForm() {
             <tbody>
               <TableRow>
                 <TableCell>USERNAME</TableCell>
-                <TableCell>{userData?.username || 'N/A'}</TableCell>
+                <TableCell>{user?.username || 'N/A'}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>NAME</TableCell>

@@ -4,6 +4,7 @@ import { CardContent } from '@mui/material';
 const AlbumPreview = ({
   spotifyUrl,
   style = {},
+  contentLayout = 'column',
   wide = false,
   width = wide ? '100%' : 300,
   height = wide ? 80 : 380,
@@ -25,28 +26,54 @@ const AlbumPreview = ({
       return;
     }
     //extract the album id
-    const albumId = match[1];
+    const spotifyAlbumId = match[1];
+
     //  Spotify album URL for embedding
-    const spotifyAlbumUrl = `https://open.spotify.com/embed/album/${albumId}`;
+    const spotifyAlbumUrl = `https://open.spotify.com/embed/album/${spotifyAlbumId}`;
     setSpotifyEmbedUrl(spotifyAlbumUrl);
   }, [spotifyUrl]);
 
   return (
-    <CardContent style={{ marginTop: '1rem', width: '100%', display: 'flex' }}>
-      <iframe
-        title="Spotify Web Player"
-        src={spotifyEmbedUrl}
-        width={width}
-        height={height}
-        frameBorder={frameBorder}
-        style={{ borderRadius: 8, ...style, border: 'none' }}
-        allow={allow}
-        {...props}
-      />
-      {children && (
-        <div style={{ width: '100%', display: 'flex' }}>{children}</div>
-      )}
-    </CardContent>
+    <>
+      <CardContent
+        style={{
+          marginTop: '1rem',
+          width: '100%',
+          display: 'flex',
+          flexDirection: contentLayout,
+          justifyContent: 'center',
+        }}
+      >
+        <iframe
+          title="Spotify Web Player"
+          src={spotifyEmbedUrl}
+          width={width}
+          height={height}
+          frameBorder={frameBorder}
+          style={{
+            borderRadius: 8,
+            ...style,
+            border: 'none',
+            display: 'flex',
+            flexDirection: contentLayout,
+            justifyContent: 'center',
+          }}
+          allow={allow}
+          {...props}
+        />
+
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: contentLayout,
+            justifyContent: 'center',
+          }}
+        >
+          {children}
+        </div>
+      </CardContent>
+    </>
   );
 };
 

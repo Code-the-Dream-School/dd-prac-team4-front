@@ -2,7 +2,7 @@ import AlbumPreview from './AlbumPreview';
 import AlbumChatBox from './AlbumChatBox';
 
 const AlbumChat = ({ spotifyUrl }) => (
-  <AlbumPreview spotifyUrl={spotifyUrl} wide>
+  <AlbumPreview spotifyUrl={spotifyUrl} wide contentLayout="row">
     <AlbumChatBox spotifyUrl={spotifyUrl} />
   </AlbumPreview>
 );

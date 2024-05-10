@@ -32,8 +32,8 @@ export default function PersonalProfileEditForm() {
 
   useEffect(() => {
     setFormData({
-      name: user?.username || '',
-      email: user?.email || '',
+      name: userData?.username || '',
+      email: userData?.email || '',
       oldPassword: '',
       newPassword: '',
       profilePicture: null,
@@ -61,8 +61,8 @@ export default function PersonalProfileEditForm() {
           formDataImage.append('profile', formData.profilePicture);
 
           // Make the API call to upload the image
-          const _imageResponse = await axiosInstance.post(
-            `/users/${user?._id}/uploadProfile`,
+          await axiosInstance.post(
+            `/users/${userData?._id}/uploadProfile`,
             formDataImage
           );
         }

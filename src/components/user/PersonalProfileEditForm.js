@@ -32,8 +32,8 @@ export default function PersonalProfileEditForm() {
 
   useEffect(() => {
     setFormData({
-      name: user?.username || '',
-      email: user?.email || '',
+      name: userData?.username || '',
+      email: userData?.email || '',
       oldPassword: '',
       newPassword: '',
       profilePicture: null,

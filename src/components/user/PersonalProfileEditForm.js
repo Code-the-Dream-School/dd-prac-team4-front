@@ -38,7 +38,7 @@ export default function PersonalProfileEditForm() {
       newPassword: '',
       profilePicture: null,
     });
-  }, [user]);
+  }, [userData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

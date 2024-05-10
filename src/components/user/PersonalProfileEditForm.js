@@ -62,7 +62,7 @@ export default function PersonalProfileEditForm() {
 
           // Make the API call to upload the image
           const imageResponse = await axiosInstance.post(
-            `/users/${user?._id}/uploadProfile`,
+            `/users/${userData?._id}/uploadProfile`,
             formDataImage
           );
         }

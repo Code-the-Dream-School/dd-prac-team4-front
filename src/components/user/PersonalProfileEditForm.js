@@ -26,7 +26,6 @@ export default function PersonalProfileEditForm() {
   const [serverErrors, setServerErrors] = useState(''); //  state for server errors
 
   const navigate = useNavigate(); // Initialize useNavigate
-
   const { user } = useAuth();
   const userData = user.user; //he user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
 
@@ -36,7 +35,7 @@ export default function PersonalProfileEditForm() {
       email: userData?.email || '',
       oldPassword: '',
       newPassword: '',
-      profilePicture: null,
+      profilePicture: userData?.profilePicture || '',
     });
   }, [userData]);
 
@@ -184,7 +183,7 @@ export default function PersonalProfileEditForm() {
                 <TableCell>
                   <TextField
                     name="name"
-                    value={formData.name || userData.username}
+                    value={formData.name || userData.username || ''}
                     onChange={handleInputChange}
                     error={errors.name ? true : false}
                     helperText={errors.name}

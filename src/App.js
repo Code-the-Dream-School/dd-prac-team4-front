@@ -17,7 +17,6 @@ import ResetPassword from './components/ResetPassword';
 import RecommendationPage from './components/RecommendationPage';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
-import PropTypes from 'prop-types';
 
 function App() {
   const { status } = useAuth();

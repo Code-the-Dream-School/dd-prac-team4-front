@@ -9,4 +9,8 @@ function Home() {
   );
 }
 
+Home.propTypes = {
+  // some propTypes...
+};
+
 export default Home;

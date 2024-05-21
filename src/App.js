@@ -173,4 +173,8 @@ function App() {
   );
 }
 
+App.propTypes = {
+  // some propTypes...
+};
+
 export default App;

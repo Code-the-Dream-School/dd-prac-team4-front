@@ -15,7 +15,6 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useLogin } from '@akosasante/react-auth-context';
-import PropTypes from 'prop-types';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
@@ -167,3 +166,6 @@ export default function SignIn() {
     </Container>
   );
 }
+
+// add prop types to component as-needed
+SignIn.propTypes = {};

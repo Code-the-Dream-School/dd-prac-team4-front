@@ -12,25 +12,7 @@ import {
 import { Alert } from '@mui/material';
 import axiosInstance from '../../apis/axiosClient';
 import { useNavigate } from 'react-router-dom';
-
-const ProfileImage = ({ user }) => {
-  if (user && user.profileImage && user.profileImage.url) {
-    return (
-      <img
-        src={user.profileImage.url}
-        alt={user.profileImage.altText || 'user profile image'}
-        className="img-fluid rounded-circle"
-        style={{
-          width: '100px',
-          height: '100px',
-          maxWidth: '100px',
-          maxHeight: '100px',
-        }}
-      />
-    );
-  }
-  return null;
-};
+import ProfileImage from './ProfileImage';
 
 export default function PersonalProfileEditForm() {
   const [formData, setFormData] = useState({
@@ -137,7 +119,7 @@ export default function PersonalProfileEditForm() {
           <Alert severity="error">{serverErrors.serverMsg}</Alert>
         )}
         <div className="text-center">
-          <ProfileImage user={userData} />
+          <ProfileImage user={user} />
         </div>
         {successMessage && <Alert severity="success">{successMessage}</Alert>}
         {successMessagePassword && (

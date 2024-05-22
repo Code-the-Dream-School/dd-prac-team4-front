@@ -86,7 +86,9 @@ export default function PersonalProfileEditForm() {
         navigate('/profile'); // Use the navigate function
       } catch (error) {
         setErrors({});
-        setServerErrors({ serverMsg: error?.response?.data?.msg }); // Set server errors
+        setServerErrors({
+          serverMsg: error?.response?.data?.msg || 'An error occurred.',
+        }); // Set server errors
         setSuccessMessage(''); // Clear any previous success message
       }
     }

@@ -151,6 +151,14 @@ function App() {
           }
         />
         <Route
+          path="/updateUserInfo"
+          element={
+            <RequireAuth>
+              <PersonalProfileEditForm />
+            </RequireAuth>
+          }
+        />
+        <Route
           path="/chat"
           element={
             <RequireAuth>

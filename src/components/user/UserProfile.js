@@ -9,7 +9,7 @@ import {
   Button,
 } from '@mui/material';
 
-import { Avatar } from '@mui/material';
+import ProfileImage from './ProfileImage';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@akosasante/react-auth-context';
 
@@ -21,22 +21,7 @@ export default function PersonalProfile() {
       <CardContent>
         <h3 className="text-uppercase">My Profile</h3>
         <div className="text-center">
-          <Avatar
-            src={
-              require('../../images/customer.png')
-
-              // ?.profileImage?.url ||
-              // 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp'
-            }
-            alt="user profile"
-            className="img-fluid rounded-circle"
-            sx={{
-              width: '100px',
-              height: '100px',
-              maxWidth: '100px',
-              maxHeight: '100px',
-            }}
-          />
+          <ProfileImage user={user} />
         </div>
         <Table className="text-center mt-5">
           <tbody>

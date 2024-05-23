@@ -8,6 +8,7 @@ import { ButtonGroup, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import AddToWishlistButton from '../layout/AddToWishlistButton/AddToWishlistButton';
 import AlbumPreview from './AlbumPreview';
+import AlbumReviews from '../review/ReviewsList';
 import DialogActions from '@mui/material/DialogActions';
 import PropTypes from 'prop-types';
 import { albumShape } from '../../propTypes/albumTypes';
@@ -55,14 +56,25 @@ function Album({ album, wishListId }) {
         <AddToWishlistButton album={album} wishListId={wishListId} />
       </ButtonGroup>
       {/* Dialog */}
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        fullWidth={true}
+        maxWidth="sm"
+      >
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">
             X
           </Button>
         </DialogActions>
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+          >
             <div>
               <div>
                 Release Date: {new Date(album.releaseDate).toLocaleDateString()}
@@ -70,8 +82,10 @@ function Album({ album, wishListId }) {
               <div>Average Rating: {album.averageRating}</div>
             </div>
           </DialogContentText>
-          <AlbumPreview spotifyUrl={album.spotifyUrl} />
         </DialogContent>
+        <AlbumPreview spotifyUrl={album.spotifyUrl}>
+          <AlbumReviews albumId={album._id} />
+        </AlbumPreview>
       </Dialog>
     </AlbumItemWrapper>
   );

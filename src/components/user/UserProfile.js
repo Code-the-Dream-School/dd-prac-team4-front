@@ -9,13 +9,12 @@ import {
   Button,
 } from '@mui/material';
 
-import { Avatar } from '@mui/material';
+import ProfileImage from './ProfileImage';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@akosasante/react-auth-context';
 
 export default function PersonalProfile() {
   const { user } = useAuth();
-  const userData = user.user; //the user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
 
   const profileImageUrl = userData?.profileImage?.url;
 
@@ -24,6 +23,7 @@ export default function PersonalProfile() {
       <CardContent>
         <h3 className="text-uppercase">My Profile</h3>
         <div className="text-center">
+
           <Avatar
             src={
               profileImageUrl || require('../../images/customer.png')
@@ -40,29 +40,27 @@ export default function PersonalProfile() {
               maxHeight: '100px',
             }}
           />
+
+          <ProfileImage user={user} />
+
         </div>
-        <Table
-          responsive="true"
-          striped="true"
-          hover="true"
-          className="text-center mt-5"
-        >
+        <Table className="text-center mt-5">
           <tbody>
             <TableRow>
               <TableCell>USERNAME</TableCell>
-              <TableCell>{userData?.username || 'N/A'}</TableCell>
+              <TableCell>{user?.username || 'N/A'}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>NAME</TableCell>
-              <TableCell>{userData?.name || 'N/A'}</TableCell>
+              <TableCell>{user?.name || 'N/A'}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>EMAIL</TableCell>
-              <TableCell>{userData?.email || 'N/A'}</TableCell>
+              <TableCell>{user?.email || 'N/A'}</TableCell>
             </TableRow>
             {/* <TableRow>
               <TableCell>Password</TableCell>
-              <TableCell>{userData?.password}</TableCell>
+              <TableCell>{user?.password}</TableCell>
             </TableRow> */}
           </tbody>
         </Table>
@@ -74,7 +72,7 @@ export default function PersonalProfile() {
           Update Profile
         </Button>
       </Link>
-      {/* {userData?.id === user?.id && (
+      {/* {user?.id === user?.id && (
 
         <CardActions className='justify-content-center'>
           <Button onClick={handleUpdateProfileClick} color='warning' startIcon={<EditIcon />}>
@@ -82,6 +80,11 @@ export default function PersonalProfile() {
           </Button>
         </CardActions>
       )} */}
+      <Link to="/profile/recommendations">
+        <Button color="primary" style={{ margin: '10px' }}>
+          View Recommendations
+        </Button>
+      </Link>
     </Card>
   );
 }

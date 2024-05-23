@@ -16,6 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import './Navbar.css';
 import Logo from '../images/Logo.png';
 import ThemeSwitcher from './ThemeSwitcher';
+import PropTypes from 'prop-types';
 
 const Navbar = ({ toggleDarkMode, mode }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -65,6 +66,9 @@ const Navbar = ({ toggleDarkMode, mode }) => {
             <>
               <Button color="inherit" component={Link} to="/profile">
                 Profile
+              </Button>
+              <Button color="inherit" component={Link} to="/wishlist">
+                Wishlist
               </Button>
               <Logout />
             </>
@@ -135,5 +139,8 @@ const Navbar = ({ toggleDarkMode, mode }) => {
     </AppBar>
   );
 };
-
+Navbar.propTypes = {
+  toggleDarkMode: PropTypes.func.isRequired,
+  mode: PropTypes.oneOf(['light', 'dark']).isRequired,
+};
 export default Navbar;

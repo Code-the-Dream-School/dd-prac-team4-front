@@ -13,6 +13,8 @@ import CheckoutComplete from './components/Purchase/CheckoutComplete';
 import PageNotFound from './components/PageNotFound';
 import AlbumChat from './components/album/AlbumChat';
 import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
+import RecommendationPage from './components/RecommendationPage';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
 
@@ -64,6 +66,9 @@ function App() {
         <Route path="/register" element={<UserRegistration />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        <Route path="/resetPassword" element={<ResetPassword />} />
+
         <Route
           path="/wishlist"
           element={
@@ -104,6 +109,7 @@ function App() {
             </RequireAuth>
           }
         />
+
         <Route
           path="/checkout"
           element={
@@ -136,7 +142,22 @@ function App() {
             </RequireAuth>
           }
         />
-
+        <Route
+          path="/profile/recommendations"
+          element={
+            <RequireAuth>
+              <RecommendationPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/updateUserInfo"
+          element={
+            <RequireAuth>
+              <PersonalProfileEditForm />
+            </RequireAuth>
+          }
+        />
         <Route
           path="/chat"
           element={
@@ -151,5 +172,9 @@ function App() {
     </ThemeProvider>
   );
 }
+
+App.propTypes = {
+  // some propTypes...
+};
 
 export default App;

@@ -6,6 +6,7 @@ import store from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from '@akosasante/react-auth-context';
+import { transformAuthResponse } from './apis/axiosClient';
 
 // uncomment to use mock server in development
 // import { makeServer } from './util/mirageServer'; //mocking backend server
@@ -21,6 +22,7 @@ const authSettings = {
   logoutRedirectPath: '/',
   defaultAxiosOptions: {
     withCredentials: true,
+    transformResponse: transformAuthResponse,
   },
 };
 

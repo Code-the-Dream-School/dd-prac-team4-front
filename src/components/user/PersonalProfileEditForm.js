@@ -8,10 +8,12 @@ import {
   TableCell,
   TextField,
   Button,
+  Alert,
 } from '@mui/material';
-import { Avatar, Alert } from '@mui/material';
 import axiosInstance from '../../apis/axiosClient';
 import { useNavigate } from 'react-router-dom';
+import ProfileImage from './ProfileImage';
+
 export default function PersonalProfileEditForm() {
   const [formData, setFormData] = useState({
     name: '',
@@ -24,10 +26,10 @@ export default function PersonalProfileEditForm() {
   const [successMessage, setSuccessMessage] = useState('');
   const [successMessagePassword, setSuccessMessagePassword] = useState('');
   const [serverErrors, setServerErrors] = useState(''); //  state for server errors
+  const [image, setImage] = useState(null);
 
   const navigate = useNavigate(); // Initialize useNavigate
   const { user } = useAuth();
-  const userData = user.user; //he user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
 
   useEffect(() => {
     setFormData({
@@ -42,6 +44,22 @@ export default function PersonalProfileEditForm() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
+
+  const handleImageUpload = async () => {
+    try {
+      const formDataImage = new FormData();
+      formDataImage.append('profile', image);
+      await axiosInstance.post(`/users/updateProfileImage`, formDataImage);
+      navigate('/profile');
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
   };
 
   const handleProfileSubmit = async (e) => {
@@ -141,11 +159,11 @@ export default function PersonalProfileEditForm() {
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
       <CardContent>
         <h3 className="text-uppercase">My Profile</h3>
-
         {serverErrors && (
           <Alert severity="error">{serverErrors.serverMsg}</Alert>
         )}
         <div className="text-center">
+
           <Avatar
             src={
               formData.profilePicture
@@ -169,6 +187,14 @@ export default function PersonalProfileEditForm() {
           onChange={handleProfilePictureChange}
         />
 
+
+          <ProfileImage user={user} />
+        </div>
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+        <Button onClick={handleImageUpload} variant="contained" color="primary">
+          Upload Image
+        </Button>
+
         {successMessage && <Alert severity="success">{successMessage}</Alert>}
         {successMessagePassword && (
           <Alert severity="info">{successMessagePassword}</Alert>
@@ -178,7 +204,7 @@ export default function PersonalProfileEditForm() {
             <tbody>
               <TableRow>
                 <TableCell>USERNAME</TableCell>
-                <TableCell>{userData?.username || 'N/A'}</TableCell>
+                <TableCell>{user?.username || 'N/A'}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>NAME</TableCell>

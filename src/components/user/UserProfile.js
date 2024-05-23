@@ -7,6 +7,7 @@ import {
   TableRow,
   TableCell,
   Button,
+  Avatar,
 } from '@mui/material';
 
 import ProfileImage from './ProfileImage';
@@ -16,7 +17,7 @@ import { useAuth } from '@akosasante/react-auth-context';
 export default function PersonalProfile() {
   const { user } = useAuth();
 
-  const profileImageUrl = userData?.profileImage?.url;
+  const profileImageUrl = user?.profileImage?.url;
 
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">

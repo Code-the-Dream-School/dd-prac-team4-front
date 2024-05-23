@@ -31,16 +31,18 @@ export default function PersonalProfileEditForm() {
 
   const navigate = useNavigate(); // Initialize useNavigate
   const { user } = useAuth();
+  const userData = user.user; //he user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
 
   useEffect(() => {
-    setFormData({
-      name: user?.username || '',
-      email: user?.email || '',
-      oldPassword: '',
-      newPassword: '',
-      profilePicture: user?.profilePicture || '',
-    });
-  }, [user]);
+    if (userData) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        name: userData.username || '',
+        email: userData.email || '',
+        profilePicture: user?.profilePicture || null,
+      }));
+    }
+  }, [userData, user?.profilePicture]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -80,7 +82,7 @@ export default function PersonalProfileEditForm() {
 
           // Make the API call to upload the image
           await axiosInstance.post(
-            `/users/${user?._id}/uploadProfile`,
+            `/users/${userData?._id}/uploadProfile`,
             formDataImage
           );
         }

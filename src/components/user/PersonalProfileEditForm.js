@@ -9,6 +9,7 @@ import {
   TextField,
   Button,
   Alert,
+  Avatar,
 } from '@mui/material';
 import axiosInstance from '../../apis/axiosClient';
 import { useNavigate } from 'react-router-dom';
@@ -33,13 +34,13 @@ export default function PersonalProfileEditForm() {
 
   useEffect(() => {
     setFormData({
-      name: userData?.username || '',
-      email: userData?.email || '',
+      name: user?.username || '',
+      email: user?.email || '',
       oldPassword: '',
       newPassword: '',
-      profilePicture: userData?.profilePicture || '',
+      profilePicture: user?.profilePicture || '',
     });
-  }, [userData]);
+  }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -79,7 +80,7 @@ export default function PersonalProfileEditForm() {
 
           // Make the API call to upload the image
           await axiosInstance.post(
-            `/users/${userData?._id}/uploadProfile`,
+            `/users/${user?._id}/uploadProfile`,
             formDataImage
           );
         }
@@ -163,7 +164,6 @@ export default function PersonalProfileEditForm() {
           <Alert severity="error">{serverErrors.serverMsg}</Alert>
         )}
         <div className="text-center">
-
           <Avatar
             src={
               formData.profilePicture
@@ -186,10 +186,7 @@ export default function PersonalProfileEditForm() {
           accept="image/*"
           onChange={handleProfilePictureChange}
         />
-
-
-          <ProfileImage user={user} />
-        </div>
+        <ProfileImage user={user} />
         <input type="file" accept="image/*" onChange={handleImageChange} />
         <Button onClick={handleImageUpload} variant="contained" color="primary">
           Upload Image
@@ -211,7 +208,7 @@ export default function PersonalProfileEditForm() {
                 <TableCell>
                   <TextField
                     name="name"
-                    value={formData.name || userData.username || ''}
+                    value={formData.name || user.username || ''}
                     onChange={handleInputChange}
                     error={errors.name ? true : false}
                     helperText={errors.name}
@@ -224,7 +221,7 @@ export default function PersonalProfileEditForm() {
                   <TextField
                     name="email"
                     type="email"
-                    value={formData.email || userData.email}
+                    value={formData.email || user.email}
                     onChange={handleInputChange}
                     error={errors.email ? true : false}
                     helperText={errors.email}

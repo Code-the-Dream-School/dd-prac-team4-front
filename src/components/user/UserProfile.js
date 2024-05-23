@@ -23,7 +23,6 @@ export default function PersonalProfile() {
       <CardContent>
         <h3 className="text-uppercase">My Profile</h3>
         <div className="text-center">
-
           <Avatar
             src={
               profileImageUrl || require('../../images/customer.png')
@@ -42,7 +41,6 @@ export default function PersonalProfile() {
           />
 
           <ProfileImage user={user} />
-
         </div>
         <Table className="text-center mt-5">
           <tbody>

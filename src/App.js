@@ -58,11 +58,7 @@ function App() {
       <CssBaseline />
       <Navbar toggleDarkMode={toggleDarkMode} mode={mode} />
       <Routes>
-        <Route
-          path="/"
-          element={isLoggedIn ? <Home /> : <Navigate to="/home" />}
-        />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home?" element={<Home />} />
         <Route path="/register" element={<UserRegistration />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

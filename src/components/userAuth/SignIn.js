@@ -166,3 +166,6 @@ export default function SignIn() {
     </Container>
   );
 }
+
+// add prop types to component as-needed
+SignIn.propTypes = {};

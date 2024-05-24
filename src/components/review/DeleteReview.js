@@ -28,7 +28,14 @@ const DeleteReview = ({ reviewId, refreshReviews }) => {
 
   return (
     <div>
-      <Button  variant="outlined" color="secondary" size="small" startIcon={<DeleteIcon />} onClick={handleDelete} disabled={deleting}>
+      <Button
+        variant="outlined"
+        color="secondary"
+        size="small"
+        startIcon={<DeleteIcon />}
+        onClick={handleDelete}
+        disabled={deleting}
+      >
         {deleting ? 'Deleting...' : 'Delete '}
       </Button>
       {error && <p style={{ color: 'red' }}>{error}</p>}

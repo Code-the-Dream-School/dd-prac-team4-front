@@ -152,6 +152,14 @@ function App() {
           }
         />
         <Route
+          path="/updateUserInfo"
+          element={
+            <RequireAuth>
+              <PersonalProfileEditForm />
+            </RequireAuth>
+          }
+        />
+        <Route
           path="/chat"
           element={
             <RequireAuth>
@@ -165,5 +173,9 @@ function App() {
     </ThemeProvider>
   );
 }
+
+App.propTypes = {
+  // some propTypes...
+};
 
 export default App;

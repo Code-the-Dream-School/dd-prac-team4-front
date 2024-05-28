@@ -19,6 +19,7 @@ import './Navbar.css';
 //import Logo from '../images/Logo.png';
 import Logo from '../images/icons8-apple-music-48.png';
 import ThemeSwitcher from './ThemeSwitcher';
+import PropTypes from 'prop-types';
 
 const Navbar = ({ toggleDarkMode, mode }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -157,7 +158,10 @@ const Navbar = ({ toggleDarkMode, mode }) => {
     </AppBar>
   );
 };
-
+Navbar.propTypes = {
+  toggleDarkMode: PropTypes.func.isRequired,
+  mode: PropTypes.oneOf(['light', 'dark']).isRequired,
+};
 export default Navbar;
 
 //NEED HELP -wishlist icon in navbar is not shown -

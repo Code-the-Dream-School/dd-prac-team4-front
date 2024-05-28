@@ -21,6 +21,22 @@ export function makeServer() {
 
       const baseAPIPath = process.env.REACT_APP_API_BASE_PATH;
 
+      // Mock GET /albums/filter
+      this.get(`${baseAPIPath}/albums/filter`, (schema, request) => {
+        console.debug(
+          'REQUEST QUERY PARAMS FOR ' + request.url + ': ',
+          request.queryParams
+        );
+        return { albums: [] };
+      });
+
+      // Mock POST /wishlists
+      this.post(`${baseAPIPath}/wishlist`, (schema, request) => {
+        let attrs = JSON.parse(request.requestBody);
+        console.debug('REQUEST BODY FOR ' + request.url + ': ', attrs);
+        return {};
+      });
+
       // route to submit user registration form
       this.post(`${baseAPIPath}/auth/register`, (schema, request) => {
         let attrs = JSON.parse(request.requestBody);

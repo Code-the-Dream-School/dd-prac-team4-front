@@ -172,6 +172,7 @@ const AlbumsList = () => {
         <Grid item xs={12} sm={6}>
           <TextField
             label={`Search ${searchType === 'albumName' ? 'Album' : 'Artist'}`}
+            aria-label="Search Albums"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             variant="outlined"

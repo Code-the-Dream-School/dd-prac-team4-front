@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import UserRegistration from './components/user/UserRegistration';
 import SignIn from './components/userAuth/SignIn';
 import Home from './components/Home';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import { RequireAuth } from '@akosasante/react-auth-context';
 import CheckoutPage from './components/Purchase/CheckoutPage';
 import WishListView from './components/wishList/WishListView';
@@ -19,9 +18,6 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
 
 function App() {
-  const { status } = useAuth();
-  const isLoggedIn = status === AuthStatus.LoggedIn;
-
   const [mode, setMode] = useState('light');
 
   const toggleDarkMode = (value) => {

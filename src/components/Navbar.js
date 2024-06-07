@@ -11,6 +11,8 @@ import {
 } from '@mui/material';
 import Shop2Icon from '@mui/icons-material/Shop2';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import MusicVideoIcon from '@mui/icons-material/MusicVideo';
 import { Link } from 'react-router-dom';
 import Logout from './userAuth/Logout';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
@@ -69,7 +71,7 @@ const Navbar = ({ toggleDarkMode, mode }) => {
             </>
           )}
           <Button color="inherit" component={Link} to="/home">
-            Shop
+            <MusicVideoIcon/>
           </Button>
           <Button color="inherit" component={Link} to="/cart">
             <Shop2Icon
@@ -82,10 +84,10 @@ const Navbar = ({ toggleDarkMode, mode }) => {
           {isLoggedIn && (
             <>
               <Button color="inherit" component={Link} to="/profile">
-                Profile
+              <AssignmentIndIcon/>
               </Button>
               <Button color="inherit" component={Link} to="/wishlist">
-                Wishlist
+              <FavoriteIcon />
               </Button>
               <Logout />
             </>

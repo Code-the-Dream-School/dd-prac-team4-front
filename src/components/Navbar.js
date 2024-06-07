@@ -9,7 +9,7 @@ import {
   Menu,
   MenuItem,
 } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Shop2Icon from '@mui/icons-material/Shop2';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
 import Logout from './userAuth/Logout';
@@ -38,12 +38,11 @@ const Navbar = ({ toggleDarkMode, mode }) => {
       }}
     >
       <Toolbar>
-        <Link component={Link} to="/home">
+        <Link to="/home">
           <img
             src={Logo}
             alt="Logo"
             style={{ height: '2.5rem', marginRight: '0.625rem' }}
-            component={Link}
             to="/home"
           />
         </Link>
@@ -73,7 +72,7 @@ const Navbar = ({ toggleDarkMode, mode }) => {
             Shop
           </Button>
           <Button color="inherit" component={Link} to="/cart">
-            <AddShoppingCartIcon
+            <Shop2Icon
               style={{
                 background: mode === 'dark' ? '#373737' : '#111',
               }}

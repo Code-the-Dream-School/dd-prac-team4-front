@@ -15,6 +15,10 @@ import { useAuth } from '@akosasante/react-auth-context';
 
 export default function PersonalProfile() {
   const { user } = useAuth();
+  const userData = user.user; //the user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
+  console.log(userData);
+  const currentAlbum = userData?.currentlyListening?.album || 'N/A';
+  console.log(currentAlbum);
 
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
@@ -41,6 +45,10 @@ export default function PersonalProfile() {
               <TableCell>Password</TableCell>
               <TableCell>{user?.password}</TableCell>
             </TableRow> */}
+            <TableRow>
+              <TableCell>CURRENTLY LISTENING TO</TableCell>
+              <TableCell>{currentAlbum}</TableCell>
+            </TableRow>
           </tbody>
         </Table>
       </CardContent>

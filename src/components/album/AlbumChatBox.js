@@ -11,8 +11,8 @@ const AlbumChatBox = ({ adminId }) => {
   const match = adminId && adminId.match(regexPattern);
   const albumId = match ? match[1] : null;
 
-  const { user: loggedInUser } = useAuth();
-  const loggedInUserId = loggedInUser?.user?.id;
+  const { user } = useAuth();
+  const loggedInUserId = user?.id;
 
   const [messages, setMessages] = useState([]);
   const messagesContainerRef = useRef(null);

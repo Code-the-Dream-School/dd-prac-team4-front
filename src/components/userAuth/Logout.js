@@ -33,4 +33,7 @@ const Logout = () => {
   );
 };
 
+// Add prop types below as-needed.
+Logout.propTypes = {};
+
 export default Logout;

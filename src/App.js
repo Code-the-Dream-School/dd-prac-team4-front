@@ -16,6 +16,7 @@ import ResetPassword from './components/ResetPassword';
 import RecommendationPage from './components/RecommendationPage';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import PersonalProfileEditForm from './components/user/PersonalProfileEditForm';
+import ListeningAlbum from './components/album/ListeningAlbum';
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -155,6 +156,14 @@ function App() {
           element={
             <RequireAuth>
               <AlbumChat spotifyUrl="https://api.spotify.com/v1/albums/6r1lh7fHMB499vGKtIyJLy" />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/listening/:albumId"
+          element={
+            <RequireAuth>
+              <ListeningAlbum />
             </RequireAuth>
           }
         />

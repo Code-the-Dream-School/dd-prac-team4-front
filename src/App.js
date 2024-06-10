@@ -135,26 +135,10 @@ function App() {
           }
         />
         <Route
-          path="/profile/recommendations"
+          path="/chat/:albumId"
           element={
             <RequireAuth>
-              <RecommendationPage />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/updateUserInfo"
-          element={
-            <RequireAuth>
-              <PersonalProfileEditForm />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/chat"
-          element={
-            <RequireAuth>
-              <AlbumChat spotifyUrl="https://api.spotify.com/v1/albums/6r1lh7fHMB499vGKtIyJLy" />
+              <AlbumChat />
             </RequireAuth>
           }
         />

@@ -57,10 +57,10 @@ export default function PersonalProfile() {
         <div className="mt-5">
           <h4>Purchased Albums</h4>
           {purchasedAlbums.length > 0 ? (
-            purchasedAlbums.map((album) => (
-              <div key={album._id}>
-                <p>{album.albumName}</p>
-                <Link to={`/chat/${album._id}`}>
+            purchasedAlbums.map((albumItem) => (
+              <div key={albumItem._id}>
+                <p>{albumItem.album.albumName}</p>
+                <Link to={`/chat/${albumItem.album._id}`}>
                   <Button variant="outlined" color="primary">
                     Chat with Fans
                   </Button>

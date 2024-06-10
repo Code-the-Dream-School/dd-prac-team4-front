@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -12,9 +11,21 @@ import {
 import ProfileImage from './ProfileImage';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@akosasante/react-auth-context';
+import axiosInstance from '../../apis/axiosClient';
 
 export default function PersonalProfile() {
   const { user } = useAuth();
+  const userData = user.user; //the user that's returned is nested in its original response shape so to use the actual user you'll need to unwrap it
+  const [purchasedAlbums, setPurchasedAlbums] = useState([]);
+
+  useEffect(() => {
+    const fetchPurchasedAlbums = async () => {
+      const response = await axiosInstance.get('/users/showMe/withAlbums');
+      console.log(response.data.user.purchasedAlbums);
+      setPurchasedAlbums(response.data.user.purchasedAlbums);
+    };
+    fetchPurchasedAlbums();
+  }, [setPurchasedAlbums]);
 
   return (
     <Card className="mt-2 border-0 rounded-0 shadow-sm">
@@ -43,6 +54,24 @@ export default function PersonalProfile() {
             </TableRow> */}
           </tbody>
         </Table>
+        <div className="mt-5">
+          <h4>Purchased Albums</h4>
+          {purchasedAlbums.length > 0 ? (
+            purchasedAlbums.map((album) => (
+              <div key={album._id}>
+                <p>{album.albumName}</p>
+                <Link to={`/chat/${album._id}`}>
+                  <Button variant="outlined" color="primary">
+                    Chat with Fans
+                  </Button>
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p>No album information available</p>
+          )}
+          {purchasedAlbums.length === 0 && <p>No purchased albums found.</p>}
+        </div>
       </CardContent>
       <Link to="/updateUserInfo">
         {' '}

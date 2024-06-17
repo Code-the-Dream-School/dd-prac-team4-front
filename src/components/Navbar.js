@@ -166,4 +166,4 @@ Navbar.propTypes = {
 };
 export default Navbar;
 
-//NEED HELP -wishlist icon in navbar is not shown -
+

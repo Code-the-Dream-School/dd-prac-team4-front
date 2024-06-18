@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { reduceItem, addItem, clearCart } from '../shoppingCart';
 import axiosInstance from '../../apis/axiosClient';
 
-
 //custom hook
 export default function useCart() {
   const navigate = useNavigate();

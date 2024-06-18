@@ -145,7 +145,7 @@ const AlbumsList = () => {
   };
 
   return (
-    <Container fullWidth>
+    <Container maxWidth>
       {/* display snackbar if any error happened during API fetch */}
       <Snackbar
         open={open}

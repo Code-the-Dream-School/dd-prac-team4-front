@@ -7,12 +7,11 @@ import {
   Typography,
   Box,
 } from '@mui/material';
-import  useCart  from '../redux/customHooks/useCart';
-
+import useCart from '../redux/customHooks/useCart';
 
 const OrderSidebar = () => {
   const [
-    {  itemsInCart, subtotal, tax, total },
+    { itemsInCart, subtotal, tax, total },
     {
       handleMoveToWishlist,
       handleAdd,
@@ -22,9 +21,7 @@ const OrderSidebar = () => {
       handleCheckout,
     },
   ] = useCart();
-  //console.log(itemsInCart); //info about the cart array(tax, total..+items(id+album model info)) ) 
-
-
+  //console.log(itemsInCart); //info about the cart array(tax, total..+items(id+album model info)) )
 
   return (
     <Box

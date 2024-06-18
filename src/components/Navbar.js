@@ -8,6 +8,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Tooltip,
 } from '@mui/material';
 import Shop2Icon from '@mui/icons-material/Shop2';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -70,30 +71,64 @@ const Navbar = ({ toggleDarkMode, mode }) => {
               </Button>
             </>
           )}
-          <Button color="inherit" component={Link} to="/home">
-            <MusicVideoIcon />
-          </Button>
+
+          <Tooltip title="Home" arrow placement="bottom">
+            <IconButton
+              color="inherit"
+              component={Link}
+              to="/home"
+              aria-label="link to home page"
+            >
+              <MusicVideoIcon />
+            </IconButton>
+          </Tooltip>
+
           {/*only if user is logged in can see the logout button  */}
           {isLoggedIn && (
             <>
-              <Button color="inherit" component={Link} to="/profile">
-                <AssignmentIndIcon />
-              </Button>
-              <Button color="inherit" component={Link} to="/wishlist">
-                <FavoriteIcon />
-              </Button>
-              <Button color="inherit" component={Link} to="/cart">
-                <Shop2Icon
-                  style={{
-                    background: mode === 'dark' ? '#373737' : '#111',
-                  }}
-                />
-              </Button>
+              <Tooltip title="Profile" arrow placement="bottom">
+                <IconButton
+                  color="inherit"
+                  component={Link}
+                  to="/profile"
+                  aria-label="link to profile page"
+                >
+                  <AssignmentIndIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Wishlist" arrow placement="bottom">
+                <IconButton
+                  color="inherit"
+                  component={Link}
+                  to="/wishlist"
+                  aria-label="link to wishlist"
+                >
+                  <FavoriteIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Cart" arrow placement="bottom">
+                <IconButton
+                  color="inherit"
+                  component={Link}
+                  to="/cart"
+                  aria-label="link to cart"
+                >
+                  <Shop2Icon
+                    style={{
+                      background: mode === 'dark' ? '#373737' : '#111',
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+
               <Logout />
             </>
           )}
         </Box>
         <ThemeSwitcher toggleDarkMode={toggleDarkMode} />
+
         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
           <IconButton
             size="large"

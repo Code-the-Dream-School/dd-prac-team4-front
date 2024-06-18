@@ -35,7 +35,7 @@ function App() {
       primary: { main: '#000000' },
       background: { default: '#C0C0C2', paper: '#ECECEC' },
       wishlist: {
-        main: '#ff4536',
+        main: '#E72929',
       },
       // etc any other customizations that we want to make for light mode
     },
@@ -49,6 +49,9 @@ function App() {
       mode: 'dark',
       primary: { main: '#fff' },
       background: { default: '#111', paper: '#1e1e1e' },
+      wishlist: {
+        main: '#E72929',
+      },
     },
     typography: {
       fontFamily: 'Poppins, sans-serif',

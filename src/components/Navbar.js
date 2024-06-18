@@ -71,24 +71,24 @@ const Navbar = ({ toggleDarkMode, mode }) => {
             </>
           )}
           <Button color="inherit" component={Link} to="/home">
-            <MusicVideoIcon/>
+            <MusicVideoIcon />
           </Button>
           {/*only if user is logged in can see the logout button  */}
           {isLoggedIn && (
             <>
               <Button color="inherit" component={Link} to="/profile">
-              <AssignmentIndIcon/>
+                <AssignmentIndIcon />
               </Button>
               <Button color="inherit" component={Link} to="/wishlist">
-              <FavoriteIcon />
+                <FavoriteIcon />
               </Button>
               <Button color="inherit" component={Link} to="/cart">
-            <Shop2Icon
-              style={{
-                background: mode === 'dark' ? '#373737' : '#111',
-              }}
-            />
-          </Button>
+                <Shop2Icon
+                  style={{
+                    background: mode === 'dark' ? '#373737' : '#111',
+                  }}
+                />
+              </Button>
               <Logout />
             </>
           )}
@@ -165,5 +165,3 @@ Navbar.propTypes = {
   mode: PropTypes.oneOf(['light', 'dark']).isRequired,
 };
 export default Navbar;
-
-

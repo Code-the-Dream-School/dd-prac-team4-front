@@ -34,6 +34,9 @@ function App() {
       mode: 'light',
       primary: { main: '#000000' },
       background: { default: '#C0C0C2', paper: '#ECECEC' },
+      wishlist: {
+        main: '#ff4536',
+      },
       // etc any other customizations that we want to make for light mode
     },
     typography: {

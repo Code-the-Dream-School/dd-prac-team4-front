@@ -47,9 +47,7 @@ export default function PersonalProfile() {
       <Link to="/updateUserInfo">
         {' '}
         {/* Specify the path where you want to redirect */}
-        <Button color="warning" style={{ backgroundColor: 'lightgrey' }}>
-          Update Profile
-        </Button>
+        <Button style={{ backgroundColor: 'lightgrey' }}>Update Profile</Button>
       </Link>
       {/* {user?.id === user?.id && (
 

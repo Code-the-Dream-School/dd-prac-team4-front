@@ -8,13 +8,18 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Tooltip,
 } from '@mui/material';
+import Shop2Icon from '@mui/icons-material/Shop2';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import MusicVideoIcon from '@mui/icons-material/MusicVideo';
 import { Link } from 'react-router-dom';
 import Logout from './userAuth/Logout';
 import { AuthStatus, useAuth } from '@akosasante/react-auth-context';
 import MenuIcon from '@mui/icons-material/Menu';
 import './Navbar.css';
-import Logo from '../images/Logo.png';
+import Logo from '../images/icons8-apple-music-48.png';
 import ThemeSwitcher from './ThemeSwitcher';
 import PropTypes from 'prop-types';
 
@@ -31,17 +36,26 @@ const Navbar = ({ toggleDarkMode, mode }) => {
     <AppBar
       position="static"
       style={{
-        background: mode === 'dark' ? '#0E6CDE' : '#0E6CDE',
+        background: mode === 'dark' ? '#373737' : '#111',
         marginBottom: '2rem',
       }}
     >
       <Toolbar>
-        <img
-          src={Logo}
-          alt="Logo"
-          style={{ height: '2.5rem', marginRight: '0.625rem' }}
-        />
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Link to="/home">
+          <img
+            src={Logo}
+            alt="Logo"
+            style={{ height: '2.5rem', marginRight: '0.625rem' }}
+            to="/home"
+          />
+        </Link>
+        <Typography
+          variant="h6"
+          sx={{ flexGrow: 1 }}
+          style={{ color: '#ffffff', textDecoration: 'none' }}
+          component={Link}
+          to="/home"
+        >
           BeatBazaar
         </Typography>
 
@@ -57,24 +71,64 @@ const Navbar = ({ toggleDarkMode, mode }) => {
               </Button>
             </>
           )}
-          <Button color="inherit" component={Link} to="/home">
-            Home
-          </Button>
+
+          <Tooltip title="Home" arrow placement="bottom">
+            <IconButton
+              color="inherit"
+              component={Link}
+              to="/home"
+              aria-label="link to home page"
+            >
+              <MusicVideoIcon />
+            </IconButton>
+          </Tooltip>
 
           {/*only if user is logged in can see the logout button  */}
           {isLoggedIn && (
             <>
-              <Button color="inherit" component={Link} to="/profile">
-                Profile
-              </Button>
-              <Button color="inherit" component={Link} to="/wishlist">
-                Wishlist
-              </Button>
+              <Tooltip title="Profile" arrow placement="bottom">
+                <IconButton
+                  color="inherit"
+                  component={Link}
+                  to="/profile"
+                  aria-label="link to profile page"
+                >
+                  <AssignmentIndIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Wishlist" arrow placement="bottom">
+                <IconButton
+                  color="inherit"
+                  component={Link}
+                  to="/wishlist"
+                  aria-label="link to wishlist"
+                >
+                  <FavoriteIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Cart" arrow placement="bottom">
+                <IconButton
+                  color="inherit"
+                  component={Link}
+                  to="/cart"
+                  aria-label="link to cart"
+                >
+                  <Shop2Icon
+                    style={{
+                      background: mode === 'dark' ? '#373737' : '#111',
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+
               <Logout />
             </>
           )}
         </Box>
         <ThemeSwitcher toggleDarkMode={toggleDarkMode} />
+
         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
           <IconButton
             size="large"
@@ -125,7 +179,9 @@ const Navbar = ({ toggleDarkMode, mode }) => {
                 <Button color="inherit" component={Link} to="/profile">
                   Profile
                 </Button>
-                <Button color="inherit" component={Link} to="/wishlist">
+              </MenuItem>,
+              <MenuItem key="wishlist" onClick={handleCloseUserMenu}>
+                <Button component={Link} to="/wishlist">
                   Wishlist
                 </Button>
               </MenuItem>,
